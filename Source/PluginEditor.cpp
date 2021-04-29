@@ -20,6 +20,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 {
+    // This is a new comment to test GIT
 }
 
 //==============================================================================
