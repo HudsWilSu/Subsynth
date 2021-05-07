@@ -102,10 +102,14 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumInputChannels();
 
-    osc.prepare(spec);
+    sineOsc.prepare(spec);
+    sqOsc.prepare(spec);
+    sawOsc.prepare(spec);
     gain.prepare(spec);
 
-    osc.setFrequency(freqValue);
+    sineOsc.setFrequency(freqValue);
+    sqOsc.setFrequency(freqValue);
+    sawOsc.setFrequency(freqValue);
     gain.setGainLinear(0.1f); // should be between 0 and 1
 }
 
@@ -151,12 +155,24 @@ void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    juce::dsp::Oscillator<float>* osc ;
+
+    if (wave == 1) {
+        osc = &sineOsc;
+    }
+    else if (wave == 2) {
+        osc = &sqOsc;
+    }
+    else {
+        osc = &sawOsc;
+    }
+
     // Check slider for changes
-    osc.setFrequency(freqValue);
+    osc->setFrequency(freqValue);
     // Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ buffer };
     // ProcessContextReplacing will fill audioBlock with processed data
-    osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 

@@ -56,11 +56,13 @@ public:
     //==============================================================================
     // Public vars
     float freqValue = 440.0f;
+    int wave = 1;
+    
 
 private:
     //==============================================================================
     // Sine wave oscillator
-    juce::dsp::Oscillator<float> osc { [](float x) { return std::sin(x); }};
+    juce::dsp::Oscillator<float> sineOsc { [](float x) { return std::sin(x); }};
     // Square wave oscillator
     juce::dsp::Oscillator<float> sqOsc{ [](float x) { return x < 0.0f ? -1.0f : 1.0f; } };
     // Sawtooth wave oscillator, lambda return provides 2 breakpoints for

@@ -23,14 +23,22 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     freqSlide.setPopupDisplayEnabled(true, true, this);
     freqSlide.setTextValueSuffix(" Hz");
     freqSlide.setValue(440.0f);
+    freqSlide.setNumDecimalPlacesToDisplay(0);
     freqLabel.setText("Frequency", juce::dontSendNotification);
+
+    waveSelect.addItem("Sine", 1);
+    waveSelect.addItem("Square", 2);
+    waveSelect.addItem("Saw", 3);
+    waveSelect.setSelectedId(1);
 
     // Expose slider to UI/Editor
     addAndMakeVisible(&freqSlide);
     addAndMakeVisible(&freqLabel);
+    addAndMakeVisible(&waveSelect);
 
-    // Add listener for freqSlide
+    // Add listeners
     freqSlide.addListener(this);
+    waveSelect.addListener(this);
 
 }
 
@@ -43,6 +51,11 @@ SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 {
     audioProcessor.freqValue = freqSlide.getValue();
+}
+
+void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
+{
+    audioProcessor.wave = waveSelect.getSelectedId();
 }
 
 //==============================================================================
@@ -65,4 +78,5 @@ void SubsynthAudioProcessorEditor::resized()
     // sets the position and size of the slider with arguments (x, y, width, height)
     freqSlide.setBounds(40, 30, 20, getHeight() - 60);
     freqLabel.setBounds(10, 10, 90, 20);
+    waveSelect.setBounds(100, 100, 90, 20);
 }
