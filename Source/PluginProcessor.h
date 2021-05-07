@@ -55,5 +55,23 @@ public:
 
 private:
     //==============================================================================
+    // Sine wave oscillator
+    juce::dsp::Oscillator<float> osc { [](float x) { return std::sin(x); }};
+    // Sawtooth wave oscillator, lambda return provides 2 breakpoints for
+    juce::dsp::Oscillator<float> sawOsc{ [](float x)
+        {
+            // https://docs.juce.com/master/group__juce__core-maths.html#ga8acdd3d518517bd5e3c0bd1922218bf9
+            // Map the range between -Pi .. Pi to -1 .. 1 providing a linear ramp from -1 to 1
+            return juce::jmap (
+                x,
+                -juce::MathConstants<float>::pi,
+                juce::MathConstants<float>::pi,
+                (float)-1,
+                (float)1
+                );
+        }
+    };
+    juce::dsp::Gain<float> gain;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)
 };
