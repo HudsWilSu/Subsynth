@@ -53,12 +53,18 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    //==============================================================================
+    // Public vars
+    float freqValue = 440.0f;
+
 private:
     //==============================================================================
     // Sine wave oscillator
     juce::dsp::Oscillator<float> osc { [](float x) { return std::sin(x); }};
+    // Square wave oscillator
+    juce::dsp::Oscillator<float> sqOsc{ [](float x) { return x < 0.0f ? -1.0f : 1.0f; } };
     // Sawtooth wave oscillator, lambda return provides 2 breakpoints for
-    juce::dsp::Oscillator<float> sawOsc{ [](float x)
+    juce::dsp::Oscillator<float> sawOsc { [](float x)
         {
             // https://docs.juce.com/master/group__juce__core-maths.html#ga8acdd3d518517bd5e3c0bd1922218bf9
             // Map the range between -Pi .. Pi to -1 .. 1 providing a linear ramp from -1 to 1
@@ -71,6 +77,7 @@ private:
                 );
         }
     };
+
     juce::dsp::Gain<float> gain;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)

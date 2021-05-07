@@ -102,10 +102,10 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     spec.sampleRate = sampleRate;
     spec.numChannels = getTotalNumInputChannels();
 
-    sawOsc.prepare(spec);
+    osc.prepare(spec);
     gain.prepare(spec);
 
-    sawOsc.setFrequency(440.0f);
+    osc.setFrequency(freqValue);
     gain.setGainLinear(0.1f); // should be between 0 and 1
 }
 
@@ -147,13 +147,16 @@ void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    // Check slider for changes
+    osc.setFrequency(freqValue);
     // Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ buffer };
     // ProcessContextReplacing will fill audioBlock with processed data
-    sawOsc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    osc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
