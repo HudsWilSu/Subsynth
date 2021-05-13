@@ -70,13 +70,13 @@ private:
     // Triangle wave oscillator
     juce::dsp::Oscillator<float> triOsc{ [](float x) {
         if (x <= -juce::MathConstants<float>::pi/2) {
-            return  (-2 / juce::MathConstants<float>::pi) * x - 2;
+            return  juce::jmap(x, -juce::MathConstants<float>::pi, -juce::MathConstants<float>::pi/2, 0.0f, -1.0f);
         }
         else if (x > -juce::MathConstants<float>::pi / 2 && x <= juce::MathConstants<float>::pi / 2) {
-            return (2 / juce::MathConstants<float>::pi) * x;
+            return juce::jmap(x, -juce::MathConstants<float>::pi/2, juce::MathConstants<float>::pi/2, -1.0f, 1.0f);
         }
         else {
-            return (-2 / juce::MathConstants<float>::pi) * x + 2;
+            return juce::jmap(x, juce::MathConstants<float>::pi/2, juce::MathConstants<float>::pi, 1.0f, 0.0f);
         }
     } };
 
