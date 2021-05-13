@@ -105,11 +105,13 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     sineOsc.prepare(spec);
     sqOsc.prepare(spec);
     sawOsc.prepare(spec);
+    triOsc.prepare(spec);
     gain.prepare(spec);
 
     sineOsc.setFrequency(freqValue);
     sqOsc.setFrequency(freqValue);
     sawOsc.setFrequency(freqValue);
+    triOsc.setFrequency(freqValue);
     gain.setGainLinear(0.1f); // should be between 0 and 1
 }
 
@@ -163,8 +165,11 @@ void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     else if (wave == 2) {
         osc = &sqOsc;
     }
-    else {
+    else if (wave == 3) {
         osc = &sawOsc;
+    }
+    else {
+        osc = &triOsc;
     }
 
     // Check slider for changes

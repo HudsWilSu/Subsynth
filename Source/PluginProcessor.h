@@ -65,20 +65,20 @@ private:
     juce::dsp::Oscillator<float> sineOsc { [](float x) { return std::sin(x); }};
     // Square wave oscillator
     juce::dsp::Oscillator<float> sqOsc{ [](float x) { return x < 0.0f ? -1.0f : 1.0f; } };
-    // Sawtooth wave oscillator, lambda return provides 2 breakpoints for
-    juce::dsp::Oscillator<float> sawOsc { [](float x)
-        {
-            // https://docs.juce.com/master/group__juce__core-maths.html#ga8acdd3d518517bd5e3c0bd1922218bf9
-            // Map the range between -Pi .. Pi to -1 .. 1 providing a linear ramp from -1 to 1
-            return juce::jmap (
-                x,
-                -juce::MathConstants<float>::pi,
-                juce::MathConstants<float>::pi,
-                (float)-1,
-                (float)1
-                );
+    // Sawtooth wave oscillator
+    juce::dsp::Oscillator<float> sawOsc{ [](float x) { return x / (2 * juce::MathConstants<float>::pi); } };
+    // Triangle wave oscillator
+    juce::dsp::Oscillator<float> triOsc{ [](float x) {
+        if (x <= -juce::MathConstants<float>::pi/2) {
+            return  (-2 / juce::MathConstants<float>::pi) * x - 2;
         }
-    };
+        else if (x > -juce::MathConstants<float>::pi / 2 && x <= juce::MathConstants<float>::pi / 2) {
+            return (2 / juce::MathConstants<float>::pi) * x;
+        }
+        else {
+            return (-2 / juce::MathConstants<float>::pi) * x + 2;
+        }
+    } };
 
     juce::dsp::Gain<float> gain;
 
