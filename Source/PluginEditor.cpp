@@ -68,7 +68,7 @@ void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
 
-    g.drawFittedText("Lil' Babby's First Plugin", 0, 0, getWidth(), 30, juce::Justification::centred, 1);
+    g.drawFittedText("Subsynth", 0, 0, getWidth(), 30, juce::Justification::centred, 1);
 }
 
 void SubsynthAudioProcessorEditor::resized()
