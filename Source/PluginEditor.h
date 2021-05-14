@@ -14,7 +14,8 @@
 //==============================================================================
 /**
 */
-class SubsynthAudioProcessorEditor  : public juce::AudioProcessorEditor
+class SubsynthAudioProcessorEditor  : public juce::AudioProcessorEditor,
+    private juce::Slider::Listener, private juce::ComboBox::Listener
 {
 public:
     SubsynthAudioProcessorEditor (SubsynthAudioProcessor&);
@@ -25,9 +26,17 @@ public:
     void resized() override;
 
 private:
+    void sliderValueChanged(juce::Slider* slider) override;
+    void comboBoxChanged(juce::ComboBox * combobox) override;
+
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SubsynthAudioProcessor& audioProcessor;
+
+    // UI elements
+    juce::Slider freqSlide;
+    juce::Label freqLabel;
+    juce::ComboBox waveSelect;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessorEditor)
 };
