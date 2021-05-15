@@ -9,6 +9,7 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
+
 //==============================================================================
 SubsynthAudioProcessor::SubsynthAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -96,23 +97,15 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
-    // Create a spec to hold prep info for oscillator
-    juce::dsp::ProcessSpec spec;
-    spec.maximumBlockSize = samplesPerBlock;
-    spec.sampleRate = sampleRate;
-    spec.numChannels = getTotalNumInputChannels();
 
-    sineOsc.prepare(spec);
-    sqOsc.prepare(spec);
-    sawOsc.prepare(spec);
-    triOsc.prepare(spec);
-    gain.prepare(spec);
 
-    sineOsc.setFrequency(freqValue);
-    sqOsc.setFrequency(freqValue);
-    sawOsc.setFrequency(freqValue);
-    triOsc.setFrequency(freqValue);
-    gain.setGainLinear(0.1f); // should be between 0 and 1
+    CustomSound* mySound = new CustomSound;
+    CustomVoice* myVoice = new CustomVoice;
+    synth.setCurrentPlaybackSampleRate(sampleRate);
+    synth.addSound(mySound);
+    synth.addVoice(myVoice);
+    myVoice->prepareToPlay(sampleRate, samplesPerBlock, getNumInputChannels());
+
 }
 
 void SubsynthAudioProcessor::releaseResources()
@@ -157,28 +150,8 @@ void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    juce::dsp::Oscillator<float>* osc ;
+    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 
-    if (wave == 1) {
-        osc = &sineOsc;
-    }
-    else if (wave == 2) {
-        osc = &sqOsc;
-    }
-    else if (wave == 3) {
-        osc = &sawOsc;
-    }
-    else {
-        osc = &triOsc;
-    }
-
-    // Check slider for changes
-    osc->setFrequency(freqValue);
-    // Alias to chunk of audio buffer
-    juce::dsp::AudioBlock<float> audioBlock{ buffer };
-    // ProcessContextReplacing will fill audioBlock with processed data
-    osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 }
 
 //==============================================================================

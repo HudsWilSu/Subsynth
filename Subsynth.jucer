@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="E2dFzH" name="Subsynth" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="MmmQmm" name="Subsynth">
     <GROUP id="{72F69890-37C4-A7C0-CD11-0D045D68D964}" name="Source">
       <FILE id="wGKEiz" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -12,6 +12,9 @@
       <FILE id="VmTP0B" name="PluginEditor.cpp" compile="1" resource="0"
             file="Source/PluginEditor.cpp"/>
       <FILE id="ZiBrrV" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="jCAFge" name="CustomSound.h" compile="0" resource="0" file="Source/CustomSound.h"/>
+      <FILE id="eslnXH" name="CustomVoice.cpp" compile="1" resource="0" file="Source/CustomVoice.cpp"/>
+      <FILE id="QTor4O" name="CustomVoice.h" compile="0" resource="0" file="Source/CustomVoice.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
