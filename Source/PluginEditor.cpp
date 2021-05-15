@@ -11,20 +11,20 @@
 
 //==============================================================================
 SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+    : AudioProcessorEditor (&p), audioProcessor (p), keyboard(audioProcessor.keyState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (600, 200);
 
-    freqSlide.setSliderStyle(juce::Slider::LinearBarVertical);
-    freqSlide.setRange(220.0f, 880.0f, 220.0f);
-    freqSlide.setTextBoxStyle(juce::Slider::NoTextBox, false, 90, 0);
-    freqSlide.setPopupDisplayEnabled(true, true, this);
-    freqSlide.setTextValueSuffix(" Hz");
-    freqSlide.setValue(440.0f);
-    freqSlide.setNumDecimalPlacesToDisplay(0);
-    freqLabel.setText("Frequency", juce::dontSendNotification);
+    //freqSlide.setSliderStyle(juce::Slider::LinearBarVertical);
+    //freqSlide.setRange(220.0f, 880.0f, 220.0f);
+    //freqSlide.setTextBoxStyle(juce::Slider::NoTextBox, false, 90, 0);
+    //freqSlide.setPopupDisplayEnabled(true, true, this);
+    //freqSlide.setTextValueSuffix(" Hz");
+    //freqSlide.setValue(440.0f);
+    //freqSlide.setNumDecimalPlacesToDisplay(0);
+    //freqLabel.setText("Frequency", juce::dontSendNotification);
 
     waveSelect.addItem("Sine", 1);
     waveSelect.addItem("Square", 2);
@@ -33,25 +33,26 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     waveSelect.setSelectedId(1);
 
     // Expose slider to UI/Editor
-    addAndMakeVisible(&freqSlide);
-    addAndMakeVisible(&freqLabel);
+    //addAndMakeVisible(&freqSlide);
+    //addAndMakeVisible(&freqLabel);
     addAndMakeVisible(&waveSelect);
+    addAndMakeVisible(&keyboard);
 
     // Add listeners
-    freqSlide.addListener(this);
+    //freqSlide.addListener(this);
     waveSelect.addListener(this);
+
 
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 {
-    // This is a new comment to test GIT
-    // This comment is to test branching in VS2019
+
 }
 
 void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 {
-    audioProcessor.freqValue = freqSlide.getValue();
+    //audioProcessor.freqValue = freqSlide.getValue();
 }
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
@@ -77,7 +78,8 @@ void SubsynthAudioProcessorEditor::resized()
     // subcomponents in your editor..
     // 
     // sets the position and size of the slider with arguments (x, y, width, height)
-    freqSlide.setBounds(40, 30, 20, getHeight() - 60);
-    freqLabel.setBounds(10, 10, 90, 20);
-    waveSelect.setBounds(100, 100, 90, 20);
+    //freqSlide.setBounds(40, 30, 20, getHeight() - 60);
+    //freqLabel.setBounds(10, 10, 90, 20);
+    waveSelect.setBounds(10, 20, 90, 20);
+    keyboard.setBounds(10, 50, getWidth() - 20, getHeight() - 50);
 }
