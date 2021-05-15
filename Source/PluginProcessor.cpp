@@ -106,6 +106,7 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     synth.addVoice(myVoice);
     myVoice->prepareToPlay(sampleRate, samplesPerBlock, getNumInputChannels());
 
+
 }
 
 void SubsynthAudioProcessor::releaseResources()

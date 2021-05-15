@@ -34,9 +34,12 @@ private:
     SubsynthAudioProcessor& audioProcessor;
 
     // UI elements
-    juce::Slider freqSlide;
-    juce::Label freqLabel;
+    //juce::Slider freqSlide;
+    //juce::Label freqLabel;
     juce::ComboBox waveSelect;
+
+    // Keyboard
+    juce::MidiKeyboardComponent keyboard;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessorEditor)
 };
