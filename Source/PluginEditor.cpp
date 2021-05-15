@@ -42,6 +42,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     //freqSlide.addListener(this);
     waveSelect.addListener(this);
 
+
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
