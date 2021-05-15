@@ -15,7 +15,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (600, 200);
+    setSize (1000, 300);
 
     //freqSlide.setSliderStyle(juce::Slider::LinearBarVertical);
     //freqSlide.setRange(220.0f, 880.0f, 220.0f);
@@ -31,18 +31,29 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     waveSelect.addItem("Saw", 3);
     waveSelect.addItem("Triangle", 4);
     waveSelect.setSelectedId(1);
+    
+    setRotaryStyle(&attackRotary);
+    setRotaryStyle(&decayRotary);
+    setRotaryStyle(&sustainRotary);
+    setRotaryStyle(&releaseRotary);
+    attackLabel.setText("Attack", juce::dontSendNotification);
+    decayLabel.setText("Decay", juce::dontSendNotification);
+    sustainLabel.setText("Sustain", juce::dontSendNotification);
+    releaseLabel.setText("Release", juce::dontSendNotification);
 
     // Expose slider to UI/Editor
     //addAndMakeVisible(&freqSlide);
     //addAndMakeVisible(&freqLabel);
     addAndMakeVisible(&waveSelect);
     addAndMakeVisible(&keyboard);
-
+    
+    addAndMakeVisible(&attackRotary);
+    addAndMakeVisible(&attackLabel);
+    
     // Add listeners
     //freqSlide.addListener(this);
     waveSelect.addListener(this);
-
-
+    attackRotary.addListener(this);
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
@@ -53,7 +64,14 @@ SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 {
     //audioProcessor.freqValue = freqSlide.getValue();
+    audioProcessor.changeAttack(slider->getValue());
 }
+
+//void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* attRotary)
+//{
+//
+//    audioProcessor.changeVolume(attRotary.getValue());
+//}
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
 {
@@ -81,5 +99,26 @@ void SubsynthAudioProcessorEditor::resized()
     //freqSlide.setBounds(40, 30, 20, getHeight() - 60);
     //freqLabel.setBounds(10, 10, 90, 20);
     waveSelect.setBounds(10, 20, 90, 20);
-    keyboard.setBounds(10, 50, getWidth() - 20, getHeight() - 50);
+    keyboard.setBounds(10, 150, getWidth() - 20, getHeight() - 150);
+    
+    // ADSR Components
+    attackRotary.setBounds(200, 10, 100, 100);
+    attackLabel.setBounds(200, 10, 50, 50);
+//    attackRotary.setBounds(300, 0, 100, 100);
+//    attackLabel.setBounds(300, 110, 50, 50);
+//    attackRotary.setBounds(400, 0, 100, 100);
+//    attackLabel.setBounds(400, 210, 50, 50);
+//    attackRotary.setBounds(500, 0, 100, 100);
+//    attackLabel.setBounds(500, 310, 50, 50);
+}
+
+void SubsynthAudioProcessorEditor::setRotaryStyle(juce::Slider* rotary)
+{
+    rotary->setSliderStyle(juce::Slider::Rotary);
+    rotary->setRotaryParameters(0.0, juce::MathConstants<float>::twoPi, true);
+    rotary->setVelocityBasedMode(true);
+    rotary->setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
+    rotary->setPopupDisplayEnabled(true, true, nullptr);
+    rotary->setValue(0.1f);
+    rotary->setRange(0.0f, 1.0f, 0.01f);
 }

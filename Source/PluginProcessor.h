@@ -54,6 +54,9 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    //====== UI Component Callbacks ================================================
+    void changeAttack(float);
 
     //==============================================================================
     // Public vars

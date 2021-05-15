@@ -184,6 +184,13 @@ void SubsynthAudioProcessor::setStateInformation (const void* data, int sizeInBy
     // whose contents will have been created by the getStateInformation() call.
 }
 
+//====== UI Component Callbacks ================================================
+
+void SubsynthAudioProcessor::changeAttack(float sliderVal) {
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setAttack(sliderVal);
+    }
+}
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()

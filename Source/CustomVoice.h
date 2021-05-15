@@ -20,6 +20,10 @@ public:
     void controllerMoved(int controllerNumber, int newControllerValue) override;
     void renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) override;
     void prepareToPlay(double sampleRate, int samplesPerBlock, int numInputChannels);
+    
+    // adsr functions
+    juce::ADSR::Parameters setADSRParams(float att, float dec, float sus, float rel);
+    void setAttack(float sliderVal);
 
 private:
     // Sine wave oscillator
@@ -42,5 +46,6 @@ private:
     } };
 
     juce::dsp::Gain<float> gain;
+    juce::ADSR::Parameters params;
     juce::ADSR envelope;
 };
