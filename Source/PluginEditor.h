@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
+#include "ADSRComponent.h"
 
 //==============================================================================
 /**
@@ -30,24 +31,22 @@ private:
     void comboBoxChanged(juce::ComboBox * combobox) override;
     void setAttackRotary(juce::Slider*);
     void setRotaryStyle(juce::Slider* attackRotary);
+//    void adsrValueChanged(ADSR)
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SubsynthAudioProcessor& audioProcessor;
 
     // UI elements
-    //juce::Slider freqSlide;
-    //juce::Label freqLabel;
+    juce::Slider freqSlide;
+//    juce::La bel freqLabel;
     juce::ComboBox waveSelect;
     
     // ADSR Envelope Components
-    juce::Slider attackRotary;
-    juce::Slider decayRotary;
-    juce::Slider sustainRotary;
-    juce::Slider releaseRotary;
-    juce::Label attackLabel;
-    juce::Label decayLabel;
-    juce::Label sustainLabel;
-    juce::Label releaseLabel;
+//    ADSRComponent adsrSliders;
+    ADSRWheel attackRotary;
+    ADSRWheel decayRotary;
+    ADSRWheel sustainRotary;
+    ADSRWheel releaseRotary;
 
     // Keyboard
     juce::MidiKeyboardComponent keyboard;
