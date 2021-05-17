@@ -68,10 +68,6 @@ void ADSRWheel::sliderValueChanged(juce::Slider *slider) {
     rotary.getValue();
 }
 
-double ADSRWheel::sliderChanged(juce::Slider *slider) {
-    return rotary.getValue();
-}
-
 //========================================================//
 ADSRComponent::ADSRComponent() {
     

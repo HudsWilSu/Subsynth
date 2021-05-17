@@ -26,15 +26,12 @@ public:
     juce::String getLabelText() const;
     double getValue();
     void sliderValueChanged(juce::Slider *slider) override;
-    double sliderChanged(juce::Slider *slider);
     
 private:
     juce::Slider rotary;
     juce::Label rotaryLabel;
     
     void setRotaryStyle();
-    
-    
 };
 
 

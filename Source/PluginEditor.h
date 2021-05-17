@@ -31,6 +31,7 @@ private:
     void comboBoxChanged(juce::ComboBox * combobox) override;
     void setAttackRotary(juce::Slider*);
     void setRotaryStyle(juce::Slider* attackRotary);
+    
 //    void adsrValueChanged(ADSR)
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
