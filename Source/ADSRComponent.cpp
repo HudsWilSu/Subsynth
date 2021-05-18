@@ -19,7 +19,7 @@ ADSRWheel::ADSRWheel() {
 //    rotary.addListener(rotary);
 }
 
-ADSRWheel::ADSRWheel(const std::string& sliderName, adsr_element elem) {
+ADSRWheel::ADSRWheel(const std::string& sliderName, ADSR_Element elem) {
     setRotaryStyle();
     rotaryLabel.setText(sliderName, juce::dontSendNotification);
     element = elem;
@@ -51,7 +51,7 @@ double ADSRWheel::getValue() {
     return rotary.getValue();
 }
 
-adsr_element ADSRWheel::getType(){
+ADSR_Element ADSRWheel::getType(){
     return this->element;
 }
 
@@ -97,6 +97,11 @@ ADSRComponent::ADSRComponent() {
     addAndMakeVisible(&decayRotary);
     addAndMakeVisible(&sustainRotary);
     addAndMakeVisible(&releaseRotary);
+    
+    attackRotary.rotary.addListener(this);
+    decayRotary.rotary.addListener(this);
+    sustainRotary.rotary.addListener(this);
+    releaseRotary.rotary.addListener(this);
 }
 
 ADSRComponent::ADSRComponent(ADSRComponent&) {
@@ -118,5 +123,32 @@ void ADSRComponent::resized() {
 }
 
 void ADSRComponent::sliderValueChanged(juce::Slider *slider) {
+    if (slider == &(attackRotary.rotary)) {
+        attVal = attackRotary.getValue();
+        
+    }
+    else if (slider == &(decayRotary.rotary)) {
+        decVal = decayRotary.getValue();
+    }
+    else if (slider == &(sustainRotary.rotary)) {
+        susVal = sustainRotary.getValue();
+    }
+    else {
+        relVal = releaseRotary.getValue();
+    }
+      
     
 }
+   
+juce::ADSR::Parameters ADSRComponent::getEnvelope() {
+    juce::ADSR::Parameters params {
+        attVal,
+        decVal,
+        susVal,
+        relVal
+    };
+    
+    return params;
+}
+    
+

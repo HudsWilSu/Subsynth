@@ -23,7 +23,7 @@ public:
     
     // adsr functions
     juce::ADSR::Parameters setADSRParams(float att, float dec, float sus, float rel);
-    void setAttack(float sliderVal);
+    void setADSR(juce::ADSR::Parameters params);
 
 private:
     // Sine wave oscillator

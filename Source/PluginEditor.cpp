@@ -31,33 +31,19 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     waveSelect.addItem("Saw", 3);
     waveSelect.addItem("Triangle", 4);
     waveSelect.setSelectedId(1);
-//
-//    ADSRWheel newAttRotary("Attack", attack);
-//    ADSRWheel newDecRotary("Decay", decay);
-//    ADSRWheel newSusRotary("Sustain", sustain);
-//    ADSRWheel newRelRotary("Release", release);
-//
-//    attackRotary = newAttRotary;
-//    decayRotary = newDecRotary;
-//    sustainRotary = newSusRotary;
-//    releaseRotary = newRelRotary;
-
+    
+    
     // Expose slider to UI/Editor
     //addAndMakeVisible(&freqSlide);
     //addAndMakeVisible(&freqLabel);
     addAndMakeVisible(&waveSelect);
     addAndMakeVisible(&keyboard);
-    addAndMakeVisible(&attackRotary);
-    
     addAndMakeVisible(&adsrSliders);
+    
     // Add listeners
     //freqSlide.addListener(this);
     waveSelect.addListener(this);
-//    attackRotary.addListener(this);
-    
-//    addAndMakeVisible(&decayRotary);
-//    addAndMakeVisible(&sustainRotary);
-//    addAndMakeVisible(&releaseRotary);
+    adsrSliders.addMouseListener(this, true);
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
@@ -78,6 +64,12 @@ void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
 {
     audioProcessor.wave = waveSelect.getSelectedId();
+}
+
+void SubsynthAudioProcessorEditor::mouseDrag(const juce::MouseEvent &event) {
+    if (event.eventComponent == &adsrSliders) {
+        audioProcessor.changeADSREnv(adsrSliders.getEnvelope());
+    }
 }
 
 //==============================================================================
@@ -104,6 +96,6 @@ void SubsynthAudioProcessorEditor::resized()
     keyboard.setBounds(10, 200, getWidth() - 20, getHeight() - 200);
     
     // ADSR Components
-    adsrSliders.setBounds(100, 50, 500, 10000);
+    adsrSliders.setBounds(100, 0, 500, 10000);
 //    attackRotary.setBounds(100, 25, 200, 2000);
 }

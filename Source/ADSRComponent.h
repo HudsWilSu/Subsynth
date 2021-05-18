@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-enum adsr_element {
+enum ADSR_Element {
     attack,
     decay,
     sustain,
@@ -22,7 +22,7 @@ class ADSRWheel : public juce::Component
 {
 public:
     ADSRWheel();
-    ADSRWheel(const std::string& sliderName, adsr_element);
+    ADSRWheel(const std::string& sliderName, ADSR_Element element);
     ADSRWheel(const ADSRWheel&);
     ADSRWheel& operator=(ADSRWheel&);
     ~ADSRWheel() = default;
@@ -31,16 +31,15 @@ public:
     juce::Slider::RotaryParameters getParams() const;
     juce::String getLabelText() const;
     double getValue();
-    adsr_element getType();
+    ADSR_Element getType();
 //    void sliderValueChanged(juce::Slider *slider) override;
-    
+    juce::Slider rotary;
 private:
     
 //    SubsynthAudioProcessor& audioProcessor;
     
-    juce::Slider rotary;
     juce::Label rotaryLabel;
-    adsr_element element;
+    ADSR_Element element;
     
     void setRotaryStyle();
 };
@@ -56,7 +55,9 @@ public:
     void paint(juce::Graphics& g) override;
     void resized() override;
     
-    void sliderValueChanged(juce::Slider *slider) override;
+    void sliderValueChanged(juce::Slider* slider) override;
+    
+    juce::ADSR::Parameters getEnvelope();
 
 private:
 //    juce::Grid adsrGrid;
@@ -65,5 +66,10 @@ private:
     ADSRWheel decayRotary;
     ADSRWheel sustainRotary;
     ADSRWheel releaseRotary;
-
+    
+    float attVal;
+    float decVal;
+    float susVal;
+    float relVal;
+    
 };

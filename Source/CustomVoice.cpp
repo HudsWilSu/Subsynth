@@ -65,9 +65,9 @@ juce::ADSR::Parameters CustomVoice::setADSRParams(float att, float dec, float su
     return params;
 }
 
-void CustomVoice::setAttack(float sliderVal) {
-    // set attack value
-    params.attack = sliderVal;
+void CustomVoice::setADSR(juce::ADSR::Parameters parameters) {
+    // set ADSR envelope
+    params = parameters;
 }
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {

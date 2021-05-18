@@ -187,9 +187,9 @@ void SubsynthAudioProcessor::setStateInformation (const void* data, int sizeInBy
 //====== UI Component Callbacks ================================================
 
 
-void SubsynthAudioProcessor::changeAttack(float sliderVal) {
+void SubsynthAudioProcessor::changeADSREnv(juce::ADSR::Parameters params) {
     for (int i = 0; i < synth.getNumVoices(); i++) {
-        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setAttack(sliderVal);
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setADSR(params);
     }
 }
 //==============================================================================

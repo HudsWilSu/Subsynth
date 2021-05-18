@@ -56,7 +56,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
     
     //====== UI Component Callbacks ================================================
-    void changeAttack(float);
+    void changeADSREnv(juce::ADSR::Parameters);
 
     //==============================================================================
     // Public vars
