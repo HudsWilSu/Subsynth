@@ -66,12 +66,14 @@ SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 
 }
 
-
-
 void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 {
     //audioProcessor.freqValue = freqSlide.getValue();
-    
+    if (slider == &attackRotary) {
+        printf("attack slider changed!\n");
+        float currentVal = attackRotary.getValue();
+        audioProcessor.changeAttack(currentVal);
+    }
 }
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)

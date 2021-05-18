@@ -65,7 +65,9 @@ void ADSRWheel::resized() {
 }
 
 void ADSRWheel::sliderValueChanged(juce::Slider *slider) {
-    rotary.getValue();
+    if (slider == &rotary) {
+        this->setValue(rotary.getValue());
+    }
 }
 
 //========================================================//
@@ -86,7 +88,7 @@ ADSRComponent::ADSRComponent() {
     addAndMakeVisible(&sustainRotary);
     addAndMakeVisible(&releaseRotary);
     
-    attackRotary.addListener(this);
+//    attackRotary.addListener(this);
 }
 
 ADSRComponent::ADSRComponent(ADSRComponent&) {
@@ -100,6 +102,6 @@ void ADSRComponent::resized() {
     releaseRotary.setBounds(100, 0, 150, 150);
 }
 
-void ADSRComponent::sliderValueChanged(juce::Slider *slider) {
-    printf("Implement me!");
-}
+//void ADSRComponent::sliderValueChanged(juce::Slider *slider) {
+//    printf("Implement me!");
+//}

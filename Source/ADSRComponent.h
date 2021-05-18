@@ -35,15 +35,13 @@ private:
 };
 
 
-class ADSRComponent : public juce::Component,
-                      public juce::Slider::Listener {
+class ADSRComponent : public juce::Component {
 public:
     ADSRComponent();
     ~ADSRComponent() = default;
     ADSRComponent(ADSRComponent&);
     void resized() override;
-    void sliderValueChanged(juce::Slider *slider) override;
-//    void sliderValueChanged(juce::Slider *slider) override;
+
 private:
     ADSRWheel attackRotary;
     ADSRWheel decayRotary;
