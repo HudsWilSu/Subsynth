@@ -43,7 +43,7 @@ private:
     juce::ComboBox waveSelect;
     
     // ADSR Envelope Components
-//    ADSRComponent adsrSliders;
+    ADSRComponent adsrSliders;
     ADSRWheel attackRotary;
     ADSRWheel decayRotary;
     ADSRWheel sustainRotary;

@@ -31,16 +31,16 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     waveSelect.addItem("Saw", 3);
     waveSelect.addItem("Triangle", 4);
     waveSelect.setSelectedId(1);
-    
-    ADSRWheel newAttRotary("Attack");
-    ADSRWheel newDecRotary("Decay");
-    ADSRWheel newSusRotary("Sustain");
-    ADSRWheel newRelRotary("Release");
-    
-    attackRotary = newAttRotary;
-    decayRotary = newDecRotary;
-    sustainRotary = newSusRotary;
-    releaseRotary = newRelRotary;
+//
+//    ADSRWheel newAttRotary("Attack", attack);
+//    ADSRWheel newDecRotary("Decay", decay);
+//    ADSRWheel newSusRotary("Sustain", sustain);
+//    ADSRWheel newRelRotary("Release", release);
+//
+//    attackRotary = newAttRotary;
+//    decayRotary = newDecRotary;
+//    sustainRotary = newSusRotary;
+//    releaseRotary = newRelRotary;
 
     // Expose slider to UI/Editor
     //addAndMakeVisible(&freqSlide);
@@ -49,12 +49,11 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     addAndMakeVisible(&keyboard);
     addAndMakeVisible(&attackRotary);
     
-//    addAndMakeVisible(&adsrSliders);
+    addAndMakeVisible(&adsrSliders);
     // Add listeners
     //freqSlide.addListener(this);
     waveSelect.addListener(this);
-    attackRotary.addListener(this);
-    
+//    attackRotary.addListener(this);
     
 //    addAndMakeVisible(&decayRotary);
 //    addAndMakeVisible(&sustainRotary);
@@ -69,11 +68,11 @@ SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 {
     //audioProcessor.freqValue = freqSlide.getValue();
-    if (slider == &attackRotary) {
-        printf("attack slider changed!\n");
-        float currentVal = attackRotary.getValue();
-        audioProcessor.changeAttack(currentVal);
-    }
+//    if (slider == &attackRotary) {
+//        printf("attack slider changed!\n");
+//        float currentVal = attackRotary.getValue();
+//        audioProcessor.changeAttack(currentVal);
+//    }
 }
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
@@ -102,9 +101,9 @@ void SubsynthAudioProcessorEditor::resized()
     //freqSlide.setBounds(40, 30, 20, getHeight() - 60);
     //freqLabel.setBounds(10, 10, 90, 20);
     waveSelect.setBounds(10, 20, 90, 20);
-    keyboard.setBounds(10, 150, getWidth() - 20, getHeight() - 150);
+    keyboard.setBounds(10, 200, getWidth() - 20, getHeight() - 200);
     
     // ADSR Components
-//    adsrSliders.setBounds(100, 0, 200, 1500);
-    attackRotary.setBounds(100, 0, 150, 150);
+    adsrSliders.setBounds(100, 50, 500, 10000);
+//    attackRotary.setBounds(100, 25, 200, 2000);
 }

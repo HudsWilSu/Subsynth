@@ -11,12 +11,18 @@
 #pragma once
 #include <JuceHeader.h>
 
-class ADSRWheel : public juce::Slider,
-                  public juce::Slider::Listener
+enum adsr_element {
+    attack,
+    decay,
+    sustain,
+    release
+};
+
+class ADSRWheel : public juce::Component
 {
 public:
     ADSRWheel();
-    ADSRWheel(const std::string& sliderName);
+    ADSRWheel(const std::string& sliderName, adsr_element);
     ADSRWheel(const ADSRWheel&);
     ADSRWheel& operator=(ADSRWheel&);
     ~ADSRWheel() = default;
@@ -25,24 +31,36 @@ public:
     juce::Slider::RotaryParameters getParams() const;
     juce::String getLabelText() const;
     double getValue();
-    void sliderValueChanged(juce::Slider *slider) override;
+    adsr_element getType();
+//    void sliderValueChanged(juce::Slider *slider) override;
     
 private:
+    
+//    SubsynthAudioProcessor& audioProcessor;
+    
     juce::Slider rotary;
     juce::Label rotaryLabel;
+    adsr_element element;
     
     void setRotaryStyle();
 };
 
 
-class ADSRComponent : public juce::Component {
+class ADSRComponent : public juce::Component,
+public juce::Slider::Listener {
 public:
     ADSRComponent();
     ~ADSRComponent() = default;
     ADSRComponent(ADSRComponent&);
+    
+    void paint(juce::Graphics& g) override;
     void resized() override;
+    
+    void sliderValueChanged(juce::Slider *slider) override;
 
 private:
+//    juce::Grid adsrGrid;
+    
     ADSRWheel attackRotary;
     ADSRWheel decayRotary;
     ADSRWheel sustainRotary;
