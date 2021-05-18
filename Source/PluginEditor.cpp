@@ -54,11 +54,6 @@ SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 {
     //audioProcessor.freqValue = freqSlide.getValue();
-//    if (slider == &attackRotary) {
-//        printf("attack slider changed!\n");
-//        float currentVal = attackRotary.getValue();
-//        audioProcessor.changeAttack(currentVal);
-//    }
 }
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
@@ -96,6 +91,5 @@ void SubsynthAudioProcessorEditor::resized()
     keyboard.setBounds(10, 200, getWidth() - 20, getHeight() - 200);
     
     // ADSR Components
-    adsrSliders.setBounds(100, 0, 500, 10000);
-//    attackRotary.setBounds(100, 25, 200, 2000);
+    adsrSliders.setBounds(100, 0, 500, 150);
 }

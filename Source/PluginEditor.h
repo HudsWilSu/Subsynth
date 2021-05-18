@@ -31,9 +31,6 @@ private:
     void comboBoxChanged(juce::ComboBox * combobox) override;
     void mouseDrag(const juce::MouseEvent& event) override;
     
-//    void setAttackRotary(juce::Slider*);
-//    void setRotaryStyle(juce::Slider* attackRotary);
-    
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     
@@ -46,10 +43,6 @@ private:
     
     // ADSR Envelope Components
     ADSRComponent adsrSliders;
-//    ADSRWheel attackRotary;
-//    ADSRWheel decayRotary;
-//    ADSRWheel sustainRotary;
-//    ADSRWheel releaseRotary;
 
     // Keyboard
     juce::MidiKeyboardComponent keyboard;

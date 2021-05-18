@@ -16,15 +16,12 @@ ADSRWheel::ADSRWheel() {
     addAndMakeVisible(&rotaryLabel);
     
     rotaryLabel.setColour(1, juce::Colours::white);
-//    rotary.addListener(rotary);
 }
 
 ADSRWheel::ADSRWheel(const std::string& sliderName, ADSR_Element elem) {
     setRotaryStyle();
     rotaryLabel.setText(sliderName, juce::dontSendNotification);
     element = elem;
-//    addAndMakeVisible(&rotary);
-//    addAndMakeVisible(&rotaryLabel);
 }
 
 ADSRWheel::ADSRWheel(const ADSRWheel& oldObj) {
@@ -71,13 +68,6 @@ void ADSRWheel::resized() {
     rotary.setBounds(10, 30, 75, 75);
 }
 
-//void ADSRWheel::sliderValueChanged(juce::Slider *slider) {
-//    if (slider == &rotary) {
-//        this->setValue(rotary.getValue());
-//    }
-//}
-
-
 //========================================================//
 ADSRComponent::ADSRComponent() {
     
@@ -117,9 +107,7 @@ void ADSRComponent::resized() {
     decayRotary.setBounds(100, 0, 100, 100);
     sustainRotary.setBounds(200, 0, 100, 100);
     releaseRotary.setBounds(300, 0, 100, 100);
-    
-//    juce::Rectangle<int> grid {0,0, 200, 2000};
-//    adsrGrid.performLayout(grid);
+
 }
 
 void ADSRComponent::sliderValueChanged(juce::Slider *slider) {
@@ -136,8 +124,6 @@ void ADSRComponent::sliderValueChanged(juce::Slider *slider) {
     else {
         relVal = releaseRotary.getValue();
     }
-      
-    
 }
    
 juce::ADSR::Parameters ADSRComponent::getEnvelope() {

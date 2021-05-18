@@ -53,17 +53,6 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numI
     gain.setGainLinear(0.1f); // should be between 0 and 1
 }
 
-// adsr functions
-juce::ADSR::Parameters CustomVoice::setADSRParams(float att, float dec, float sus, float rel) {
-    juce::ADSR::Parameters params = {
-        att,
-        dec,
-        sus,
-        rel
-    };
-    
-    return params;
-}
 
 void CustomVoice::setADSR(juce::ADSR::Parameters parameters) {
     // set ADSR envelope
@@ -95,7 +84,7 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     sineOsc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     
-    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);
+//    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);
     envelope.setParameters(params);
 
     envelope.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);

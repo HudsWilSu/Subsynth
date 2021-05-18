@@ -21,6 +21,8 @@ enum ADSR_Element {
 class ADSRWheel : public juce::Component
 {
 public:
+    juce::Slider rotary;
+    
     ADSRWheel();
     ADSRWheel(const std::string& sliderName, ADSR_Element element);
     ADSRWheel(const ADSRWheel&);
@@ -32,12 +34,8 @@ public:
     juce::String getLabelText() const;
     double getValue();
     ADSR_Element getType();
-//    void sliderValueChanged(juce::Slider *slider) override;
-    juce::Slider rotary;
 private:
-    
-//    SubsynthAudioProcessor& audioProcessor;
-    
+
     juce::Label rotaryLabel;
     ADSR_Element element;
     
@@ -59,9 +57,7 @@ public:
     
     juce::ADSR::Parameters getEnvelope();
 
-private:
-//    juce::Grid adsrGrid;
-    
+private:    
     ADSRWheel attackRotary;
     ADSRWheel decayRotary;
     ADSRWheel sustainRotary;
