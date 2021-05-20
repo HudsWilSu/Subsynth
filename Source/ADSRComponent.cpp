@@ -14,8 +14,6 @@ ADSRWheel::ADSRWheel() {
     setRotaryStyle();
     addAndMakeVisible(&rotary);
     addAndMakeVisible(&rotaryLabel);
-    
-    rotaryLabel.setColour(1, juce::Colours::white);
 }
 
 ADSRWheel::ADSRWheel(const std::string& sliderName, ADSR_Element elem) {
