@@ -14,6 +14,7 @@ ADSRWheel::ADSRWheel() {
     setRotaryStyle();
     addAndMakeVisible(&rotary);
     addAndMakeVisible(&rotaryLabel);
+    rotary.addMouseListener(this, false);
 }
 
 ADSRWheel::ADSRWheel(const std::string& sliderName, ADSR_Element elem) {
@@ -65,6 +66,7 @@ void ADSRWheel::resized() {
     
     rotary.setBounds(10, 30, 75, 75);
 }
+
 
 //========================================================//
 ADSRComponent::ADSRComponent() {
@@ -122,6 +124,7 @@ void ADSRComponent::sliderValueChanged(juce::Slider *slider) {
     else {
         relVal = releaseRotary.getValue();
     }
+    
 }
    
 juce::ADSR::Parameters ADSRComponent::getEnvelope() {

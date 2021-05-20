@@ -62,7 +62,8 @@ void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
 }
 
 void SubsynthAudioProcessorEditor::mouseDrag(const juce::MouseEvent &event) {
-    if (event.eventComponent == &adsrSliders) {
+    if (event.eventComponent ==&adsrSliders) {
+        printf("sliders changed\n");
         audioProcessor.changeADSREnv(adsrSliders.getEnvelope());
     }
 }
@@ -91,5 +92,5 @@ void SubsynthAudioProcessorEditor::resized()
     keyboard.setBounds(10, 200, getWidth() - 20, getHeight() - 200);
     
     // ADSR Components
-    adsrSliders.setBounds(100, 0, 500, 150);
+    adsrSliders.setBounds(100, 0, 500, 100);
 }
