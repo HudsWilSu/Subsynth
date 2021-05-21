@@ -190,6 +190,12 @@ void SubsynthAudioProcessor::changeADSREnv(juce::ADSR::Parameters params) {
         dynamic_cast<CustomVoice*>(synth.getVoice(i))->setADSR(params);
     }
 }
+
+void SubsynthAudioProcessor::changeWaveform(int waveformNum) {
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setWave(waveformNum);
+    }
+}
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()

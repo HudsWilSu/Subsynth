@@ -16,7 +16,7 @@ bool CustomVoice::canPlaySound(juce::SynthesiserSound*) {
 
 void CustomVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) {
     // midi input here
-    sineOsc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+    osc->setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
     envelope.noteOn();
 }
 
@@ -40,10 +40,25 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numI
     spec.numChannels = numInputChannels;
 
     envelope.setSampleRate(sampleRate);
+
     sineOsc.prepare(spec);
     sqOsc.prepare(spec);
     sawOsc.prepare(spec);
     triOsc.prepare(spec);
+
+    if (wave == 1) {
+        osc = &sineOsc;
+    }
+    else if (wave == 2) {
+        osc = &sqOsc;
+    }
+    else if (wave == 3) {
+        osc = &sawOsc;
+    }
+    else {
+        osc = &triOsc;
+    }
+    
     gain.prepare(spec);
 
     //sineOsc.setFrequency(freqValue);
@@ -57,6 +72,23 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numI
 void CustomVoice::setADSR(juce::ADSR::Parameters parameters) {
     // set ADSR envelope
     params = parameters;
+}
+
+void CustomVoice::setWave(int waveformNum) {
+    // set wave value
+    wave = waveformNum;
+    if (wave == 1) {
+        osc = &sineOsc;
+    }
+    else if (wave == 2) {
+        osc = &sqOsc;
+    }
+    else if (wave == 3) {
+        osc = &sawOsc;
+    }
+    else {
+        osc = &triOsc;
+    }
 }
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
@@ -81,7 +113,7 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     //// Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ outputBuffer };
     // ProcessContextReplacing will fill audioBlock with processed data
-    sineOsc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     
 //    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);
