@@ -106,7 +106,7 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     synth.addVoice(myVoice);
     myVoice->prepareToPlay(sampleRate, samplesPerBlock, getNumInputChannels());
 
-
+    wfVisualiser.clear();
 
 }
 
@@ -157,6 +157,7 @@ void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     keyState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 
+    wfVisualiser.pushBuffer(buffer);
 }
 
 //==============================================================================

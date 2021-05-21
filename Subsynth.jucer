@@ -5,6 +5,9 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="MmmQmm" name="Subsynth">
     <GROUP id="{72F69890-37C4-A7C0-CD11-0D045D68D964}" name="Source">
+      <FILE id="GcsyRG" name="WfVisualiser.h" compile="0" resource="0" file="Source/WfVisualiser.h"/>
+      <FILE id="oJuk5g" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
+      <FILE id="azYpeF" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
       <FILE id="wGKEiz" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="klErww" name="PluginProcessor.h" compile="0" resource="0"

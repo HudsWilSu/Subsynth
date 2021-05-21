@@ -51,6 +51,8 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numI
     //sawOsc.setFrequency(freqValue);
     //triOsc.setFrequency(freqValue);
     gain.setGainLinear(0.1f); // should be between 0 and 1
+
+    
 }
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
@@ -79,4 +81,8 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 
     envelope.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);
+
+    
+
+    
 }

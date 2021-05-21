@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "CustomVoice.h"
 #include "CustomSound.h"
+#include "WfVisualiser.h"
 
 //==============================================================================
 /**
@@ -61,10 +62,13 @@ public:
     int wave = 1;
     juce::MidiKeyboardState keyState;
     
+    // Waveform Visualizer
+    WaveformVisualiser wfVisualiser;
 
 private:
     //==============================================================================
     juce::Synthesiser synth;
+
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)

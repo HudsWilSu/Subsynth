@@ -15,7 +15,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (600, 200);
+    setSize (800, 400);
 
     //freqSlide.setSliderStyle(juce::Slider::LinearBarVertical);
     //freqSlide.setRange(220.0f, 880.0f, 220.0f);
@@ -37,11 +37,14 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     //addAndMakeVisible(&freqLabel);
     addAndMakeVisible(&waveSelect);
     addAndMakeVisible(&keyboard);
-
+    
     // Add listeners
     //freqSlide.addListener(this);
     waveSelect.addListener(this);
 
+    // Waveform Visualiser
+    addAndMakeVisible(&p.wfVisualiser);
+    p.wfVisualiser.setBounds(10, 200, getWidth() - 20, 100); // add to resized() below - figure out how to access p there?
 
 }
 
@@ -81,5 +84,5 @@ void SubsynthAudioProcessorEditor::resized()
     //freqSlide.setBounds(40, 30, 20, getHeight() - 60);
     //freqLabel.setBounds(10, 10, 90, 20);
     waveSelect.setBounds(10, 20, 90, 20);
-    keyboard.setBounds(10, 50, getWidth() - 20, getHeight() - 50);
+    keyboard.setBounds(10, 50, getWidth() - 20, getHeight() - 250);
 }
