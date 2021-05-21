@@ -15,7 +15,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (600, 200);
+    setSize (1000, 300);
 
     //freqSlide.setSliderStyle(juce::Slider::LinearBarVertical);
     //freqSlide.setRange(220.0f, 880.0f, 220.0f);
@@ -31,18 +31,19 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     waveSelect.addItem("Saw", 3);
     waveSelect.addItem("Triangle", 4);
     waveSelect.setSelectedId(1);
-
+    
+    
     // Expose slider to UI/Editor
     //addAndMakeVisible(&freqSlide);
     //addAndMakeVisible(&freqLabel);
     addAndMakeVisible(&waveSelect);
     addAndMakeVisible(&keyboard);
-
+    addAndMakeVisible(&adsrSliders);
+    
     // Add listeners
     //freqSlide.addListener(this);
     waveSelect.addListener(this);
-
-
+    adsrSliders.addMouseListener(this, true);
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
@@ -58,6 +59,10 @@ void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
 {
     audioProcessor.wave = waveSelect.getSelectedId();
+}
+
+void SubsynthAudioProcessorEditor::mouseDrag(const juce::MouseEvent &event) {
+    audioProcessor.changeADSREnv(adsrSliders.getEnvelope());
 }
 
 //==============================================================================
@@ -81,5 +86,8 @@ void SubsynthAudioProcessorEditor::resized()
     //freqSlide.setBounds(40, 30, 20, getHeight() - 60);
     //freqLabel.setBounds(10, 10, 90, 20);
     waveSelect.setBounds(10, 20, 90, 20);
-    keyboard.setBounds(10, 50, getWidth() - 20, getHeight() - 50);
+    keyboard.setBounds(10, 200, getWidth() - 20, getHeight() - 200);
+    
+    // ADSR Components
+    adsrSliders.setBounds(150, 50, 400, 100);
 }

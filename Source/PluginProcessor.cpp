@@ -106,8 +106,6 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     synth.addVoice(myVoice);
     myVoice->prepareToPlay(sampleRate, samplesPerBlock, getNumInputChannels());
 
-
-
 }
 
 void SubsynthAudioProcessor::releaseResources()
@@ -184,6 +182,14 @@ void SubsynthAudioProcessor::setStateInformation (const void* data, int sizeInBy
     // whose contents will have been created by the getStateInformation() call.
 }
 
+//====== UI Component Callbacks ================================================
+
+
+void SubsynthAudioProcessor::changeADSREnv(juce::ADSR::Parameters params) {
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setADSR(params);
+    }
+}
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
