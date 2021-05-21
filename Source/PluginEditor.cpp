@@ -89,5 +89,5 @@ void SubsynthAudioProcessorEditor::resized()
     keyboard.setBounds(10, 200, getWidth() - 20, getHeight() - 200);
     
     // ADSR Components
-    adsrSliders.setBounds(100, 0, 500, 100);
+    adsrSliders.setBounds(150, 50, 400, 100);
 }
