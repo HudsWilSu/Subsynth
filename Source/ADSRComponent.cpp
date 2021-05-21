@@ -14,7 +14,6 @@ ADSRWheel::ADSRWheel() {
     setRotaryStyle();
     addAndMakeVisible(&rotary);
     addAndMakeVisible(&rotaryLabel);
-    rotary.addMouseListener(this, false);
 }
 
 ADSRWheel::ADSRWheel(const std::string& sliderName, ADSR_Element elem) {
