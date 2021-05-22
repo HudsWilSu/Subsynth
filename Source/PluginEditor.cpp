@@ -17,15 +17,6 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     // editor's size to whatever you need it to be.
     setSize (1000, 300);
 
-    //freqSlide.setSliderStyle(juce::Slider::LinearBarVertical);
-    //freqSlide.setRange(220.0f, 880.0f, 220.0f);
-    //freqSlide.setTextBoxStyle(juce::Slider::NoTextBox, false, 90, 0);
-    //freqSlide.setPopupDisplayEnabled(true, true, this);
-    //freqSlide.setTextValueSuffix(" Hz");
-    //freqSlide.setValue(440.0f);
-    //freqSlide.setNumDecimalPlacesToDisplay(0);
-    //freqLabel.setText("Frequency", juce::dontSendNotification);
-
     waveSelect.addItem("Sine", 1);
     waveSelect.addItem("Square", 2);
     waveSelect.addItem("Saw", 3);
@@ -58,7 +49,7 @@ void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
 {
-    audioProcessor.wave = waveSelect.getSelectedId();
+    audioProcessor.changeWaveform(combobox->getSelectedId());
 }
 
 void SubsynthAudioProcessorEditor::mouseDrag(const juce::MouseEvent &event) {

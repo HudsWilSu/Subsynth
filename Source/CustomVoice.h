@@ -24,8 +24,11 @@ public:
     // adsr functions
     juce::ADSR::Parameters setADSRParams(float att, float dec, float sus, float rel);
     void setADSR(juce::ADSR::Parameters params);
+    void setWave(int waveformNum);
+    
 
 private:
+    juce::dsp::Oscillator<float>* osc;
     // Sine wave oscillator
     juce::dsp::Oscillator<float> sineOsc{ [](float x) { return std::sin(x); } };
     // Square wave oscillator
@@ -48,4 +51,5 @@ private:
     juce::dsp::Gain<float> gain;
     juce::ADSR::Parameters params;
     juce::ADSR envelope;
+    int wave = 1;
 };
