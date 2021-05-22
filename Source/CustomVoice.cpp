@@ -33,7 +33,7 @@ void CustomVoice::controllerMoved(int controllerNumber, int newControllerValue) 
 }
 
 void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numInputChannels) {
-    // Create a spec to hold prep info for oscillator
+    // Create a spec to hold prep info for dsp objects
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate = sampleRate;
@@ -61,10 +61,6 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numI
     
     gain.prepare(spec);
 
-    //sineOsc.setFrequency(freqValue);
-    //sqOsc.setFrequency(freqValue);
-    //sawOsc.setFrequency(freqValue);
-    //triOsc.setFrequency(freqValue);
     gain.setGainLinear(0.1f); // should be between 0 and 1
 }
 
@@ -93,23 +89,7 @@ void CustomVoice::setWave(int waveformNum) {
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
     // ALL AUDIO PROCESSING CODE HERE
-    //juce::dsp::Oscillator<float>* osc;
 
-    //if (wave == 1) {
-    //    osc = &sineOsc;
-    //}
-    //else if (wave == 2) {
-    //    osc = &sqOsc;
-    //}
-    //else if (wave == 3) {
-    //    osc = &sawOsc;
-    //}
-    //else {
-    //    osc = &triOsc;
-    //}
-
-    //// Check slider for changes
-    //osc->setFrequency(freqValue);
     //// Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ outputBuffer };
     // ProcessContextReplacing will fill audioBlock with processed data
