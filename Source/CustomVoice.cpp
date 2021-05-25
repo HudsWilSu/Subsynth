@@ -16,7 +16,7 @@ bool CustomVoice::canPlaySound(juce::SynthesiserSound*) {
 
 void CustomVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) {
     // midi input here
-    sineOsc.setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+    osc->setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
     envelope.noteOn();
 }
 
@@ -33,54 +33,76 @@ void CustomVoice::controllerMoved(int controllerNumber, int newControllerValue) 
 }
 
 void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numInputChannels) {
-    // Create a spec to hold prep info for oscillator
+    // Create a spec to hold prep info for dsp objects
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate = sampleRate;
     spec.numChannels = numInputChannels;
 
     envelope.setSampleRate(sampleRate);
+
     sineOsc.prepare(spec);
     sqOsc.prepare(spec);
     sawOsc.prepare(spec);
     triOsc.prepare(spec);
+
+    if (wave == 1) {
+        osc = &sineOsc;
+    }
+    else if (wave == 2) {
+        osc = &sqOsc;
+    }
+    else if (wave == 3) {
+        osc = &sawOsc;
+    }
+    else {
+        osc = &triOsc;
+    }
+    
     gain.prepare(spec);
 
-    //sineOsc.setFrequency(freqValue);
-    //sqOsc.setFrequency(freqValue);
-    //sawOsc.setFrequency(freqValue);
-    //triOsc.setFrequency(freqValue);
     gain.setGainLinear(0.1f); // should be between 0 and 1
 
     
 }
 
+
+void CustomVoice::setADSR(juce::ADSR::Parameters parameters) {
+    // set ADSR envelope
+    params = parameters;
+}
+
+void CustomVoice::setWave(int waveformNum) {
+    // set wave value
+    wave = waveformNum;
+    if (wave == 1) {
+        osc = &sineOsc;
+    }
+    else if (wave == 2) {
+        osc = &sqOsc;
+    }
+    else if (wave == 3) {
+        osc = &sawOsc;
+    }
+    else {
+        osc = &triOsc;
+    }
+}
+
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
     // ALL AUDIO PROCESSING CODE HERE
-    //juce::dsp::Oscillator<float>* osc;
 
-    //if (wave == 1) {
-    //    osc = &sineOsc;
-    //}
-    //else if (wave == 2) {
-    //    osc = &sqOsc;
-    //}
-    //else if (wave == 3) {
-    //    osc = &sawOsc;
-    //}
-    //else {
-    //    osc = &triOsc;
-    //}
-
-    //// Check slider for changes
-    //osc->setFrequency(freqValue);
     //// Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ outputBuffer };
     // ProcessContextReplacing will fill audioBlock with processed data
-    sineOsc.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    
+//    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);
+    envelope.setParameters(params);
 
     envelope.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);
+}
 
     
 

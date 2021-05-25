@@ -15,28 +15,23 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
+    setSize (1000, 300);
     setSize (800, 400);
-
-    //freqSlide.setSliderStyle(juce::Slider::LinearBarVertical);
-    //freqSlide.setRange(220.0f, 880.0f, 220.0f);
-    //freqSlide.setTextBoxStyle(juce::Slider::NoTextBox, false, 90, 0);
-    //freqSlide.setPopupDisplayEnabled(true, true, this);
-    //freqSlide.setTextValueSuffix(" Hz");
-    //freqSlide.setValue(440.0f);
-    //freqSlide.setNumDecimalPlacesToDisplay(0);
-    //freqLabel.setText("Frequency", juce::dontSendNotification);
 
     waveSelect.addItem("Sine", 1);
     waveSelect.addItem("Square", 2);
     waveSelect.addItem("Saw", 3);
     waveSelect.addItem("Triangle", 4);
     waveSelect.setSelectedId(1);
-
+    
+    
     // Expose slider to UI/Editor
     //addAndMakeVisible(&freqSlide);
     //addAndMakeVisible(&freqLabel);
     addAndMakeVisible(&waveSelect);
     addAndMakeVisible(&keyboard);
+    addAndMakeVisible(&adsrSliders);
+    
     
     // Add listeners
     //freqSlide.addListener(this);
@@ -46,6 +41,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     addAndMakeVisible(&p.wfVisualiser);
     p.wfVisualiser.setBounds(10, 200, getWidth() - 20, 100); // add to resized() below - figure out how to access p there?
 
+    adsrSliders.addMouseListener(this, true);
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
@@ -60,7 +56,11 @@ void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
 {
-    audioProcessor.wave = waveSelect.getSelectedId();
+    audioProcessor.changeWaveform(combobox->getSelectedId());
+}
+
+void SubsynthAudioProcessorEditor::mouseDrag(const juce::MouseEvent &event) {
+    audioProcessor.changeADSREnv(adsrSliders.getEnvelope());
 }
 
 //==============================================================================
@@ -84,5 +84,8 @@ void SubsynthAudioProcessorEditor::resized()
     //freqSlide.setBounds(40, 30, 20, getHeight() - 60);
     //freqLabel.setBounds(10, 10, 90, 20);
     waveSelect.setBounds(10, 20, 90, 20);
-    keyboard.setBounds(10, 50, getWidth() - 20, getHeight() - 250);
+    keyboard.setBounds(10, 200, getWidth() - 20, getHeight() - 200);
+    
+    // ADSR Components
+    adsrSliders.setBounds(150, 50, 400, 100);
 }

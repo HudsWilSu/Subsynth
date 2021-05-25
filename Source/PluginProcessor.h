@@ -55,11 +55,14 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    //====== UI Component Callbacks ================================================
+    void changeADSREnv(juce::ADSR::Parameters);
+    void changeWaveform(int waveformNum);
 
     //==============================================================================
     // Public vars
     float freqValue = 440.0f;
-    int wave = 1;
     juce::MidiKeyboardState keyState;
     
     // Waveform Visualizer
