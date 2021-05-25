@@ -15,8 +15,8 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (1000, 300);
-    setSize (800, 400);
+    //setSize (1000, 300);
+    setSize (800, 450);
 
     waveSelect.addItem("Sine", 1);
     waveSelect.addItem("Square", 2);
@@ -39,7 +39,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 
     // Waveform Visualiser
     addAndMakeVisible(&p.wfVisualiser);
-    p.wfVisualiser.setBounds(10, 200, getWidth() - 20, 100); // add to resized() below - figure out how to access p there?
+    p.wfVisualiser.setBounds(10, 320, getWidth() - 20, 100); // add to resized() below - figure out how to access p there?
 
     adsrSliders.addMouseListener(this, true);
 }
@@ -84,7 +84,7 @@ void SubsynthAudioProcessorEditor::resized()
     //freqSlide.setBounds(40, 30, 20, getHeight() - 60);
     //freqLabel.setBounds(10, 10, 90, 20);
     waveSelect.setBounds(10, 20, 90, 20);
-    keyboard.setBounds(10, 200, getWidth() - 20, getHeight() - 200);
+    keyboard.setBounds(10, 160, getWidth() - 20, 150);
     
     // ADSR Components
     adsrSliders.setBounds(150, 50, 400, 100);

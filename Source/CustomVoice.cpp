@@ -103,8 +103,3 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
 
     envelope.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);
 }
-
-    
-
-    
-}
