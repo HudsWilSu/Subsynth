@@ -22,6 +22,9 @@ void CustomVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesise
 
 void CustomVoice::stopNote(float velocity, bool allowTailOff) {
     envelope.noteOff();
+    if (!allowTailOff) {
+        clearCurrentNote();
+    }
 }
 
 void CustomVoice::pitchWheelMoved(int newPitchWheelValue) {
@@ -64,9 +67,8 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numI
     gain.setGainLinear(0.1f); // should be between 0 and 1
 }
 
-
+// set ADSR envelope
 void CustomVoice::setADSR(juce::ADSR::Parameters parameters) {
-    // set ADSR envelope
     params = parameters;
 }
 
@@ -96,8 +98,11 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     
-//    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);
     envelope.setParameters(params);
-
     envelope.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);
+    
+    // if voice is not currently playing a sound, clear note to allow voice to play another sound
+    if (!isVoiceActive()) {
+        clearCurrentNote();
+    }
 }

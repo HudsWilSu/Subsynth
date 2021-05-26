@@ -23,6 +23,12 @@ SubsynthAudioProcessor::SubsynthAudioProcessor()
                        )
 #endif
 {
+    for (int i = 0; i < numVoices; i++) {
+        CustomSound* mySound = new CustomSound;
+        CustomVoice* myVoice = new CustomVoice;
+        synth.addSound(mySound);
+        synth.addVoice(myVoice);
+    }
 }
 
 SubsynthAudioProcessor::~SubsynthAudioProcessor()
@@ -97,14 +103,11 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
-
-
-    CustomSound* mySound = new CustomSound;
-    CustomVoice* myVoice = new CustomVoice;
     synth.setCurrentPlaybackSampleRate(sampleRate);
-    synth.addSound(mySound);
-    synth.addVoice(myVoice);
-    myVoice->prepareToPlay(sampleRate, samplesPerBlock, getNumInputChannels());
+    
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        (dynamic_cast<CustomVoice*>(synth.getVoice(i)))->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumInputChannels());
+    }
 
 }
 
