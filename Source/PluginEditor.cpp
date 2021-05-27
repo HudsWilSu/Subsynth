@@ -55,7 +55,6 @@ void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
 void SubsynthAudioProcessorEditor::mouseDrag(const juce::MouseEvent &event) {
     audioProcessor.changeADSREnv(adsrSliders.getEnvelope());
 }
-
 //==============================================================================
 void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
 {

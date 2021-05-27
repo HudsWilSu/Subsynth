@@ -91,7 +91,9 @@ void CustomVoice::setWave(int waveformNum) {
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
     // ALL AUDIO PROCESSING CODE HERE
-
+    if (!isVoiceActive()) {
+        clearCurrentNote();
+    }
     //// Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ outputBuffer };
     // ProcessContextReplacing will fill audioBlock with processed data
