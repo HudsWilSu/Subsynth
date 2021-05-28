@@ -100,11 +100,9 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
-    synth.setCurrentPlaybackSampleRate(sampleRate);
-    
+    synth.setCurrentPlaybackSampleRate(sampleRate)
     for (int i = 0; i < synth.getNumVoices(); i++)
-        (dynamic_cast<CustomVoice*>(synth.getVoice(i)))->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
-    
+        (dynamic_cast<CustomVoice*>(synth.getVoice(i)))->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels()); 
 }
 
 void SubsynthAudioProcessor::releaseResources()
