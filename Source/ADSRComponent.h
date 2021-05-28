@@ -52,7 +52,6 @@ public:
     
     void paint(juce::Graphics& g) override;
     void resized() override;
-    
     void sliderValueChanged(juce::Slider* slider) override;
     
     juce::ADSR::Parameters getEnvelope();

@@ -22,7 +22,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     waveSelect.addItem("Saw", 3);
     waveSelect.addItem("Triangle", 4);
     waveSelect.setSelectedId(1);
-    
+        
     
     // Expose slider to UI/Editor
     //addAndMakeVisible(&freqSlide);
