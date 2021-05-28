@@ -32,16 +32,16 @@ void CustomVoice::controllerMoved(int controllerNumber, int newControllerValue) 
 
 }
 
-void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numInputChannels) {
+void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numOutputChannels) {
     // Create a spec to hold prep info for dsp objects
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate = sampleRate;
-    spec.numChannels = numInputChannels;
+    spec.numChannels = numOutputChannels;
 
     SVFilter.reset();
     SVFilter.prepare(spec);
-    setFilter(numInputChannels);
+    setFilter(1);
 
     envelope.setSampleRate(sampleRate);
 
@@ -97,7 +97,7 @@ void CustomVoice::setFilter(int filterNum) {
 
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
 
-        //SVFilter.state->setCutOffFrequency(sampleRate, frequency, resonance);
+        SVFilter.state->setCutOffFrequency(44000, 10000, 2.0);
     }
 }
 
@@ -109,7 +109,7 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     
     // ProcessContextReplacing will fill audioBlock with processed data
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    //SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     
 //    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);

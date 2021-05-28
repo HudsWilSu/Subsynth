@@ -104,7 +104,7 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     synth.setCurrentPlaybackSampleRate(sampleRate);
     synth.addSound(mySound);
     synth.addVoice(myVoice);
-    myVoice->prepareToPlay(sampleRate, samplesPerBlock, getNumInputChannels());
+    myVoice->prepareToPlay(sampleRate, samplesPerBlock, getNumOutputChannels());
 
     wfVisualiser.clear();
 
