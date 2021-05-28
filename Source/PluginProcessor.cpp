@@ -20,7 +20,7 @@ SubsynthAudioProcessor::SubsynthAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       )//, IIRFilter(juce::dsp::IIR::Coefficients<float>::makeLowPass(44100, 20000.0f, 0.1f))
 #endif
 {
 }
@@ -197,6 +197,12 @@ void SubsynthAudioProcessor::changeADSREnv(juce::ADSR::Parameters params) {
 void SubsynthAudioProcessor::changeWaveform(int waveformNum) {
     for (int i = 0; i < synth.getNumVoices(); i++) {
         dynamic_cast<CustomVoice*>(synth.getVoice(i))->setWave(waveformNum);
+    }
+}
+
+void SubsynthAudioProcessor::changeFilter(int filterNum) {
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setFilter(filterNum);
     }
 }
 //==============================================================================

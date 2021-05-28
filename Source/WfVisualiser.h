@@ -11,8 +11,7 @@
 #include <JuceHeader.h>
 #pragma once
 
-class WaveformVisualiser : public juce::AudioVisualiserComponent
-{
+class WaveformVisualiser : public juce::AudioVisualiserComponent {
 public:
     // constructor
     WaveformVisualiser() : AudioVisualiserComponent(2) // number of channels getTotalNumInputChannels()

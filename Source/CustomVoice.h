@@ -26,6 +26,7 @@ public:
     void setADSR(juce::ADSR::Parameters params);
     void setWave(int waveformNum);
     
+    void setFilter(int filterNum);
 
 private:
     juce::dsp::Oscillator<float>* osc;
@@ -52,4 +53,6 @@ private:
     juce::ADSR::Parameters params;
     juce::ADSR envelope;
     int wave = 1;
+    juce::dsp::ProcessorDuplicator<juce::dsp::StateVariableFilter::Filter<float>, juce::dsp::StateVariableFilter::Parameters<float>> SVFilter;
+
 };

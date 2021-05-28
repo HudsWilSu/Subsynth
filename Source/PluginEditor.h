@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "ADSRComponent.h"
 #include "WfVisualiser.h"
+#include "Filter.h"
 
 //==============================================================================
 /**
@@ -31,6 +32,8 @@ private:
     void sliderValueChanged(juce::Slider* slider) override;
     void comboBoxChanged(juce::ComboBox * combobox) override;
     void mouseDrag(const juce::MouseEvent& event) override;
+
+    void filterSelectChanged();
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -41,6 +44,10 @@ private:
     juce::Slider freqSlide;
 //    juce::La bel freqLabel;
     juce::ComboBox waveSelect;
+
+    juce::ComboBox filterSelect;
+    juce::Slider filterCutoff;
+    juce::Slider filterRes;
     
     // ADSR Envelope Components
     ADSRComponent adsrSliders;
