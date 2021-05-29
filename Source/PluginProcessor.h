@@ -10,7 +10,6 @@
 
 #include <JuceHeader.h>
 #include "CustomVoice.h"
-#include "CustomSynth.h"
 
 //==============================================================================
 /**
@@ -69,7 +68,7 @@ private:
     //==============================================================================
     juce::Synthesiser synth;
 //    CustomSynth synth;
-    int numVoices = 2;
+    int numVoices = 3;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)
 };

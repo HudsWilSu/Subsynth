@@ -23,8 +23,9 @@ void CustomVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesise
 void CustomVoice::stopNote(float velocity, bool allowTailOff) {
     envelope.noteOff();
     
-    if (!allowTailOff || !envelope.isActive())
+    if (!allowTailOff) {
         clearCurrentNote();
+    }
 }
 
 void CustomVoice::pitchWheelMoved(int newPitchWheelValue) {
@@ -91,14 +92,22 @@ void CustomVoice::setWave(int waveformNum) {
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
     
     // if voice is not currently playing a sound, clear note to allow voice to play another sound
-    if (!isVoiceActive()) {
-        clearCurrentNote();
-    }
+ 
+    synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
+
     // ALL AUDIO PROCESSING CODE HERE
     //// Alias to chunk of audio buffer
-    juce::dsp::AudioBlock<float> audioBlock{ outputBuffer };
+    juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
     // ProcessContextReplacing will fill audioBlock with processed data
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    envelope.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);
+    envelope.applyEnvelopeToBuffer(synthBuffer, startSample, numSamples);
+
+    for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
+    {
+        outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples);
+
+        if (!envelope.isActive())
+            clearCurrentNote();
+    }
 }

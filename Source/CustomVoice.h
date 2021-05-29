@@ -53,4 +53,5 @@ private:
     juce::dsp::Gain<float> gain;
     juce::ADSR envelope;
     int wave = 1;
+    juce::AudioBuffer<float> synthBuffer;
 };
