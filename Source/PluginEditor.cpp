@@ -16,7 +16,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     //setSize (1000, 300);
-    setSize (800, 450);
+    setSize (800, 800);
 
     waveSelect.addItem("Sine", 1);
     waveSelect.addItem("Square", 2);
@@ -65,7 +65,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 
     // Waveform Visualiser
     addAndMakeVisible(&p.wfVisualiser);
-    p.wfVisualiser.setBounds(10, 320, getWidth() - 20, 100); // add to resized() below - figure out how to access p there?
+    p.wfVisualiser.setBounds(10, 320, getWidth() - 20, 400); // add to resized() below - figure out how to access p there?
 
     adsrSliders.addMouseListener(this, true);
 }

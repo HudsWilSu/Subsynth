@@ -17,7 +17,7 @@ public:
     WaveformVisualiser() : AudioVisualiserComponent(2) // number of channels getTotalNumInputChannels()
     {
         setBufferSize(512); // buffer size
-        setSamplesPerBlock(8); // samples per block
+        setSamplesPerBlock(2); // samples per block
         setColours(juce::Colours::blueviolet, juce::Colours::lightgoldenrodyellow);
     }
 };
