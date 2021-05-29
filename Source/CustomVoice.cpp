@@ -97,6 +97,18 @@ void CustomVoice::setFilter(int filterNum) {
 
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
 
+        SVFilter.state->setCutOffFrequency(44000, 5000, 2.0);
+    }
+
+    else if (filterNum == 2) {
+        SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
+
+        SVFilter.state->setCutOffFrequency(44000, 10000, 2.0);
+    }
+
+    else if (filterNum == 3) {
+        SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass;
+
         SVFilter.state->setCutOffFrequency(44000, 10000, 2.0);
     }
 }
@@ -109,7 +121,7 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     
     // ProcessContextReplacing will fill audioBlock with processed data
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    //SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     
 //    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);

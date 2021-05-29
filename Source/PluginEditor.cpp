@@ -25,6 +25,8 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     waveSelect.setSelectedId(1);
     
     filterSelect.addItem("Low Pass", 1);
+    filterSelect.addItem("Band Pass", 2);
+    filterSelect.addItem("High Pass", 3);
     filterSelect.onChange = [this] { filterSelectChanged(); };
     filterSelect.setSelectedId(1);
 
