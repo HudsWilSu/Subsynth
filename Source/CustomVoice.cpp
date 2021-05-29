@@ -121,7 +121,7 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     
     // ProcessContextReplacing will fill audioBlock with processed data
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    //SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     
 //    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);
