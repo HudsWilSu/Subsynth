@@ -92,9 +92,8 @@ void CustomVoice::setWave(int waveformNum) {
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
     
     // if voice is not currently playing a sound, clear note to allow voice to play another sound
- 
-    synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
-
+    synthBuffer.setSize(outputBuffer.getNumChannels(), outputBuffer.getNumSamples(), false, false, true);
+    
     // ALL AUDIO PROCESSING CODE HERE
     //// Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
