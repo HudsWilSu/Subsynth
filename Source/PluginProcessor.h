@@ -60,7 +60,7 @@ public:
     //====== UI Component Callbacks ================================================
     void changeADSREnv(juce::ADSR::Parameters);
     void changeWaveform(int waveformNum);
-    void changeFilter(int filterNum);
+    void changeFilter(int filterNum, float cutoff, float resonance);
 
     //==============================================================================
     // Public vars

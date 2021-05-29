@@ -33,7 +33,7 @@ private:
     void comboBoxChanged(juce::ComboBox * combobox) override;
     void mouseDrag(const juce::MouseEvent& event) override;
 
-    void filterSelectChanged();
+    void filterChanged();
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

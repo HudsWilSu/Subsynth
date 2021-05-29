@@ -27,20 +27,22 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     filterSelect.addItem("Low Pass", 1);
     filterSelect.addItem("Band Pass", 2);
     filterSelect.addItem("High Pass", 3);
-    filterSelect.onChange = [this] { filterSelectChanged(); };
+    filterSelect.onChange = [this] { filterChanged(); };
     filterSelect.setSelectedId(1);
 
-    filterCutoff.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    filterCutoff.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     filterCutoff.setRange(20.0f, 20000.0f);
-    filterCutoff.setValue(600.0f);
+    filterCutoff.setValue(10000.0f);
     filterCutoff.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     filterCutoff.setPopupDisplayEnabled(true, true, this);
-
-    filterRes.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    filterCutoff.onDragEnd = [this] { filterChanged(); };
+    
+    filterRes.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     filterRes.setRange(1.0f, 5.0f);
     filterRes.setValue(2.0f);
     filterRes.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     filterRes.setPopupDisplayEnabled(true, true, this);
+    filterRes.onDragEnd = [this] { filterChanged(); };
 
 
 
@@ -80,15 +82,17 @@ void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
 {
-    audioProcessor.changeWaveform(combobox->getSelectedId());
+    if (combobox == &(waveSelect)) {
+        audioProcessor.changeWaveform(combobox->getSelectedId());
+    }
 }
 
 void SubsynthAudioProcessorEditor::mouseDrag(const juce::MouseEvent &event) {
     audioProcessor.changeADSREnv(adsrSliders.getEnvelope());
 }
 
-void SubsynthAudioProcessorEditor::filterSelectChanged() {
-    audioProcessor.changeFilter(filterSelect.getSelectedId());
+void SubsynthAudioProcessorEditor::filterChanged() {
+    audioProcessor.changeFilter(filterSelect.getSelectedId(), filterCutoff.getValue(), filterRes.getValue());
 }
 
 //==============================================================================

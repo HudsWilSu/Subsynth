@@ -41,7 +41,7 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
 
     SVFilter.reset();
     SVFilter.prepare(spec);
-    setFilter(1);
+    setFilter(1, 20000.0, 2.0);
 
     envelope.setSampleRate(sampleRate);
 
@@ -91,25 +91,25 @@ void CustomVoice::setWave(int waveformNum) {
     }
 }
 
-void CustomVoice::setFilter(int filterNum) {
+void CustomVoice::setFilter(int filterNum, float cutoff, float resonance) {
 
     if (filterNum == 1) {
 
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
 
-        SVFilter.state->setCutOffFrequency(44000, 5000, 2.0);
+        SVFilter.state->setCutOffFrequency(44000, cutoff, resonance);
     }
 
     else if (filterNum == 2) {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
 
-        SVFilter.state->setCutOffFrequency(44000, 10000, 2.0);
+        SVFilter.state->setCutOffFrequency(44000, cutoff, resonance);
     }
 
     else if (filterNum == 3) {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass;
 
-        SVFilter.state->setCutOffFrequency(44000, 10000, 2.0);
+        SVFilter.state->setCutOffFrequency(44000, cutoff, resonance);
     }
 }
 

@@ -200,9 +200,9 @@ void SubsynthAudioProcessor::changeWaveform(int waveformNum) {
     }
 }
 
-void SubsynthAudioProcessor::changeFilter(int filterNum) {
+void SubsynthAudioProcessor::changeFilter(int filterNum, float cutoff, float resonance) {
     for (int i = 0; i < synth.getNumVoices(); i++) {
-        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setFilter(filterNum);
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setFilter(filterNum, cutoff, resonance);
     }
 }
 //==============================================================================
