@@ -7,8 +7,10 @@
 
   ==============================================================================
 */
+#pragma once
 
 #include <JuceHeader.h>
+#include "CustomSound.h"
 
 class CustomVoice : public juce::SynthesiserVoice
 {
@@ -19,7 +21,7 @@ public:
     void pitchWheelMoved(int newPitchWheelValue) override;
     void controllerMoved(int controllerNumber, int newControllerValue) override;
     void renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) override;
-    void prepareToPlay(double sampleRate, int samplesPerBlock, int numInputChannels);
+    void prepareToPlay(double sampleRate, int samplesPerBlock, int numOutputChannels);
     
     // adsr functions
     juce::ADSR::Parameters setADSRParams(float att, float dec, float sus, float rel);
@@ -49,7 +51,7 @@ private:
     } };
 
     juce::dsp::Gain<float> gain;
-    juce::ADSR::Parameters params;
     juce::ADSR envelope;
     int wave = 1;
+    juce::AudioBuffer<float> synthBuffer;
 };
