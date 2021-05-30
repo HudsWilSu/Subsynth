@@ -57,6 +57,7 @@ public:
     //====== UI Component Callbacks ================================================
     void changeADSREnv(juce::ADSR::Parameters);
     void changeWaveform(int waveformNum);
+    void changeVolume(double gain);
 
     //==============================================================================
     // Public vars

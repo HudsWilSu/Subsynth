@@ -199,6 +199,12 @@ void SubsynthAudioProcessor::changeWaveform(int waveformNum) {
         dynamic_cast<CustomVoice*>(synth.getVoice(i))->setWave(waveformNum);
     }
 }
+
+void SubsynthAudioProcessor::changeVolume(double gain) {
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setGain(gain);
+    }
+}
 //==============================================================================
 // This creates new instances of the plugin..
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()

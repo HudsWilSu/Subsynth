@@ -16,7 +16,8 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (1000, 300);
-
+    initGain();
+    
     waveSelect.addItem("Sine", 1);
     waveSelect.addItem("Square", 2);
     waveSelect.addItem("Saw", 3);
@@ -30,11 +31,14 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     addAndMakeVisible(&waveSelect);
     addAndMakeVisible(&keyboard);
     addAndMakeVisible(&adsrSliders);
+    addAndMakeVisible(&gainSlide);
+    addAndMakeVisible(&gainLabel);
     
     // Add listeners
     //freqSlide.addListener(this);
     waveSelect.addListener(this);
     adsrSliders.addMouseListener(this, true);
+    gainSlide.onValueChange = [this] { gainSlide.setValue(gainSlide.getValue(), juce::dontSendNotification); };
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
@@ -45,6 +49,9 @@ SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 void SubsynthAudioProcessorEditor::sliderValueChanged(juce::Slider* slider)
 {
     //audioProcessor.freqValue = freqSlide.getValue();
+    if (slider == &gainSlide) {
+        audioProcessor.changeVolume(gainSlide.getValue());
+    }
 }
 
 void SubsynthAudioProcessorEditor::comboBoxChanged(juce::ComboBox* combobox)
@@ -80,4 +87,17 @@ void SubsynthAudioProcessorEditor::resized()
     
     // ADSR Components
     adsrSliders.setBounds(150, 50, 400, 100);
+    
+    // gain slider
+    gainSlide.setBounds(700, 25, 50, 100);
+}
+
+void SubsynthAudioProcessorEditor::initGain() {
+    gainSlide.setSliderStyle(juce::Slider::LinearVertical);
+    gainSlide.setVelocityBasedMode(true);
+    gainSlide.onValueChange = [this] { gainSlide.setValue(gainSlide.getValue(), juce::dontSendNotification); };
+    gainSlide.setRange(0.0, 2.0, 0.1);
+    gainSlide.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
+    gainLabel.setText("Gain", juce::dontSendNotification);
+    gainLabel.attachToComponent(&gainSlide, true);
 }

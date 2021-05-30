@@ -89,6 +89,10 @@ void CustomVoice::setWave(int waveformNum) {
     }
 }
 
+void CustomVoice::setGain(double gainVal) {
+    gain.setGainLinear(gainVal);
+}
+
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
     
     // if voice is not currently playing a sound, clear note to allow voice to play another sound
