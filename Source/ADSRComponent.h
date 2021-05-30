@@ -62,6 +62,8 @@ private:
     ADSRWheel sustainRotary;
     ADSRWheel releaseRotary;
     
+    juce::ADSR::Parameters params;
+    
     float attVal;
     float decVal;
     float susVal;

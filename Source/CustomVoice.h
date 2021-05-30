@@ -49,6 +49,7 @@ private:
             return juce::jmap(x, juce::MathConstants<float>::pi / 2, juce::MathConstants<float>::pi, 1.0f, 0.0f);
         }
     } };
+    
 
     juce::dsp::Gain<float> gain;
     juce::ADSR envelope;
