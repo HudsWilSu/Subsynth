@@ -64,7 +64,7 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     }
     
     gain.prepare(spec);
-    setGain(-25.0); // should be between 0 and 1
+    setGain(-25.0);
 }
 
 // set ADSR envelope
