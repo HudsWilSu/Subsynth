@@ -64,7 +64,7 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     }
     
     gain.prepare(spec);
-    gain.setGainLinear(0.1f); // should be between 0 and 1
+    setGain(-25.0); // should be between 0 and 1
 }
 
 // set ADSR envelope
@@ -90,12 +90,11 @@ void CustomVoice::setWave(int waveformNum) {
 }
 
 void CustomVoice::setGain(double gainVal) {
-    gain.setGainLinear(gainVal);
+    gain.setGainDecibels(gainVal);
 }
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
     
-    // if voice is not currently playing a sound, clear note to allow voice to play another sound
     synthBuffer.setSize(outputBuffer.getNumChannels(), outputBuffer.getNumSamples(), false, false, true);
     
     // ALL AUDIO PROCESSING CODE HERE
@@ -106,10 +105,11 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     envelope.applyEnvelopeToBuffer(synthBuffer, startSample, numSamples);
 
+    // Add all processed data to final output buffer
     for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
     {
         outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples);
-
+        
         if (!envelope.isActive())
             clearCurrentNote();
     }

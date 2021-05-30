@@ -61,14 +61,11 @@ public:
 
     //==============================================================================
     // Public vars
-    float freqValue = 440.0f;
     juce::MidiKeyboardState keyState;
-    
 
 private:
     //==============================================================================
     juce::Synthesiser synth;
-//    CustomSynth synth;
     int numVoices = 3;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)

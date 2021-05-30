@@ -11,7 +11,6 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "ADSRComponent.h"
-#include "GainSlider.h"
 
 //==============================================================================
 /**
@@ -32,23 +31,19 @@ private:
     void comboBoxChanged(juce::ComboBox * combobox) override;
     void mouseDrag(const juce::MouseEvent& event) override;
     
-    void initGain();
+    void setupGain();
     
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    
     SubsynthAudioProcessor& audioProcessor;
 
     // UI elements
-    juce::Slider freqSlide;
-//    juce::La bel freqLabel;
     juce::ComboBox waveSelect;
     // ADSR Envelope Components
     ADSRComponent adsrSliders;
-    // Gain slider
+    // Gain slider and label
     juce::Slider gainSlide;
     juce::Label gainLabel;
-
     // Keyboard
     juce::MidiKeyboardComponent keyboard;
 

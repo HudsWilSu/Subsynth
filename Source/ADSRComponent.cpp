@@ -98,7 +98,6 @@ ADSRComponent::ADSRComponent(ADSRComponent&) {
 }
 
 void ADSRComponent::paint(juce::Graphics& g) {
-    g.fillAll(juce::Colour(32,80,128));
 }
 
 void ADSRComponent::resized() {
