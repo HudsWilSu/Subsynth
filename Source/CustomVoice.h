@@ -27,7 +27,7 @@ public:
     juce::ADSR::Parameters setADSRParams(float att, float dec, float sus, float rel);
     void setADSR(juce::ADSR::Parameters params);
     void setWave(int waveformNum);
-    
+    void setGain(double gain);
 
 private:
     juce::dsp::Oscillator<float>* osc;
@@ -49,6 +49,7 @@ private:
             return juce::jmap(x, juce::MathConstants<float>::pi / 2, juce::MathConstants<float>::pi, 1.0f, 0.0f);
         }
     } };
+    
 
     juce::dsp::Gain<float> gain;
     juce::ADSR envelope;
