@@ -103,16 +103,17 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
     synthBuffer.clear();
 
-    //// Alias to chunk of audio buffer
+    // Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
     // ProcessContextReplacing will fill audioBlock with processed data
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 
+    // Apply ADSR to entire subset buffer
     envelope.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
 
-    for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
-    {
+    // Add all samples from subset buffer back to output
+    for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
         outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples, 1.0f);
 
         if (!envelope.isActive()) {
