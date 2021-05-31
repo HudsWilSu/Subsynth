@@ -69,7 +69,7 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     }
     
     gain.prepare(spec);
-    gain.setGainLinear(0.1f); // should be between 0 and 1
+    setGain(-25.0);
 }
 
 // set ADSR envelope
@@ -93,6 +93,10 @@ void CustomVoice::setWave(int waveformNum) {
     else {
         osc = &triOsc;
     }
+}
+
+void CustomVoice::setGain(double gainVal) {
+    gain.setGainDecibels(gainVal);
 }
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {

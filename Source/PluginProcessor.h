@@ -57,16 +57,15 @@ public:
     //====== UI Component Callbacks ================================================
     void changeADSREnv(juce::ADSR::Parameters);
     void changeWaveform(int waveformNum);
+    void changeVolume(double gain);
 
     //==============================================================================
     // Public vars
     juce::MidiKeyboardState keyState;
-    
 
 private:
     //==============================================================================
     juce::Synthesiser synth;
-//    CustomSynth synth;
     int numVoices = 3;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)

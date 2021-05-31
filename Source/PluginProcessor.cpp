@@ -100,6 +100,7 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+
     synth.setCurrentPlaybackSampleRate(sampleRate);
     for (int i = 0; i < synth.getNumVoices(); i++)
         (dynamic_cast<CustomVoice*>(synth.getVoice(i)))->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels()); 
@@ -196,6 +197,12 @@ void SubsynthAudioProcessor::changeADSREnv(juce::ADSR::Parameters params) {
 void SubsynthAudioProcessor::changeWaveform(int waveformNum) {
     for (int i = 0; i < synth.getNumVoices(); i++) {
         dynamic_cast<CustomVoice*>(synth.getVoice(i))->setWave(waveformNum);
+    }
+}
+
+void SubsynthAudioProcessor::changeVolume(double gain) {
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setGain(gain);
     }
 }
 //==============================================================================
