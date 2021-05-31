@@ -60,7 +60,6 @@ public:
 
     //==============================================================================
     // Public vars
-    float freqValue = 440.0f;
     juce::MidiKeyboardState keyState;
     
 

@@ -43,7 +43,12 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     spec.sampleRate = sampleRate;
     spec.numChannels = numOutputChannels;
 
+    juce::ADSR::Parameters initADSR{
+        0.1f, 0.1f, 0.1f, 0.1f
+    };
+
     envelope.setSampleRate(sampleRate);
+    envelope.setParameters(initADSR);
     
     sineOsc.prepare(spec);
     sqOsc.prepare(spec);
@@ -69,6 +74,7 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
 
 // set ADSR envelope
 void CustomVoice::setADSR(juce::ADSR::Parameters parameters) {
+    envelope.reset();
     envelope.setParameters(parameters);
 }
 
@@ -90,23 +96,28 @@ void CustomVoice::setWave(int waveformNum) {
 }
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
-    
-    // if voice is not currently playing a sound, clear note to allow voice to play another sound
-    synthBuffer.setSize(outputBuffer.getNumChannels(), outputBuffer.getNumSamples(), false, false, true);
-    
+
     // ALL AUDIO PROCESSING CODE HERE
+
+    // Initialize subset buffer
+    synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
+    synthBuffer.clear();
+
     //// Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
     // ProcessContextReplacing will fill audioBlock with processed data
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    envelope.applyEnvelopeToBuffer(synthBuffer, startSample, numSamples);
+
+    envelope.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
 
     for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
     {
-        outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples);
+        outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples, 1.0f);
 
-        if (!envelope.isActive())
+        if (!envelope.isActive()) {
             clearCurrentNote();
+            envelope.reset();
+        }
     }
 }
