@@ -90,7 +90,7 @@ void SubsynthAudioProcessorEditor::setupGain() {
     gainSlide.setSkewFactor(2.0);
     gainSlide.setRange(juce::Range<double>(-50.0, 0.0), 2.0);
     gainSlide.setPopupDisplayEnabled(true, true, nullptr);
-    
+    gainSlide.setValue(-25.0)
     gainSlide.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     gainLabel.setText("Gain(dB)", juce::dontSendNotification);
     gainLabel.attachToComponent(&gainSlide, true);
