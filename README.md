@@ -16,8 +16,17 @@ Portland State University
  - Learn the JUCE framework
 
 ### What We Achieved
+ 
+blah blah blah
 
-stuff, things
+### How It Went
+
+blah di blah blah
+
+
+### How We Tested
+
+blah blah blah edge cases blah
 
 ---
 ## Setup
