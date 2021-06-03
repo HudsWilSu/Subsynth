@@ -30,6 +30,8 @@ public:
     void setGain(double gain);
     
     void setFilter(int filterNum, float cutoff, float resonance);
+    
+    double sampleRateHolder = 0;
 
 private:
     juce::dsp::Oscillator<float>* osc;

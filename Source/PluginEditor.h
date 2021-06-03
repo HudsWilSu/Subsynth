@@ -34,7 +34,6 @@ private:
     
     void setupGain();
     
-
     void filterChanged();
     
     // This reference is provided as a quick way for your editor to

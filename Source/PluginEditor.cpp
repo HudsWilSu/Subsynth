@@ -15,7 +15,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (1000, 300);
+    ///setSize (1000, 300);
     setupGain();
     
     setSize (800, 565);
@@ -25,9 +25,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     waveSelect.addItem("Saw", 3);
     waveSelect.addItem("Triangle", 4);
     waveSelect.setSelectedId(1);
-        
-    
-    
+            
     filterSelect.addItem("Low Pass", 1);
     filterSelect.addItem("Band Pass", 2);
     filterSelect.addItem("High Pass", 3);
@@ -47,8 +45,6 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     filterRes.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     filterRes.setPopupDisplayEnabled(true, true, this);
     filterRes.onDragEnd = [this] { filterChanged(); };
-
-
 
     // Expose slider to UI/Editor
     addAndMakeVisible(&waveSelect);
@@ -140,7 +136,7 @@ void SubsynthAudioProcessorEditor::resized() {
     filterRes.setBounds(110, 125, 100, 50);
 
     // ADSR Components
-    adsrSliders.setBounds(150, 50, 400, 100);
+    adsrSliders.setBounds(220, 50, 400, 100);
     
     // gain slider
     gainSlide.setBounds(700, 25, 100, 100);

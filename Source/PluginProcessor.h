@@ -10,7 +10,6 @@
 
 #include <JuceHeader.h>
 #include "CustomVoice.h"
-#include "CustomSound.h"
 #include "WfVisualiser.h"
 
 //==============================================================================

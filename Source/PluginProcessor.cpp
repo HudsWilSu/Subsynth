@@ -19,7 +19,7 @@ SubsynthAudioProcessor::SubsynthAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )//, IIRFilter(juce::dsp::IIR::Coefficients<float>::makeLowPass(44100, 20000.0f, 0.1f))
+                       )
 #endif
 {
     synth.addSound(new CustomSound());
@@ -104,12 +104,8 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     synth.setCurrentPlaybackSampleRate(sampleRate);
     for (int i = 0; i < synth.getNumVoices(); i++)
         (dynamic_cast<CustomVoice*>(synth.getVoice(i)))->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels()); 
-    synth.addSound(mySound);
-    synth.addVoice(myVoice);
-    myVoice->prepareToPlay(sampleRate, samplesPerBlock, getNumOutputChannels());
-
+    
     wfVisualiser.clear();
-
 }
 
 void SubsynthAudioProcessor::releaseResources()
