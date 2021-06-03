@@ -15,7 +15,6 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    //setSize (1000, 300);
     setSize (800, 565);
 
     waveSelect.addItem("Sine", 1);

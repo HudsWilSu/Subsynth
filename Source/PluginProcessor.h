@@ -12,7 +12,6 @@
 #include "CustomVoice.h"
 #include "CustomSound.h"
 #include "WfVisualiser.h"
-#include "Filter.h"
 
 //==============================================================================
 /**
@@ -73,8 +72,6 @@ public:
 private:
     //==============================================================================
     juce::Synthesiser synth;
-    //juce::dsp::ProcessorDuplicator<juce::dsp::IIR::Filter<float>, struct juce::dsp::IIR::Coefficients<float>> IIRFilter;
-    //Filters filters;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)
 };

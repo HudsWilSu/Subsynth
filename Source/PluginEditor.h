@@ -12,7 +12,6 @@
 #include "PluginProcessor.h"
 #include "ADSRComponent.h"
 #include "WfVisualiser.h"
-#include "Filter.h"
 
 //==============================================================================
 /**
