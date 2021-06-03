@@ -2,7 +2,8 @@
 
 <JUCERPROJECT id="E2dFzH" name="Subsynth" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
+              pluginFormats="buildAU,buildStandalone,buildVST3">
   <MAINGROUP id="MmmQmm" name="Subsynth">
     <GROUP id="{72F69890-37C4-A7C0-CD11-0D045D68D964}" name="Source">
       <FILE id="HLE9jp" name="ADSRComponent.cpp" compile="1" resource="0"

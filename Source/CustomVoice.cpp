@@ -10,8 +10,8 @@
 
 #include "CustomVoice.h"
 
-bool CustomVoice::canPlaySound(juce::SynthesiserSound*) {
-    return true;
+bool CustomVoice::canPlaySound(juce::SynthesiserSound* sound) {
+    return dynamic_cast<CustomSound*>(sound) != nullptr;
 }
 
 void CustomVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) {
@@ -22,6 +22,10 @@ void CustomVoice::startNote(int midiNoteNumber, float velocity, juce::Synthesise
 
 void CustomVoice::stopNote(float velocity, bool allowTailOff) {
     envelope.noteOff();
+    
+    if (!allowTailOff) {
+        clearCurrentNote();
+    }
 }
 
 void CustomVoice::pitchWheelMoved(int newPitchWheelValue) {
@@ -39,12 +43,18 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     spec.sampleRate = sampleRate;
     spec.numChannels = numOutputChannels;
 
+    juce::ADSR::Parameters initADSR{
+        0.1f, 0.1f, 0.1f, 0.1f
+    };
+    spec.numChannels = numOutputChannels;
+
     SVFilter.reset();
     SVFilter.prepare(spec);
     setFilter(1, 20000.0, 2.0);
 
     envelope.setSampleRate(sampleRate);
-
+    envelope.setParameters(initADSR);
+    
     sineOsc.prepare(spec);
     sqOsc.prepare(spec);
     sawOsc.prepare(spec);
@@ -64,14 +74,13 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     }
 
     gain.prepare(spec);
-
-    gain.setGainLinear(0.1f); // should be between 0 and 1
+    setGain(-25.0);
 }
 
-
+// set ADSR envelope
 void CustomVoice::setADSR(juce::ADSR::Parameters parameters) {
-    // set ADSR envelope
-    params = parameters;
+    envelope.reset();
+    envelope.setParameters(parameters);
 }
 
 void CustomVoice::setWave(int waveformNum) {
@@ -113,8 +122,20 @@ void CustomVoice::setFilter(int filterNum, float cutoff, float resonance) {
     }
 }
 
+void CustomVoice::setGain(double gainVal) {
+    gain.setGainDecibels(gainVal);
+}
+
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
+
     // ALL AUDIO PROCESSING CODE HERE
+
+    // Initialize subset buffer
+    synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
+    synthBuffer.clear();
+
+    // Alias to chunk of audio buffer
+    juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
     
     //// Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ outputBuffer };
@@ -123,9 +144,19 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    
-//    params = setADSRParams(params.attack, 0.1f, 0.1f, 1.0f);
-    envelope.setParameters(params);
 
+    // Apply ADSR to entire subset buffer
+    envelope.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
+
+    // Add all samples from subset buffer back to output
+    for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
+        outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples, 1.0f);
+
+        if (!envelope.isActive()) {
+            clearCurrentNote();
+            envelope.reset();
+        }
+    }
+}
     envelope.applyEnvelopeToBuffer(outputBuffer, startSample, numSamples);
 }

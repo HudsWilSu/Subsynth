@@ -59,12 +59,13 @@ public:
     //====== UI Component Callbacks ================================================
     void changeADSREnv(juce::ADSR::Parameters);
     void changeWaveform(int waveformNum);
+    void changeVolume(double gain);
     void changeFilter(int filterNum, float cutoff, float resonance);
 
     //==============================================================================
     // Public vars
-    float freqValue = 440.0f;
     juce::MidiKeyboardState keyState;
+
     
     // Waveform Visualizer
     WaveformVisualiser wfVisualiser;
@@ -72,6 +73,8 @@ public:
 private:
     //==============================================================================
     juce::Synthesiser synth;
+    int numVoices = 3;
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)
 };
