@@ -39,6 +39,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     filterCutoff.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
     filterCutoff.setPopupDisplayEnabled(true, true, this);
     filterCutoff.onDragEnd = [this] { filterChanged(); };
+    filterCutoff.setTextValueSuffix(" Hz");
     
     filterRes.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     filterRes.setRange(1.0f, 5.0f, 0.1f);
