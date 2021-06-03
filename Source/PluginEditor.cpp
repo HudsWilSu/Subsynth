@@ -33,7 +33,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     filterSelect.setSelectedId(1);
 
     filterCutoff.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
-    filterCutoff.setRange(20.0f, 20000.0f, 0.01f);
+    filterCutoff.setRange(20.0f, 20000.0f, 1.0f);
     filterCutoff.setSkewFactorFromMidPoint(5000);
     filterCutoff.setValue(10000.0f);
     filterCutoff.setTextBoxStyle(juce::Slider::NoTextBox, false, 0, 0);
