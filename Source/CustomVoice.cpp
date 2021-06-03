@@ -48,7 +48,6 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     juce::ADSR::Parameters initADSR{
         0.1f, 0.1f, 0.1f, 0.1f
     };
-    spec.numChannels = numOutputChannels;
 
     SVFilter.reset();
     SVFilter.prepare(spec);
