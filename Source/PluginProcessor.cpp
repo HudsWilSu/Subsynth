@@ -104,6 +104,8 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     synth.setCurrentPlaybackSampleRate(sampleRate);
     for (int i = 0; i < synth.getNumVoices(); i++)
         (dynamic_cast<CustomVoice*>(synth.getVoice(i)))->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels()); 
+    
+    wfVisualiser.clear();
 }
 
 void SubsynthAudioProcessor::releaseResources()
@@ -158,6 +160,8 @@ void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     // injectIndirectEvents bool (last argument) must be true
     keyState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+
+    wfVisualiser.pushBuffer(buffer);
 }
 
 //==============================================================================
@@ -203,6 +207,12 @@ void SubsynthAudioProcessor::changeWaveform(int waveformNum) {
 void SubsynthAudioProcessor::changeVolume(double gain) {
     for (int i = 0; i < synth.getNumVoices(); i++) {
         dynamic_cast<CustomVoice*>(synth.getVoice(i))->setGain(gain);
+    }
+}
+
+void SubsynthAudioProcessor::changeFilter(int filterNum, float cutoff, float resonance) {
+    for (int i = 0; i < synth.getNumVoices(); i++) {
+        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setFilter(filterNum, cutoff, resonance);
     }
 }
 //==============================================================================

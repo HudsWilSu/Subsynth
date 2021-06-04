@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "ADSRComponent.h"
+#include "WfVisualiser.h"
 
 //==============================================================================
 /**
@@ -33,12 +34,19 @@ private:
     
     void setupGain();
     
+    void filterChanged();
+    
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SubsynthAudioProcessor& audioProcessor;
 
     // UI elements
     juce::ComboBox waveSelect;
+
+    juce::ComboBox filterSelect;
+    juce::Slider filterCutoff;
+    juce::Slider filterRes;
+    
     // ADSR Envelope Components
     ADSRComponent adsrSliders;
     // Gain slider and label

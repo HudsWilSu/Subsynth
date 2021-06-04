@@ -28,6 +28,10 @@ public:
     void setADSR(juce::ADSR::Parameters params);
     void setWave(int waveformNum);
     void setGain(double gain);
+    
+    void setFilter(int filterNum, float cutoff, float resonance);
+    
+    double sampleRateHolder = 0;
 
 private:
     juce::dsp::Oscillator<float>* osc;
@@ -55,4 +59,6 @@ private:
     juce::ADSR envelope;
     int wave = 1;
     juce::AudioBuffer<float> synthBuffer;
+    juce::dsp::ProcessorDuplicator<juce::dsp::StateVariableFilter::Filter<float>, juce::dsp::StateVariableFilter::Parameters<float>> SVFilter;
+
 };

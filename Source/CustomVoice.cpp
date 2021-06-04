@@ -43,9 +43,15 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     spec.sampleRate = sampleRate;
     spec.numChannels = numOutputChannels;
 
+    sampleRateHolder = sampleRate;
+
     juce::ADSR::Parameters initADSR{
         0.1f, 0.1f, 0.1f, 0.1f
     };
+
+    SVFilter.reset();
+    SVFilter.prepare(spec);
+    setFilter(1, 20000.0, 2.0);
 
     envelope.setSampleRate(sampleRate);
     envelope.setParameters(initADSR);
@@ -67,7 +73,7 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
     else {
         osc = &triOsc;
     }
-    
+
     gain.prepare(spec);
     setGain(-25.0);
 }
@@ -95,6 +101,28 @@ void CustomVoice::setWave(int waveformNum) {
     }
 }
 
+void CustomVoice::setFilter(int filterNum, float cutoff, float resonance) {
+
+    if (filterNum == 1) {
+
+        SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
+
+        SVFilter.state->setCutOffFrequency(sampleRateHolder, cutoff, resonance);
+    }
+
+    else if (filterNum == 2) {
+        SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
+
+        SVFilter.state->setCutOffFrequency(sampleRateHolder, cutoff, resonance);
+    }
+
+    else if (filterNum == 3) {
+        SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass;
+
+        SVFilter.state->setCutOffFrequency(sampleRateHolder, cutoff, resonance);
+    }
+}
+
 void CustomVoice::setGain(double gainVal) {
     gain.setGainDecibels(gainVal);
 }
@@ -109,8 +137,10 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
 
     // Alias to chunk of audio buffer
     juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
+      
     // ProcessContextReplacing will fill audioBlock with processed data
     osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
     gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
 
     // Apply ADSR to entire subset buffer
