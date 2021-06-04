@@ -66,7 +66,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 
     // Waveform Visualiser
     addAndMakeVisible(&p.wfVisualiser);
-    p.wfVisualiser.setBounds(10, 360, getWidth() - 20, 200); // add to resized() below - figure out how to access p there?
+    //p.wfVisualiser.setBounds(10, 360, getWidth() - 20, 200); // add to resized() below - figure out how to access p there?
 
     adsrSliders.addMouseListener(this, true);
     gainSlide.addListener(this);
@@ -136,6 +136,9 @@ void SubsynthAudioProcessorEditor::resized() {
     filterSelect.setBounds(110, 55, 100, 20);
     filterCutoff.setBounds(110, 85, 100, 50);
     filterRes.setBounds(110, 125, 100, 50);
+
+    // Waveform Visualiser
+    audioProcessor.wfVisualiser.setBounds(10, 360, getWidth() - 20, 200);
 
     // ADSR Components
     adsrSliders.setBounds(220, 50, 400, 100);
