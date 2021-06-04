@@ -32,8 +32,13 @@ public:
     void setFilter(int filterNum, float cutoff, float resonance);
     
     double sampleRateHolder = 0;
-
+    
+    juce::dsp::StateVariableFilter::Parameters<float>::Type getFilterType();
+    
+    friend void SubsynthAudioProcessor::runTests();
 private:
+    
+    
     juce::dsp::Oscillator<float>* osc;
     // Sine wave oscillator
     juce::dsp::Oscillator<float> sineOsc{ [](float x) { return std::sin(x); } };

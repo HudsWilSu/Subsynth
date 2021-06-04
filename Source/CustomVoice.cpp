@@ -155,4 +155,9 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
             envelope.reset();
         }
     }
+    
+}
+
+juce::dsp::StateVariableFilter::Parameters<float>::Type CustomVoice::getFilterType() {
+    return SVFilter.state->type;
 }

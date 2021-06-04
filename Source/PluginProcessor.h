@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "CustomVoice.h"
 #include "WfVisualiser.h"
+#include "VoiceTesting.h"
 
 //==============================================================================
 /**
@@ -60,7 +61,8 @@ public:
     void changeWaveform(int waveformNum);
     void changeVolume(double gain);
     void changeFilter(int filterNum, float cutoff, float resonance);
-
+    
+    void runTests();
     //==============================================================================
     // Public vars
     juce::MidiKeyboardState keyState;
@@ -73,7 +75,6 @@ private:
     //==============================================================================
     juce::Synthesiser synth;
     int numVoices = 3;
-
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)
 };

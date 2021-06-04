@@ -106,6 +106,7 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
         (dynamic_cast<CustomVoice*>(synth.getVoice(i)))->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels()); 
     
     wfVisualiser.clear();
+    runTests();
 }
 
 void SubsynthAudioProcessor::releaseResources()
@@ -151,7 +152,6 @@ void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
-    
     
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i) {
         buffer.clear (i, 0, buffer.getNumSamples());
@@ -214,6 +214,33 @@ void SubsynthAudioProcessor::changeFilter(int filterNum, float cutoff, float res
     for (int i = 0; i < synth.getNumVoices(); i++) {
         dynamic_cast<CustomVoice*>(synth.getVoice(i))->setFilter(filterNum, cutoff, resonance);
     }
+}
+
+void SubsynthAudioProcessor::runTests()
+{
+    CustomVoice testVoice;
+    
+    float cutoff = 20.0f, resonance = 1.0f;
+    testVoice.sampleRateHolder = 48000.0;
+    
+    // test filters
+    testVoice.setFilter(1, cutoff, resonance);
+    jassert(testVoice.getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
+    
+    testVoice.setFilter(2, cutoff, resonance);
+    jassert(testVoice.getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
+    
+    testVoice.setFilter(3, cutoff, resonance);
+    jassert(testVoice.getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
+    
+    testVoice.setWave(2);
+    jassert(testVoice.osc == &testVoice.sqOsc);
+    
+    testVoice.setWave(3);
+    jassert(testVoice.osc == &testVoice.sawOsc);
+    
+    testVoice.setWave(4);
+    jassert(testVoice.osc == &testVoice.triOsc);
 }
 //==============================================================================
 // This creates new instances of the plugin..
