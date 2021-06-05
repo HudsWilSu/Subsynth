@@ -166,7 +166,7 @@ void CustomVoice::voiceTests()
     sampleRateHolder = 48000.0;
 
     setFilter(1, cutoff, resonance);
-    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
+    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
     setFilter(2, cutoff, resonance);
     jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
     setFilter(3, cutoff, resonance);
