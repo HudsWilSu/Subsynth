@@ -158,10 +158,6 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
     
 }
 
-juce::dsp::StateVariableFilter::Parameters<float>::Type CustomVoice::getFilterType() {
-    return SVFilter.state->type;
-}
-
 void CustomVoice::voiceTests()
 {
 
@@ -170,11 +166,11 @@ void CustomVoice::voiceTests()
     sampleRateHolder = 48000.0;
 
     setFilter(1, cutoff, resonance);
-    jassert(getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
+    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
     setFilter(2, cutoff, resonance);
-    jassert(getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
+    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
     setFilter(3, cutoff, resonance);
-    jassert(getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
+    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
 
     // Test oscillators
     setWave(2);

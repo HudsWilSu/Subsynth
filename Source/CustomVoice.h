@@ -33,8 +33,6 @@ public:
     
     double sampleRateHolder = 0;
     
-    juce::dsp::StateVariableFilter::Parameters<float>::Type getFilterType();
-    
     void voiceTests();
 
 private:
