@@ -33,7 +33,7 @@ private:
     void comboBoxChanged (juce::ComboBox* combobox) override;
     void mouseDrag (const juce::MouseEvent& event) override;
 
-    void setupGain();
+    void setGainStyle();
 
     void filterChanged();
 

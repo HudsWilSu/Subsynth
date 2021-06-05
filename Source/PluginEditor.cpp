@@ -17,7 +17,8 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     // editor's size to whatever you need it to be.
     ///setSize (1000, 300);
     setSize (850, 565);
-    setupGain();
+
+    setGainStyle();
 
     waveSelect.addItem ("Sine", 1);
     waveSelect.addItem ("Square", 2);
@@ -151,7 +152,7 @@ void SubsynthAudioProcessorEditor::resized()
 }
 
 // establish GUI configuration for gain rotary
-void SubsynthAudioProcessorEditor::setupGain()
+void SubsynthAudioProcessorEditor::setGainStyle()
 {
     gainSlide.setSliderStyle (juce::Slider::Rotary);
     gainSlide.setRotaryParameters (juce::MathConstants<float>::pi, (juce::MathConstants<float>::pi * 3), true);
