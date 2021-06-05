@@ -11,13 +11,14 @@
 #include <JuceHeader.h>
 #pragma once
 
-class WaveformVisualiser : public juce::AudioVisualiserComponent {
+class WaveformVisualiser : public juce::AudioVisualiserComponent
+{
 public:
     // constructor
-    WaveformVisualiser() : AudioVisualiserComponent(2) // number of channels getTotalNumInputChannels()
+    WaveformVisualiser() : AudioVisualiserComponent (2) // number of channels getTotalNumInputChannels()
     {
-        setBufferSize(512); // buffer size
-        setSamplesPerBlock(2); // samples per block
-        setColours(juce::Colours::blueviolet, juce::Colours::lightgoldenrodyellow);
+        setBufferSize (512); // buffer size
+        setSamplesPerBlock (2); // samples per block
+        setColours (juce::Colours::blueviolet, juce::Colours::lightgoldenrodyellow);
     }
 };

@@ -8,16 +8,17 @@
 
 #pragma once
 
-#include <JuceHeader.h>
-#include "PluginProcessor.h"
 #include "ADSRComponent.h"
+#include "PluginProcessor.h"
 #include "WfVisualiser.h"
+#include <JuceHeader.h>
 
 //==============================================================================
 /**
 */
-class SubsynthAudioProcessorEditor  : public juce::AudioProcessorEditor,
-    private juce::Slider::Listener, private juce::ComboBox::Listener
+class SubsynthAudioProcessorEditor : public juce::AudioProcessorEditor,
+                                     private juce::Slider::Listener,
+                                     private juce::ComboBox::Listener
 {
 public:
     SubsynthAudioProcessorEditor (SubsynthAudioProcessor&);
@@ -28,14 +29,14 @@ public:
     void resized() override;
 
 private:
-    void sliderValueChanged(juce::Slider* slider) override;
-    void comboBoxChanged(juce::ComboBox * combobox) override;
-    void mouseDrag(const juce::MouseEvent& event) override;
-    
+    void sliderValueChanged (juce::Slider* slider) override;
+    void comboBoxChanged (juce::ComboBox* combobox) override;
+    void mouseDrag (const juce::MouseEvent& event) override;
+
     void setupGain();
-    
+
     void filterChanged();
-    
+
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     SubsynthAudioProcessor& audioProcessor;
@@ -46,7 +47,7 @@ private:
     juce::ComboBox filterSelect;
     juce::Slider filterCutoff;
     juce::Slider filterRes;
-    
+
     // ADSR Envelope Components
     ADSRComponent adsrSliders;
     // Gain slider and label

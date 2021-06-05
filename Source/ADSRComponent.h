@@ -11,7 +11,8 @@
 #pragma once
 #include <JuceHeader.h>
 
-enum ADSR_Element {
+enum ADSR_Element
+{
     attack,
     decay,
     sustain,
@@ -22,51 +23,50 @@ class ADSRWheel : public juce::Component
 {
 public:
     juce::Slider rotary;
-    
+
     ADSRWheel();
-    ADSRWheel(const std::string& sliderName, ADSR_Element element);
-    ADSRWheel(const ADSRWheel&);
-    ADSRWheel& operator=(ADSRWheel&);
+    ADSRWheel (const std::string& sliderName, ADSR_Element element);
+    ADSRWheel (const ADSRWheel&);
+    ADSRWheel& operator= (ADSRWheel&);
     ~ADSRWheel() = default;
-    
+
     void resized() override;
     juce::Slider::RotaryParameters getParams() const;
     juce::String getLabelText() const;
     double getValue();
     ADSR_Element getType();
-private:
 
+private:
     juce::Label rotaryLabel;
     ADSR_Element element;
-    
+
     void setRotaryStyle();
 };
 
-
 class ADSRComponent : public juce::Component,
-public juce::Slider::Listener {
+                      public juce::Slider::Listener
+{
 public:
     ADSRComponent();
     ~ADSRComponent() = default;
-    ADSRComponent(ADSRComponent&);
-    
-    void paint(juce::Graphics& g) override;
+    ADSRComponent (ADSRComponent&);
+
+    void paint (juce::Graphics& g) override;
     void resized() override;
-    void sliderValueChanged(juce::Slider* slider) override;
-    
+    void sliderValueChanged (juce::Slider* slider) override;
+
     juce::ADSR::Parameters getEnvelope();
 
-private:    
+private:
     ADSRWheel attackRotary;
     ADSRWheel decayRotary;
     ADSRWheel sustainRotary;
     ADSRWheel releaseRotary;
-    
+
     juce::ADSR::Parameters params;
-    
+
     float attVal;
     float decVal;
     float susVal;
     float relVal;
-    
 };
