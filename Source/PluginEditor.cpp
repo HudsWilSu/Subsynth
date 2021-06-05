@@ -18,7 +18,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     ///setSize (1000, 300);
     setupGain();
 
-    setSize (800, 565);
+    setSize (850, 565);
 
     waveSelect.addItem ("Sine", 1);
     waveSelect.addItem ("Square", 2);
@@ -110,23 +110,25 @@ void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
     // Main title
+    g.setColour(juce::Colours::darkcyan);
+    g.drawLine(0.0f, 0.0f, getWidth(), 0.0f, 60);
+    
     g.setColour (juce::Colours::white);
     g.setFont (25.0f);
-
     g.drawFittedText ("Subsynth", 0, 0, getWidth(), 30, juce::Justification::centred, 1);
 
     // Component Titles
     g.setFont (20.0f);
 
-    g.drawText ("Wave", 10, 25, 90, 30, juce::Justification::centred);
-    g.drawText ("Filter", 110, 25, 100, 30, juce::Justification::centred);
-    g.drawText ("ADSR Envelope", 220, 25, 400, 30, juce::Justification::centred);
+    g.drawText ("Wave", 10, 30, 90, 30, juce::Justification::centred);
+    g.drawText ("Filter", 110, 30, 100, 30, juce::Justification::centred);
+    g.drawText ("ADSR Envelope", 220, 30, 400, 30, juce::Justification::centred);
 
     // Sub-component Titles
     g.setFont (15.0f);
 
-    g.drawText ("Cutoff", 110, 75, 100, 30, juce::Justification::centred);
-    g.drawText ("Resonance", 110, 115, 100, 30, juce::Justification::centred);
+    g.drawText ("Cutoff", 110, 80, 100, 30, juce::Justification::centred);
+    g.drawText ("Resonance", 110, 125, 100, 30, juce::Justification::centred);
 }
 
 void SubsynthAudioProcessorEditor::resized()
@@ -137,20 +139,20 @@ void SubsynthAudioProcessorEditor::resized()
 
     //freqSlide.setBounds(40, 30, 20, getHeight() - 60);
     //freqLabel.setBounds(10, 10, 90, 20);
-    waveSelect.setBounds (10, 55, 90, 20);
-    keyboard.setBounds (10, 200, getWidth() - 20, 150);
-    filterSelect.setBounds (110, 55, 100, 20);
-    filterCutoff.setBounds (110, 85, 100, 50);
-    filterRes.setBounds (110, 125, 100, 50);
+    waveSelect.setBounds (10, 60, 90, 20);
+    keyboard.setBounds (10, 205, getWidth() - 20, 150);
+    filterSelect.setBounds (110, 60, 100, 20);
+    filterCutoff.setBounds (110, 95, 100, 50);
+    filterRes.setBounds (110, 140, 100, 50);
 
     // Waveform Visualiser
     audioProcessor.wfVisualiser.setBounds (10, 360, getWidth() - 20, 200);
 
     // ADSR Components
-    adsrSliders.setBounds (220, 50, 400, 100);
+    adsrSliders.setBounds (220, 55, 400, 100);
 
     // gain slider
-    gainSlide.setBounds (700, 25, 100, 100);
+    gainSlide.setBounds (700, 50, 100, 100);
 }
 
 // establish GUI configuration for gain rotary
@@ -168,6 +170,5 @@ void SubsynthAudioProcessorEditor::setupGain()
     gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     gainLabel.setText ("Gain(dB)", juce::dontSendNotification);
     gainLabel.attachToComponent (&gainSlide, true);
-    //adsrSliders.setBounds(150, 50, 400, 100);
     adsrSliders.setBounds (220, 55, 400, 100);
 }
