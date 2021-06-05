@@ -219,28 +219,7 @@ void SubsynthAudioProcessor::changeFilter(int filterNum, float cutoff, float res
 void SubsynthAudioProcessor::runTests()
 {
     CustomVoice testVoice;
-    
-    float cutoff = 20.0f, resonance = 1.0f;
-    testVoice.sampleRateHolder = 48000.0;
-    
-    // test filters
-    testVoice.setFilter(1, cutoff, resonance);
-    jassert(testVoice.getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
-    
-    testVoice.setFilter(2, cutoff, resonance);
-    jassert(testVoice.getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
-    
-    testVoice.setFilter(3, cutoff, resonance);
-    jassert(testVoice.getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
-    
-    testVoice.setWave(2);
-    jassert(testVoice.osc == &testVoice.sqOsc);
-    
-    testVoice.setWave(3);
-    jassert(testVoice.osc == &testVoice.sawOsc);
-    
-    testVoice.setWave(4);
-    jassert(testVoice.osc == &testVoice.triOsc);
+    testVoice.voiceTests();
 }
 //==============================================================================
 // This creates new instances of the plugin..

@@ -35,10 +35,9 @@ public:
     
     juce::dsp::StateVariableFilter::Parameters<float>::Type getFilterType();
     
-    friend void SubsynthAudioProcessor::runTests();
+    void voiceTests();
+
 private:
-    
-    
     juce::dsp::Oscillator<float>* osc;
     // Sine wave oscillator
     juce::dsp::Oscillator<float> sineOsc{ [](float x) { return std::sin(x); } };

@@ -6,9 +6,6 @@
               pluginFormats="buildAU,buildStandalone,buildVST3">
   <MAINGROUP id="MmmQmm" name="Subsynth">
     <GROUP id="{72F69890-37C4-A7C0-CD11-0D045D68D964}" name="Source">
-      <FILE id="MgzSVg" name="VoiceTesting.h" compile="0" resource="0" file="Source/VoiceTesting.h"/>
-      <FILE id="rUTmIy" name="VoiceTesting.cpp" compile="1" resource="0"
-            file="Source/VoiceTesting.cpp"/>
       <FILE id="HLE9jp" name="ADSRComponent.cpp" compile="1" resource="0"
             file="Source/ADSRComponent.cpp"/>
       <FILE id="KZ7AOj" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>

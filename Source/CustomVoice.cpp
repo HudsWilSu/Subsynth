@@ -161,3 +161,43 @@ void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int 
 juce::dsp::StateVariableFilter::Parameters<float>::Type CustomVoice::getFilterType() {
     return SVFilter.state->type;
 }
+
+void CustomVoice::voiceTests()
+{
+
+    // Test filter
+    float cutoff = 20.0f, resonance = 1.0f;
+    sampleRateHolder = 48000.0;
+
+    setFilter(1, cutoff, resonance);
+    jassert(getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
+    setFilter(2, cutoff, resonance);
+    jassert(getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
+    setFilter(3, cutoff, resonance);
+    jassert(getFilterType() == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
+
+    // Test oscillators
+    setWave(2);
+    jassert(osc == &sqOsc);
+    setWave(3);
+    jassert(osc == &sawOsc);
+    setWave(4);
+    jassert(osc == &triOsc);
+
+    // Test ADSR
+    const juce::ADSR::Parameters initADSR{
+    0.1f, 0.1f, 0.1f, 0.1f
+    };
+
+    setADSR(initADSR);
+    jassert(envelope.getParameters().attack == initADSR.attack);
+    jassert(envelope.getParameters().decay == initADSR.decay);
+    jassert(envelope.getParameters().sustain == initADSR.sustain);
+    jassert(envelope.getParameters().release == initADSR.release);
+
+    // Test gain
+    double initGainDb = -10.0;
+    
+    setGain(initGainDb);
+    jassert(gain.getGainDecibels() == initGainDb);
+}

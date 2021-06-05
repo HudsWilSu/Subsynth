@@ -11,7 +11,6 @@
 #include <JuceHeader.h>
 #include "CustomVoice.h"
 #include "WfVisualiser.h"
-#include "VoiceTesting.h"
 
 //==============================================================================
 /**
