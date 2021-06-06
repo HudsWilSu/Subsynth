@@ -7,8 +7,10 @@
 
   ==============================================================================
 */
+#pragma once
 
 #include <JuceHeader.h>
+#include "CustomSound.h"
 
 class CustomVoice : public juce::SynthesiserVoice
 {
@@ -19,13 +21,17 @@ public:
     void pitchWheelMoved(int newPitchWheelValue) override;
     void controllerMoved(int controllerNumber, int newControllerValue) override;
     void renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) override;
-    void prepareToPlay(double sampleRate, int samplesPerBlock, int numInputChannels);
+    void prepareToPlay(double sampleRate, int samplesPerBlock, int numOutputChannels);
     
     // adsr functions
     juce::ADSR::Parameters setADSRParams(float att, float dec, float sus, float rel);
     void setADSR(juce::ADSR::Parameters params);
     void setWave(int waveformNum);
+    void setGain(double gain);
     
+    void setFilter(int filterNum, float cutoff, float resonance);
+    
+    double sampleRateHolder = 0;
 
 private:
     juce::dsp::Oscillator<float>* osc;
@@ -47,9 +53,12 @@ private:
             return juce::jmap(x, juce::MathConstants<float>::pi / 2, juce::MathConstants<float>::pi, 1.0f, 0.0f);
         }
     } };
+    
 
     juce::dsp::Gain<float> gain;
-    juce::ADSR::Parameters params;
     juce::ADSR envelope;
     int wave = 1;
+    juce::AudioBuffer<float> synthBuffer;
+    juce::dsp::ProcessorDuplicator<juce::dsp::StateVariableFilter::Filter<float>, juce::dsp::StateVariableFilter::Parameters<float>> SVFilter;
+
 };
