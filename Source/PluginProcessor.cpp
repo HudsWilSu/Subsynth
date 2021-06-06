@@ -190,8 +190,15 @@ void SubsynthAudioProcessor::setStateInformation (const void* data, int sizeInBy
     // whose contents will have been created by the getStateInformation() call.
 }
 
-//====== UI Component Callbacks ================================================
+/**
+* ============================= UI Callbacks ========================================
+*/
 
+ // Calls the setADSR CustomVoice method to change the attack, decay, sustain, release 
+ // values of the volume envelope on each voice instantiated within the synth data member.
+ //
+ // @param params: A set of attack, decay sustain, release values in an ADSR::Parameters
+ // object for the volume envelope to be set to.
 void SubsynthAudioProcessor::changeADSREnv (juce::ADSR::Parameters params)
 {
     for (int i = 0; i < synth.getNumVoices(); i++)
@@ -200,6 +207,11 @@ void SubsynthAudioProcessor::changeADSREnv (juce::ADSR::Parameters params)
     }
 }
 
+// Calls the setWave CustomVoice method to change the waveform being produced by 
+// the oscillator in each voice of the synth data member.
+//
+// @param waveformNum: An integer representation for sine, square, saw, and triangle
+// waveforms.
 void SubsynthAudioProcessor::changeWaveform (int waveformNum)
 {
     for (int i = 0; i < synth.getNumVoices(); i++)
@@ -208,6 +220,10 @@ void SubsynthAudioProcessor::changeWaveform (int waveformNum)
     }
 }
 
+// Calls the setGain CustomVoice method to change the gain being applied to
+// the audio buffer of each voice of the synth data member
+//
+// @param gain: A number, in decibels, the gain voice data member should be set to.
 void SubsynthAudioProcessor::changeVolume (double gain)
 {
     for (int i = 0; i < synth.getNumVoices(); i++)
@@ -216,6 +232,13 @@ void SubsynthAudioProcessor::changeVolume (double gain)
     }
 }
 
+// Calls the setFilter CustomVoice method to change the filter type, cutoff frequency,
+// and resonance of the state variable filter of each voice in the synth data member
+//
+// @param filterNum: An integer representation of the filter type to be set low pass,
+// band pass, high pass.
+// @param cutoff: The cutoff frequency for the state variable filter in Hz.
+// @param resonance: The amount of resonance to be applied by the state variable filter
 void SubsynthAudioProcessor::changeFilter (int filterNum, float cutoff, float resonance)
 {
     for (int i = 0; i < synth.getNumVoices(); i++)

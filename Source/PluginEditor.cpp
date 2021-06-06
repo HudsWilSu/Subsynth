@@ -151,7 +151,7 @@ void SubsynthAudioProcessorEditor::resized()
     gainSlide.setBounds (700, 50, 100, 100);
 }
 
-// establish GUI configuration for gain rotary
+// Establishes GUI configuration for gain rotary
 void SubsynthAudioProcessorEditor::setGainStyle()
 {
     gainSlide.setSliderStyle (juce::Slider::Rotary);
