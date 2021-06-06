@@ -128,6 +128,8 @@ void CustomVoice::setGain(double gainVal) {
 }
 
 void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
+    // Code structure adapted from tapSynth code by The Audio Programmer
+    // https://github.com/TheAudioProgrammer/tapSynth/blob/main/Source/SynthVoice.cpp
 
     // ALL AUDIO PROCESSING CODE HERE
 

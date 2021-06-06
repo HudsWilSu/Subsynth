@@ -28,6 +28,8 @@ This project contains code to generate a subtractive synthesizer plug-in, built 
   - allows the user to set the resonance (range 1.0-5.0) and cutoff frequency (range 0-20,000 Hz)
 - Waveform Visualizer
   - displays a visual depiction of waveforms being generated
+- Gain Dial
+  - allows the user to set desired gain (range -50-0 dB) 
 
 
 ### Basic Project Goals
@@ -74,7 +76,8 @@ Our testing plan consisted of two main methods:
 ### Additional sections/questions to cover:
 What worked?  
 
-What didn't?  
+What didn't?
+ - Testing was a challenge for this project. JUCE is a robust framework that adds layers of abstraction to the raw data input/output and audio output in order to simplify aspects of building the application, so it was difficult to access the data flow in order to include comprehensive verification of program behavior.
 
 How satisfied are you with the result?  
 
@@ -93,17 +96,20 @@ What would you like to improve in the future?
 
 ### Windows
 - Navigate to `./Builds/YOUR EDITOR/x64/Debug/Standalone Plugin/`
-- Launch `Subsynth` executable (or w/e it is on MacOS)
+- Launch `Subsynth` executable
 
 ### MacOS
  - After exporting to XCode, be sure to select `Standalone Plugin` as the active scheme before building (the Projucer configures each project to build different target application types. For this project, we built a standalone plugin). 
- - If building the application does not automatically launch the plugin, navigate to `./Builds/MacOSX/build/Debug/` and double-click on `Subsynth`.\
+ - If building the application does not automatically launch the plugin, navigate to `./Builds/MacOSX/build/Debug/` and double-click on `Subsynth`.
 
 ### References
 ***fill in actual reference information later***
 
-JUCE
+[JUCE](https://docs.juce.com/master/index.html)
 
-Audio Programmer Youtube Channel
+[The Audio Programmer Youtube Channel](https://www.youtube.com/c/TheAudioProgrammer)
+
+[The Audio Programmer Github Repository](https://github.com/TheAudioProgrammer/tapSynth)
+ - we adapted code from this repository for select sections - specifics are documented in our source code.
 
 CS510 course materials

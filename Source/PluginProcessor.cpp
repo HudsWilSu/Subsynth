@@ -22,6 +22,9 @@ SubsynthAudioProcessor::SubsynthAudioProcessor()
                        )
 #endif
 {
+    // Initialization adapted from tapSynth code by The Audio Programmer
+    // https://github.com/TheAudioProgrammer/tapSynth/blob/main/Source/PluginProcessor.cpp
+    
     synth.addSound(new CustomSound());
     
     for (int i = 0; i < numVoices; i++) {
