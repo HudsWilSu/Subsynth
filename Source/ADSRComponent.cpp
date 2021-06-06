@@ -9,6 +9,7 @@
 */
 
 #include "ADSRComponent.h"
+#include "PluginEditor.h"
 
 ADSRWheel::ADSRWheel()
 {
@@ -72,7 +73,8 @@ void ADSRWheel::setRotaryStyle()
 
 void ADSRWheel::resized()
 {
-    rotary.setBounds (10, 30, 75, 75);
+    float width = getWidth();
+    rotary.setBounds (0.1000 * width, 0.3000 * width, 0.7500 * width, 0.7500 * width);
 }
 
 //========================================================//
@@ -111,10 +113,11 @@ void ADSRComponent::paint (juce::Graphics& g)
 
 void ADSRComponent::resized()
 {
-    attackRotary.setBounds (0, 0, 100, 100);
-    decayRotary.setBounds (100, 0, 100, 100);
-    sustainRotary.setBounds (200, 0, 100, 100);
-    releaseRotary.setBounds (300, 0, 100, 100);
+    float width = getWidth();
+    attackRotary.setBounds (0.0000 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
+    decayRotary.setBounds (0.2500 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
+    sustainRotary.setBounds (0.5000 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
+    releaseRotary.setBounds (0.7500 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
 }
 
 void ADSRComponent::sliderValueChanged (juce::Slider* slider)

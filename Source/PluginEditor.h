@@ -27,7 +27,7 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-
+ 
 private:
     int width = 850;
 
