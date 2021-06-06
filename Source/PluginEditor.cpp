@@ -110,21 +110,21 @@ void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
 
     // Main title
     g.setColour(juce::Colours::darkcyan);
-    g.drawLine(0.0f, 0.0f, getWidth(), 0.0f, 60);
+    g.drawLine(0.0000 * width, 0.0000 * width, 1.0000 * width, 0.0000 * width, 0.0706 * width);
     g.setColour (juce::Colours::white);
-    g.setFont (25.0f);
-    g.drawFittedText ("Subsynth", 0, 0, getWidth(), 30, juce::Justification::centred, 1);
+    g.setFont (0.0294 * width);
+    g.drawFittedText ("Subsynth", 0.0000 * width, 0.0000 * width, 1.0000 * width, 0.0353 * width, juce::Justification::centred, 1);
 
     // Component Titles
-    g.setFont (20.0f);
-    g.drawText ("Wave", 10, 30, 90, 30, juce::Justification::centred);
-    g.drawText ("Filter", 110, 30, 100, 30, juce::Justification::centred);
-    g.drawText ("ADSR Envelope", 220, 30, 400, 30, juce::Justification::centred);
+    g.setFont (0.0235 * width);
+    g.drawText ("Wave", 0.0118 * width, 0.0353 * width, 0.1059 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("Filter", 0.1294 * width, 0.0353 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("ADSR Envelope", 0.2588 * width, 0.0353 * width, 0.4706 * width, 0.0353 * width, juce::Justification::centred);
 
     // Sub-component Titles
-    g.setFont (15.0f);
-    g.drawText ("Cutoff", 110, 80, 100, 30, juce::Justification::centred);
-    g.drawText ("Resonance", 110, 125, 100, 30, juce::Justification::centred);
+    g.setFont (0.0176 * width);
+    g.drawText ("Cutoff", 0.1294 * width, 0.0941 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("Resonance", 0.1294 * width, 0.1471 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
 }
 
 void SubsynthAudioProcessorEditor::resized()
