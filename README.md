@@ -74,7 +74,9 @@ Our testing plan consisted of two main methods:
 ***add images of test outputs to this section?***
 
 ### Additional sections/questions to cover:
-What worked?  
+What worked?
+ - Our application can launch as a complete, standalone plugin that can be played both with the on-screen MIDI keyboard or an external MIDI controller.
+ - The oscillator, ADSR, and filters are all responsive to corresponding adjustments on the user interface with little delay. 
 
 What didn't?
  - Testing was a challenge for this project. JUCE is a robust framework that adds layers of abstraction to the raw data input/output and audio output in order to simplify aspects of building the application, so it was difficult to access the data flow in order to include comprehensive verification of program behavior.
@@ -82,6 +84,7 @@ What didn't?
 How satisfied are you with the result?  
 
 What would you like to improve in the future?
+ - Adding additional oscillators would be a good enhancement to this project. This would allow for greater variety of timbres and effects to each voice in the synthesizer. 
 
 ---
 ## Setup
