@@ -29,6 +29,8 @@ public:
     void resized() override;
 
 private:
+    int width = 850;
+
     void sliderValueChanged (juce::Slider* slider) override;
     void comboBoxChanged (juce::ComboBox* combobox) override;
     void mouseDrag (const juce::MouseEvent& event) override;

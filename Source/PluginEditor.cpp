@@ -16,7 +16,8 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     ///setSize (1000, 300);
-    setSize (850, 565);
+    
+    setSize (width, 0.665 * width);
 
     setGainStyle();
 
@@ -131,24 +132,24 @@ void SubsynthAudioProcessorEditor::resized()
     // sets the position and size of the slider with arguments (x, y, width, height)
     
     // Wave Selector
-    waveSelect.setBounds (10, 60, 90, 20);
+    waveSelect.setBounds (0.0118 * width, 0.0706 * width, 0.1059 * width, 0.0235 * width);
     
     // Keyboard
-    keyboard.setBounds (10, 205, getWidth() - 20, 150);
+    keyboard.setBounds (0.0118 * width, 0.2412 * width, 0.9765 * width, 0.1765 * width);
     
     // Filter Components
-    filterSelect.setBounds (110, 60, 100, 20);
-    filterCutoff.setBounds (110, 95, 100, 50);
-    filterRes.setBounds (110, 140, 100, 50);
+    filterSelect.setBounds (0.1294 * width, 0.0706 * width, 0.1176 * width, 0.0235 * width);
+    filterCutoff.setBounds (0.1294 * width, 0.1118 * width, 0.1176 * width, 0.0588 * width);
+    filterRes.setBounds (0.1294 * width, 0.1647 * width, 0.1176 * width, 0.0588 * width);
 
     // Waveform Visualiser
-    audioProcessor.wfVisualiser.setBounds (10, 360, getWidth() - 20, 200);
+    audioProcessor.wfVisualiser.setBounds (0.0118 * width, 0.4235 * width, 0.9765 * width, 0.2353 * width);
 
     // ADSR Components
-    adsrSliders.setBounds (220, 55, 400, 100);
+    adsrSliders.setBounds (0.2588 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
 
     // Gain Slider
-    gainSlide.setBounds (700, 50, 100, 100);
+    gainSlide.setBounds (0.8235 * width, 0.0588 * width, 0.1176 * width, 0.1176 * width);
 }
 
 // establish GUI configuration for gain rotary
