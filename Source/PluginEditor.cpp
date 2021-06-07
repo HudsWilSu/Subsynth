@@ -166,6 +166,7 @@ void SubsynthAudioProcessorEditor::setGainStyle()
     gainSlide.setValue (-25.0);
     //gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 100, 100);
+    gainLabel.setFont (0.0176 * width);
     gainLabel.setText ("Gain(dB)", juce::dontSendNotification);
     gainLabel.attachToComponent (&gainSlide, true);
     adsrSliders.setBounds (0.2589 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);

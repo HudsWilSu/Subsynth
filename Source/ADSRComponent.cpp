@@ -34,6 +34,7 @@ ADSRWheel::ADSRWheel (const ADSRWheel& oldObj)
 ADSRWheel& ADSRWheel::operator= (ADSRWheel& oldObj)
 {
     this->rotary.setRotaryParameters (oldObj.getParams());
+    this->rotaryLabel.setFont (getWidth());
     this->rotaryLabel.setText (oldObj.getLabelText(), juce::dontSendNotification);
 
     return *this;
@@ -114,6 +115,7 @@ void ADSRComponent::paint (juce::Graphics& g)
 void ADSRComponent::resized()
 {
     float width = getWidth();
+    
     attackRotary.setBounds (0.0000 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
     decayRotary.setBounds (0.2500 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
     sustainRotary.setBounds (0.5000 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
