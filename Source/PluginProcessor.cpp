@@ -81,8 +81,7 @@ double SubsynthAudioProcessor::getTailLengthSeconds() const
 // Returns the number of preset programs the processor supports. Always returns at least 1.
 int SubsynthAudioProcessor::getNumPrograms()
 {
-    return 1; // NB: some hosts don't cope very well if you tell them there are 0 programs,
-        // so this should be at least 1, even if you're not really implementing programs.
+    return 1;
 }
 
 // Returns the number of the currently active program. Programs NYI, returns 0.
@@ -96,7 +95,7 @@ void SubsynthAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-// Must return the name of a given program.
+// Returns the name of a given program. NYI, required template code.
 const juce::String SubsynthAudioProcessor::getProgramName (int index)
 {
     return {};

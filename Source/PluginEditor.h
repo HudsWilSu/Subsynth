@@ -32,27 +32,24 @@ private:
     void sliderValueChanged (juce::Slider* slider) override;
     void comboBoxChanged (juce::ComboBox* combobox) override;
     void mouseDrag (const juce::MouseEvent& event) override;
-
     void setGainStyle();
-
     void filterChanged();
 
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
     SubsynthAudioProcessor& audioProcessor;
 
     // UI elements
     juce::ComboBox waveSelect;
-
     juce::ComboBox filterSelect;
     juce::Slider filterCutoff;
     juce::Slider filterRes;
 
     // ADSR Envelope Components
     ADSRComponent adsrSliders;
+
     // Gain slider and label
     juce::Slider gainSlide;
     juce::Label gainLabel;
+
     // Keyboard
     juce::MidiKeyboardComponent keyboard;
 
