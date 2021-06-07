@@ -23,8 +23,6 @@ public:
     void renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
     void prepareToPlay (double sampleRate, int samplesPerBlock, int numOutputChannels);
 
-    // adsr functions
-    juce::ADSR::Parameters setADSRParams (float att, float dec, float sus, float rel);
     void setADSR (juce::ADSR::Parameters params);
     void setWave (int waveformNum);
     void setGain (double gain);

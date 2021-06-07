@@ -34,12 +34,15 @@ SubsynthAudioProcessor::~SubsynthAudioProcessor()
 {
 }
 
-//==============================================================================
+// Returns the name of this processor.
+//
+// @return The name of the processor as a String obj.
 const juce::String SubsynthAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
+// Returns true if the processor wants MIDI messages.
 bool SubsynthAudioProcessor::acceptsMidi() const
 {
 #if JucePlugin_WantsMidiInput
@@ -49,6 +52,7 @@ bool SubsynthAudioProcessor::acceptsMidi() const
 #endif
 }
 
+// Returns true if the processor produces MIDI messages.
 bool SubsynthAudioProcessor::producesMidi() const
 {
 #if JucePlugin_ProducesMidiOutput
@@ -58,6 +62,7 @@ bool SubsynthAudioProcessor::producesMidi() const
 #endif
 }
 
+// Returns true if this is a MIDI effect plug-in and does no audio processing.
 bool SubsynthAudioProcessor::isMidiEffect() const
 {
 #if JucePlugin_IsMidiEffect
@@ -67,36 +72,48 @@ bool SubsynthAudioProcessor::isMidiEffect() const
 #endif
 }
 
+// Returns the length of the processor's tail, in seconds. No tail used (0 seconds).
 double SubsynthAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
+// Returns the number of preset programs the processor supports. Always returns at least 1.
 int SubsynthAudioProcessor::getNumPrograms()
 {
     return 1; // NB: some hosts don't cope very well if you tell them there are 0 programs,
         // so this should be at least 1, even if you're not really implementing programs.
 }
 
+// Returns the number of the currently active program. Programs NYI, returns 0.
 int SubsynthAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
+// Called by the host to change the current program. NYI, required template code.
 void SubsynthAudioProcessor::setCurrentProgram (int index)
 {
 }
 
+// Must return the name of a given program.
 const juce::String SubsynthAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
+// Called by the host to rename a program. NYI, required template code.
 void SubsynthAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
 }
 
 //==============================================================================
+
+// Called before playback starts, to let the processor prepare itself.
+//
+// @param sampleRate: Target sample rate
+// @param samplesPerBlock: A strong hint about the maximum number of samples 
+// that will be provided in each block.
 void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
@@ -109,6 +126,8 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     wfVisualiser.clear();
 }
 
+// Called after playback has stopped, to let the object free up any 
+// resources it no longer needs.
 void SubsynthAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
@@ -116,7 +135,11 @@ void SubsynthAudioProcessor::releaseResources()
     keyState.reset();
 }
 
+
 #ifndef JucePlugin_PreferredChannelConfigurations
+// Callback to query if the AudioProcessor supports a specific layout.
+//
+// @param layouts: The bus layout to check
 bool SubsynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
 #if JucePlugin_IsMidiEffect
@@ -142,6 +165,10 @@ bool SubsynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 }
 #endif
 
+// Renders the next audio block
+//
+// @param buffer: The buffer obj to use for rendering
+// @param midiMessages: The collected MIDI messages associated with this buffer.
 void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     if (buffer.getNumSamples() == 0)
@@ -166,17 +193,23 @@ void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
 }
 
 //==============================================================================
+
+// Processor subclass must override this and return true if it can create an editor component.
 bool SubsynthAudioProcessor::hasEditor() const
 {
-    return true; // (change this to false if you choose to not supply an editor)
+    return true;
 }
 
+// Creates the processor's GUI via creating an AudioProcessorEditor
 juce::AudioProcessorEditor* SubsynthAudioProcessor::createEditor()
 {
     return new SubsynthAudioProcessorEditor (*this);
 }
 
 //==============================================================================
+
+// The host will call this method when it wants to save the processor's internal state.
+// NYI, template code.
 void SubsynthAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
@@ -184,15 +217,17 @@ void SubsynthAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
     // as intermediaries to make it easy to save and load complex data.
 }
 
+// This must restore the processor's state from a block of data previously created 
+// using getStateInformation(). NYI, template code.
 void SubsynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 }
 
-/**
-* ============================= UI Callbacks ========================================
-*/
+
+//============================= UI Callbacks ========================================
+
 
  // Calls the setADSR CustomVoice method to change the attack, decay, sustain, release 
  // values of the volume envelope on each voice instantiated within the synth data member.

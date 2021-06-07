@@ -55,7 +55,7 @@ void CustomVoice::controllerMoved (int controllerNumber, int newControllerValue)
 {
 }
 
-// Initializes and configures the various components of the voice which must be 
+// Initializes and configures the various components of the voice which must be
 // done before the voice can be used.
 //
 // @param sampleRate: The sample rate to be used in initialization. Typically the target
@@ -119,7 +119,7 @@ void CustomVoice::setADSR (juce::ADSR::Parameters parameters)
     envelope.setParameters (parameters);
 }
 
-// Changes which active oscillator between sine, square, saw, and triangle the 
+// Changes which active oscillator between sine, square, saw, and triangle the
 // voice is using.
 //
 // @param waveformNum: An integer representation for sine, square, saw, and triangle
@@ -188,13 +188,11 @@ void CustomVoice::setGain (double gainVal)
 // Produces/processes a block of audio samples into the output stream of the plug-in
 //
 // @param outputBuffer: An AudioBuffer object that will be sent to the output stream
-// @param startSample: the index in which the rendered block should be inserted into 
+// @param startSample: the index in which the rendered block should be inserted into
 // the outputBuffer
 // @param numSamples: The amount of samples that need to be rendered.
 void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
-    // ALL AUDIO PROCESSING CODE HERE
-
     // Initialize subset buffer
     synthBuffer.setSize (outputBuffer.getNumChannels(), numSamples, false, false, true);
     synthBuffer.clear();
