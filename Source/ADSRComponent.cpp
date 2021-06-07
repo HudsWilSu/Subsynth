@@ -61,13 +61,15 @@ ADSR_Element ADSRWheel::getType()
 void ADSRWheel::setRotaryStyle()
 {
     rotary.setSliderStyle (juce::Slider::Rotary);
-    rotary.setRotaryParameters (0.0, juce::MathConstants<float>::twoPi, true);
+    rotary.setRotaryParameters (juce::MathConstants<float>::pi + 0.5, (juce::MathConstants<float>::pi * 3) - 0.5, true);
     rotary.setVelocityBasedMode (true);
     rotary.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     rotary.setPopupDisplayEnabled (true, true, nullptr);
     rotary.setValue (0.1f);
     rotary.setRange (0.0f, 1.0f, 0.01f);
+
     rotaryLabel.attachToComponent (&rotary, false);
+    rotaryLabel.setJustificationType (juce::Justification::centred);
 }
 
 void ADSRWheel::resized()
