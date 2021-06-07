@@ -13,6 +13,7 @@
 // Indicates if this voice object is capable of playing the given sound.
 //
 // @param sound: A SynthesiserSound to be associated with this voice.
+// @return True if sound is not a nullptr, else false
 bool CustomVoice::canPlaySound (juce::SynthesiserSound* sound)
 {
     return dynamic_cast<CustomSound*> (sound) != nullptr;
