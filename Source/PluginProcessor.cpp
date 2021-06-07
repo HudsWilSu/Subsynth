@@ -12,20 +12,21 @@
 //==============================================================================
 SubsynthAudioProcessor::SubsynthAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  juce::AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
-                     #endif
-                       )
+    : AudioProcessor (BusesProperties()
+#if ! JucePlugin_IsMidiEffect
+#if ! JucePlugin_IsSynth
+                          .withInput ("Input", juce::AudioChannelSet::stereo(), true)
+#endif
+                          .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
+#endif
+    )
 #endif
 {
-    synth.addSound(new CustomSound());
-    
-    for (int i = 0; i < numVoices; i++) {
-        synth.addVoice(new CustomVoice());
+    synth.addSound (new CustomSound());
+
+    for (int i = 0; i < numVoices; i++)
+    {
+        synth.addVoice (new CustomVoice());
     }
 }
 
@@ -41,29 +42,29 @@ const juce::String SubsynthAudioProcessor::getName() const
 
 bool SubsynthAudioProcessor::acceptsMidi() const
 {
-   #if JucePlugin_WantsMidiInput
+#if JucePlugin_WantsMidiInput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool SubsynthAudioProcessor::producesMidi() const
 {
-   #if JucePlugin_ProducesMidiOutput
+#if JucePlugin_ProducesMidiOutput
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 bool SubsynthAudioProcessor::isMidiEffect() const
 {
-   #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     return true;
-   #else
+#else
     return false;
-   #endif
+#endif
 }
 
 double SubsynthAudioProcessor::getTailLengthSeconds() const
@@ -73,8 +74,8 @@ double SubsynthAudioProcessor::getTailLengthSeconds() const
 
 int SubsynthAudioProcessor::getNumPrograms()
 {
-    return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
-                // so this should be at least 1, even if you're not really implementing programs.
+    return 1; // NB: some hosts don't cope very well if you tell them there are 0 programs,
+        // so this should be at least 1, even if you're not really implementing programs.
 }
 
 int SubsynthAudioProcessor::getCurrentProgram()
@@ -101,10 +102,10 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 
-    synth.setCurrentPlaybackSampleRate(sampleRate);
+    synth.setCurrentPlaybackSampleRate (sampleRate);
     for (int i = 0; i < synth.getNumVoices(); i++)
-        (dynamic_cast<CustomVoice*>(synth.getVoice(i)))->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels()); 
-    
+        (dynamic_cast<CustomVoice*> (synth.getVoice (i)))->prepareToPlay (sampleRate, samplesPerBlock, getTotalNumOutputChannels());
+
     wfVisualiser.clear();
     runTests();
 }
@@ -119,49 +120,50 @@ void SubsynthAudioProcessor::releaseResources()
 #ifndef JucePlugin_PreferredChannelConfigurations
 bool SubsynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
-  #if JucePlugin_IsMidiEffect
+#if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
     return true;
-  #else
+#else
     // This is the place where you check if the layout is supported.
     // In this template code we only support mono or stereo.
     // Some plugin hosts, such as certain GarageBand versions, will only
     // load plugins that support stereo bus layouts.
     if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::mono()
-     && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
+        && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
         return false;
 
-    // This checks if the input layout matches the output layout
-   #if ! JucePlugin_IsSynth
+        // This checks if the input layout matches the output layout
+#if ! JucePlugin_IsSynth
     if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
         return false;
-   #endif
+#endif
 
     return true;
-  #endif
+#endif
 }
 #endif
 
 void SubsynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    
-    if (buffer.getNumSamples() == 0) {
+    if (buffer.getNumSamples() == 0)
+    {
         return;
     }
-    
+
     juce::ScopedNoDenormals noDenormals;
-    auto totalNumInputChannels  = getTotalNumInputChannels();
+    auto totalNumInputChannels = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
-    
-    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i) {
+
+    for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
+    {
         buffer.clear (i, 0, buffer.getNumSamples());
     }
     // Scan midi buffer and add any messages generated by onscreen keyboard to buffer
     // injectIndirectEvents bool (last argument) must be true
-    keyState.processNextMidiBuffer(midiMessages, 0, buffer.getNumSamples(), true);
-    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    keyState.processNextMidiBuffer (midiMessages, 0, buffer.getNumSamples(), true);
+    synth.renderNextBlock (buffer, midiMessages, 0, buffer.getNumSamples());
 
-    wfVisualiser.pushBuffer(buffer);
+    wfVisualiser.pushBuffer (buffer);
 }
 
 //==============================================================================
@@ -191,28 +193,35 @@ void SubsynthAudioProcessor::setStateInformation (const void* data, int sizeInBy
 
 //====== UI Component Callbacks ================================================
 
-
-void SubsynthAudioProcessor::changeADSREnv(juce::ADSR::Parameters params) {
-    for (int i = 0; i < synth.getNumVoices(); i++) {
-        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setADSR(params);
+void SubsynthAudioProcessor::changeADSREnv (juce::ADSR::Parameters params)
+{
+    for (int i = 0; i < synth.getNumVoices(); i++)
+    {
+        dynamic_cast<CustomVoice*> (synth.getVoice (i))->setADSR (params);
     }
 }
 
-void SubsynthAudioProcessor::changeWaveform(int waveformNum) {
-    for (int i = 0; i < synth.getNumVoices(); i++) {
-        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setWave(waveformNum);
+void SubsynthAudioProcessor::changeWaveform (int waveformNum)
+{
+    for (int i = 0; i < synth.getNumVoices(); i++)
+    {
+        dynamic_cast<CustomVoice*> (synth.getVoice (i))->setWave (waveformNum);
     }
 }
 
-void SubsynthAudioProcessor::changeVolume(double gain) {
-    for (int i = 0; i < synth.getNumVoices(); i++) {
-        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setGain(gain);
+void SubsynthAudioProcessor::changeVolume (double gain)
+{
+    for (int i = 0; i < synth.getNumVoices(); i++)
+    {
+        dynamic_cast<CustomVoice*> (synth.getVoice (i))->setGain (gain);
     }
 }
 
-void SubsynthAudioProcessor::changeFilter(int filterNum, float cutoff, float resonance) {
-    for (int i = 0; i < synth.getNumVoices(); i++) {
-        dynamic_cast<CustomVoice*>(synth.getVoice(i))->setFilter(filterNum, cutoff, resonance);
+void SubsynthAudioProcessor::changeFilter (int filterNum, float cutoff, float resonance)
+{
+    for (int i = 0; i < synth.getNumVoices(); i++)
+    {
+        dynamic_cast<CustomVoice*> (synth.getVoice (i))->setFilter (filterNum, cutoff, resonance);
     }
 }
 

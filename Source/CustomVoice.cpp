@@ -10,33 +10,38 @@
 
 #include "CustomVoice.h"
 
-bool CustomVoice::canPlaySound(juce::SynthesiserSound* sound) {
-    return dynamic_cast<CustomSound*>(sound) != nullptr;
+bool CustomVoice::canPlaySound (juce::SynthesiserSound* sound)
+{
+    return dynamic_cast<CustomSound*> (sound) != nullptr;
 }
 
-void CustomVoice::startNote(int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) {
+void CustomVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
+{
     // midi input here
-    osc->setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber));
+    osc->setFrequency (juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
     envelope.noteOn();
 }
 
-void CustomVoice::stopNote(float velocity, bool allowTailOff) {
+void CustomVoice::stopNote (float velocity, bool allowTailOff)
+{
     envelope.noteOff();
-    
-    if (!allowTailOff) {
+
+    if (! allowTailOff)
+    {
         clearCurrentNote();
     }
 }
 
-void CustomVoice::pitchWheelMoved(int newPitchWheelValue) {
-
+void CustomVoice::pitchWheelMoved (int newPitchWheelValue)
+{
 }
 
-void CustomVoice::controllerMoved(int controllerNumber, int newControllerValue) {
-
+void CustomVoice::controllerMoved (int controllerNumber, int newControllerValue)
+{
 }
 
-void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numOutputChannels) {
+void CustomVoice::prepareToPlay (double sampleRate, int samplesPerBlock, int numOutputChannels)
+{
     // Create a spec to hold prep info for dsp objects
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
@@ -45,112 +50,127 @@ void CustomVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int numO
 
     sampleRateHolder = sampleRate;
 
-    juce::ADSR::Parameters initADSR{
+    juce::ADSR::Parameters initADSR {
         0.1f, 0.1f, 0.1f, 0.1f
     };
 
     SVFilter.reset();
-    SVFilter.prepare(spec);
-    setFilter(1, 20000.0, 2.0);
+    SVFilter.prepare (spec);
+    setFilter (1, 20000.0, 2.0);
 
-    envelope.setSampleRate(sampleRate);
-    envelope.setParameters(initADSR);
-    
-    sineOsc.prepare(spec);
-    sqOsc.prepare(spec);
-    sawOsc.prepare(spec);
-    triOsc.prepare(spec);
+    envelope.setSampleRate (sampleRate);
+    envelope.setParameters (initADSR);
 
-    if (wave == 1) {
+    sineOsc.prepare (spec);
+    sqOsc.prepare (spec);
+    sawOsc.prepare (spec);
+    triOsc.prepare (spec);
+
+    if (wave == 1)
+    {
         osc = &sineOsc;
     }
-    else if (wave == 2) {
+    else if (wave == 2)
+    {
         osc = &sqOsc;
     }
-    else if (wave == 3) {
+    else if (wave == 3)
+    {
         osc = &sawOsc;
     }
-    else {
+    else
+    {
         osc = &triOsc;
     }
 
-    gain.prepare(spec);
-    setGain(-25.0);
+    gain.prepare (spec);
+    setGain (-25.0);
 }
 
 // set ADSR envelope
-void CustomVoice::setADSR(juce::ADSR::Parameters parameters) {
+void CustomVoice::setADSR (juce::ADSR::Parameters parameters)
+{
     envelope.reset();
-    envelope.setParameters(parameters);
+    envelope.setParameters (parameters);
 }
 
-void CustomVoice::setWave(int waveformNum) {
+void CustomVoice::setWave (int waveformNum)
+{
     // set wave value
     wave = waveformNum;
-    if (wave == 1) {
+    if (wave == 1)
+    {
         osc = &sineOsc;
     }
-    else if (wave == 2) {
+    else if (wave == 2)
+    {
         osc = &sqOsc;
     }
-    else if (wave == 3) {
+    else if (wave == 3)
+    {
         osc = &sawOsc;
     }
-    else {
+    else
+    {
         osc = &triOsc;
     }
 }
 
-void CustomVoice::setFilter(int filterNum, float cutoff, float resonance) {
-
-    if (filterNum == 1) {
-
+void CustomVoice::setFilter (int filterNum, float cutoff, float resonance)
+{
+    if (filterNum == 1)
+    {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
 
-        SVFilter.state->setCutOffFrequency(sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
     }
 
-    else if (filterNum == 2) {
+    else if (filterNum == 2)
+    {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
 
-        SVFilter.state->setCutOffFrequency(sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
     }
 
-    else if (filterNum == 3) {
+    else if (filterNum == 3)
+    {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass;
 
-        SVFilter.state->setCutOffFrequency(sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
     }
 }
 
-void CustomVoice::setGain(double gainVal) {
-    gain.setGainDecibels(gainVal);
+void CustomVoice::setGain (double gainVal)
+{
+    gain.setGainDecibels (gainVal);
 }
 
-void CustomVoice::renderNextBlock(juce::AudioBuffer< float >& outputBuffer, int startSample, int numSamples) {
-
+void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
+{
     // ALL AUDIO PROCESSING CODE HERE
 
     // Initialize subset buffer
-    synthBuffer.setSize(outputBuffer.getNumChannels(), numSamples, false, false, true);
+    synthBuffer.setSize (outputBuffer.getNumChannels(), numSamples, false, false, true);
     synthBuffer.clear();
 
     // Alias to chunk of audio buffer
-    juce::dsp::AudioBlock<float> audioBlock{ synthBuffer };
-      
+    juce::dsp::AudioBlock<float> audioBlock { synthBuffer };
+
     // ProcessContextReplacing will fill audioBlock with processed data
-    osc->process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    SVFilter.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
-    gain.process(juce::dsp::ProcessContextReplacing<float>(audioBlock));
+    osc->process (juce::dsp::ProcessContextReplacing<float> (audioBlock));
+    SVFilter.process (juce::dsp::ProcessContextReplacing<float> (audioBlock));
+    gain.process (juce::dsp::ProcessContextReplacing<float> (audioBlock));
 
     // Apply ADSR to entire subset buffer
-    envelope.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
+    envelope.applyEnvelopeToBuffer (synthBuffer, 0, synthBuffer.getNumSamples());
 
     // Add all samples from subset buffer back to output
-    for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel) {
-        outputBuffer.addFrom(channel, startSample, synthBuffer, channel, 0, numSamples, 1.0f);
+    for (int channel = 0; channel < outputBuffer.getNumChannels(); ++channel)
+    {
+        outputBuffer.addFrom (channel, startSample, synthBuffer, channel, 0, numSamples, 1.0f);
 
-        if (!envelope.isActive()) {
+        if (! envelope.isActive())
+        {
             clearCurrentNote();
             envelope.reset();
         }

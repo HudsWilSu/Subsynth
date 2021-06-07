@@ -8,14 +8,14 @@
 
 #pragma once
 
-#include <JuceHeader.h>
 #include "CustomVoice.h"
 #include "WfVisualiser.h"
+#include <JuceHeader.h>
 
 //==============================================================================
 /**
 */
-class SubsynthAudioProcessor  : public juce::AudioProcessor
+class SubsynthAudioProcessor : public juce::AudioProcessor
 {
 public:
     //==============================================================================
@@ -26,9 +26,9 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
-   #ifndef JucePlugin_PreferredChannelConfigurations
+#ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
-   #endif
+#endif
 
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
@@ -54,7 +54,7 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-    
+
     //====== UI Component Callbacks ================================================
     void changeADSREnv(juce::ADSR::Parameters);
     void changeWaveform(int waveformNum);
@@ -66,7 +66,6 @@ public:
     // Public vars
     juce::MidiKeyboardState keyState;
 
-    
     // Waveform Visualizer
     WaveformVisualiser wfVisualiser;
 
