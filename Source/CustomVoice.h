@@ -32,6 +32,8 @@ public:
     void setFilter (int filterNum, float cutoff, float resonance);
 
     double sampleRateHolder = 0;
+    
+    void voiceTests();
 
 private:
     juce::dsp::Oscillator<float>* osc;
