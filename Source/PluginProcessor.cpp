@@ -282,6 +282,8 @@ void SubsynthAudioProcessor::changeFilter (int filterNum, float cutoff, float re
     }
 }
 
+// Runs a set of unit-style tests related to methods changing DSP
+// component parameters. Must attach a debugger for proper function.
 void SubsynthAudioProcessor::runTests()
 {
     CustomVoice testVoice;

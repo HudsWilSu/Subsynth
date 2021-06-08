@@ -223,6 +223,8 @@ void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int s
     
 }
 
+// Runs a set of unit-style tests related to methods changing DSP 
+// component parameters. Must attach a debugger for proper function.
 void CustomVoice::voiceTests()
 {
 
