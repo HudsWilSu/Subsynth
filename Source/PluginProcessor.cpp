@@ -107,6 +107,7 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
         (dynamic_cast<CustomVoice*> (synth.getVoice (i)))->prepareToPlay (sampleRate, samplesPerBlock, getTotalNumOutputChannels());
 
     wfVisualiser.clear();
+    runTests();
 }
 
 void SubsynthAudioProcessor::releaseResources()
@@ -222,6 +223,12 @@ void SubsynthAudioProcessor::changeFilter (int filterNum, float cutoff, float re
     {
         dynamic_cast<CustomVoice*> (synth.getVoice (i))->setFilter (filterNum, cutoff, resonance);
     }
+}
+
+void SubsynthAudioProcessor::runTests()
+{
+    CustomVoice testVoice;
+    testVoice.voiceTests();
 }
 //==============================================================================
 // This creates new instances of the plugin..

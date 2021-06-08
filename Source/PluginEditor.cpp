@@ -72,6 +72,11 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 
     // Waveform Visualiser
     addAndMakeVisible (&p.wfVisualiser);
+
+    // Setup color scheme of interactive elements
+    getLookAndFeel().setColour (juce::Slider::thumbColourId, juce::Colours::blueviolet);
+    getLookAndFeel().setColour (juce::Slider::rotarySliderFillColourId, juce::Colours::lightgoldenrodyellow);
+    getLookAndFeel().setColour (juce::Slider::trackColourId, juce::Colours::lightgoldenrodyellow);
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
@@ -165,18 +170,15 @@ void SubsynthAudioProcessorEditor::setGainStyle()
     width = getWidth();
 
     gainSlide.setSliderStyle (juce::Slider::Rotary);
-    gainSlide.setRotaryParameters (juce::MathConstants<float>::pi, (juce::MathConstants<float>::pi * 3), true);
+    gainSlide.setRotaryParameters (juce::MathConstants<float>::pi + 0.5 , (juce::MathConstants<float>::pi * 3) - 0.5, true);
     gainSlide.setVelocityBasedMode (true);
     gainSlide.onValueChange = [this]
     { gainSlide.setValue (gainSlide.getValue(), juce::dontSendNotification); };
     gainSlide.setSkewFactor (2.0);
     gainSlide.setRange (juce::Range<double> (-50.0, 0.0), 2.0);
-    gainSlide.setPopupDisplayEnabled (true, true, nullptr);
+    gainSlide.setPopupDisplayEnabled (true, true, this);
     gainSlide.setValue (-25.0);
-    //gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
-    gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 100, 100);
-    gainLabel.setFont (0.0176 * width);
-    gainLabel.setText ("Gain(dB)", juce::dontSendNotification);
-    gainLabel.attachToComponent (&gainSlide, true);
-    adsrSliders.setBounds (0.2589 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
+    gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
+    gainSlide.setTextValueSuffix (" dB");
+    adsrSliders.setBounds(0.2589 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
 }

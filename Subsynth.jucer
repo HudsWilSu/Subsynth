@@ -9,7 +9,6 @@
       <FILE id="HLE9jp" name="ADSRComponent.cpp" compile="1" resource="0"
             file="Source/ADSRComponent.cpp"/>
       <FILE id="KZ7AOj" name="ADSRComponent.h" compile="0" resource="0" file="Source/ADSRComponent.h"/>
-      <FILE id="GcsyRG" name="WfVisualiser.h" compile="0" resource="0" file="Source/WfVisualiser.h"/>
       <FILE id="wGKEiz" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
       <FILE id="klErww" name="PluginProcessor.h" compile="0" resource="0"
