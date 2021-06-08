@@ -29,7 +29,8 @@ public:
     void resized() override;
  
 private:
-    int width = 850; // sets the width of the plug-in window, with the rest dynamically sized
+    // sets the initial width of the plug-in window, with other components dynamically sized
+    int width = 850;
 
     void sliderValueChanged (juce::Slider* slider) override;
     void comboBoxChanged (juce::ComboBox* combobox) override;
