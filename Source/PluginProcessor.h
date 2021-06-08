@@ -56,11 +56,12 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     //====== UI Component Callbacks ================================================
-    void changeADSREnv (juce::ADSR::Parameters);
-    void changeWaveform (int waveformNum);
-    void changeVolume (double gain);
-    void changeFilter (int filterNum, float cutoff, float resonance);
-
+    void changeADSREnv(juce::ADSR::Parameters);
+    void changeWaveform(int waveformNum);
+    void changeVolume(double gain);
+    void changeFilter(int filterNum, float cutoff, float resonance);
+    
+    void runTests();
     //==============================================================================
     // Public vars
     juce::MidiKeyboardState keyState;

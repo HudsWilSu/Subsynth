@@ -69,6 +69,11 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 
     // Waveform Visualiser
     addAndMakeVisible (&p.wfVisualiser);
+
+    // Setup color scheme of interactive elements
+    getLookAndFeel().setColour (juce::Slider::thumbColourId, juce::Colours::blueviolet);
+    getLookAndFeel().setColour (juce::Slider::rotarySliderFillColourId, juce::Colours::lightgoldenrodyellow);
+    getLookAndFeel().setColour (juce::Slider::trackColourId, juce::Colours::lightgoldenrodyellow);
 }
 
 SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
@@ -133,6 +138,7 @@ void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
     g.drawText ("Wave", 10, 30, 90, 30, juce::Justification::centred);
     g.drawText ("Filter", 110, 30, 100, 30, juce::Justification::centred);
     g.drawText ("ADSR Envelope", 220, 30, 400, 30, juce::Justification::centred);
+    g.drawText ("Gain", 700, 30, 100, 30, juce::Justification::centred);
 
     // Sub-component Titles
     g.setFont (15.0f);
@@ -164,23 +170,22 @@ void SubsynthAudioProcessorEditor::resized()
     adsrSliders.setBounds (220, 55, 400, 100);
 
     // Gain Slider
-    gainSlide.setBounds (700, 50, 100, 100);
+    gainSlide.setBounds (700, 65, 100, 100);
 }
 
 // Establishes GUI configuration for gain rotary
 void SubsynthAudioProcessorEditor::setGainStyle()
 {
     gainSlide.setSliderStyle (juce::Slider::Rotary);
-    gainSlide.setRotaryParameters (juce::MathConstants<float>::pi, (juce::MathConstants<float>::pi * 3), true);
+    gainSlide.setRotaryParameters (juce::MathConstants<float>::pi + 0.5 , (juce::MathConstants<float>::pi * 3) - 0.5, true);
     gainSlide.setVelocityBasedMode (true);
     gainSlide.onValueChange = [this]
     { gainSlide.setValue (gainSlide.getValue(), juce::dontSendNotification); };
     gainSlide.setSkewFactor (2.0);
     gainSlide.setRange (juce::Range<double> (-50.0, 0.0), 2.0);
-    gainSlide.setPopupDisplayEnabled (true, true, nullptr);
+    gainSlide.setPopupDisplayEnabled (true, true, this);
     gainSlide.setValue (-25.0);
     gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
-    gainLabel.setText ("Gain(dB)", juce::dontSendNotification);
-    gainLabel.attachToComponent (&gainSlide, true);
+    gainSlide.setTextValueSuffix (" dB");
     adsrSliders.setBounds (220, 55, 400, 100);
 }
