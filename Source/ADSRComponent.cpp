@@ -77,6 +77,7 @@ void ADSRWheel::setRotaryStyle()
 void ADSRWheel::resized()
 {
     float width = getWidth();
+    rotaryLabel.setFont (0.17 * width);
     rotary.setBounds (0.1000 * width, 0.3000 * width, 0.7500 * width, 0.7500 * width);
 }
 

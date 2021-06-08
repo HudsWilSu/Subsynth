@@ -125,14 +125,15 @@ void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
 
     // Component Titles
     g.setFont (0.0235 * width);
-    g.drawText ("Wave", 0.0118 * width, 0.0353 * width, 0.1059 * width, 0.0353 * width, juce::Justification::centred);
-    g.drawText ("Filter", 0.1294 * width, 0.0353 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
-    g.drawText ("ADSR Envelope", 0.2588 * width, 0.0353 * width, 0.4706 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("Wave", 0.0618 * width, 0.0353 * width, 0.1059 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("Filter", 0.1894 * width, 0.0353 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("ADSR Envelope", 0.3298 * width, 0.0353 * width, 0.4706 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("Gain", 0.8235 * width, 0.0353 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
 
     // Sub-component Titles
     g.setFont (0.0176 * width);
-    g.drawText ("Cutoff", 0.1294 * width, 0.0941 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
-    g.drawText ("Resonance", 0.1294 * width, 0.1471 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("Cutoff", 0.1894 * width, 0.0941 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
+    g.drawText ("Resonance", 0.1894 * width, 0.1471 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
 }
 
 void SubsynthAudioProcessorEditor::resized()
@@ -143,21 +144,21 @@ void SubsynthAudioProcessorEditor::resized()
     width = getWidth();
 
     // Wave Selector
-    waveSelect.setBounds (0.0118 * width, 0.0706 * width, 0.1059 * width, 0.0235 * width);
+    waveSelect.setBounds (0.0618 * width, 0.0706 * width, 0.1059 * width, 0.0235 * width);
     
     // Keyboard
     keyboard.setBounds (0.0118 * width, 0.2412 * width, 0.9765 * width, 0.1765 * width);
     
     // Filter Components
-    filterSelect.setBounds (0.1294 * width, 0.0706 * width, 0.1176 * width, 0.0235 * width);
-    filterCutoff.setBounds (0.1294 * width, 0.1118 * width, 0.1176 * width, 0.0588 * width);
-    filterRes.setBounds (0.1294 * width, 0.1647 * width, 0.1176 * width, 0.0588 * width);
+    filterSelect.setBounds (0.1894 * width, 0.0706 * width, 0.1176 * width, 0.0235 * width);
+    filterCutoff.setBounds (0.1894 * width, 0.1118 * width, 0.1176 * width, 0.0588 * width);
+    filterRes.setBounds (0.1894 * width, 0.1647 * width, 0.1176 * width, 0.0588 * width);
 
     // Waveform Visualiser
     audioProcessor.wfVisualiser.setBounds (0.0118 * width, 0.4235 * width, 0.9765 * width, 0.2353 * width);
 
     // ADSR Components
-    adsrSliders.setBounds (0.2588 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
+    adsrSliders.setBounds (0.3298 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
 
     // Gain Slider
     gainSlide.setBounds (0.8235 * width, 0.0588 * width, 0.1176 * width, 0.1176 * width);
@@ -180,5 +181,5 @@ void SubsynthAudioProcessorEditor::setGainStyle()
     gainSlide.setValue (-25.0);
     gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     gainSlide.setTextValueSuffix (" dB");
-    adsrSliders.setBounds(0.2589 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
+    adsrSliders.setBounds (0.3298 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
 }
