@@ -15,7 +15,6 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    ///setSize (1000, 300);
     
     setSize (width, 0.665 * width);
 
@@ -110,9 +109,6 @@ void SubsynthAudioProcessorEditor::filterChanged()
 //==============================================================================
 void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
 {   
-    // dynamically obtain Width for resizing purposes
-    width = getWidth();
-
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
@@ -181,5 +177,4 @@ void SubsynthAudioProcessorEditor::setGainStyle()
     gainSlide.setValue (-25.0);
     gainSlide.setTextBoxStyle (juce::Slider::NoTextBox, false, 0, 0);
     gainSlide.setTextValueSuffix (" dB");
-    adsrSliders.setBounds (0.3298 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
 }
