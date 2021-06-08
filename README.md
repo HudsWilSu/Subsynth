@@ -93,7 +93,9 @@ What would you like to improve in the future?
 - Clone repo
 - Open the `.jucer` file with the Projucer
 - Export files and launch IDE from inside Projucer - compatible with Visual Studio (Windows), XCode (MacOS) and Linux
-- Build (if building on a Mac, see below for further details)
+- Build
+
+> **_NOTE:_** We tested and built this app primarily as a standalone plugin, but it can also be built as a VST3 or AU (MacOS only) plug-in. See below for details on build instructions for each platform. 
 
 ## Run
 
@@ -102,8 +104,17 @@ What would you like to improve in the future?
 - Launch `Subsynth` executable
 
 ### MacOS
- - After exporting to XCode, be sure to select `Standalone Plugin` as the active scheme before building (the Projucer configures each project to build different target application types. For this project, we built a standalone plugin). 
- - If building the application does not automatically launch the plugin, navigate to `./Builds/MacOSX/build/Debug/` and double-click on `Subsynth`.
+ - To run as a standalone plugin (release version):
+    1. From the menu bar, navigate to Product > Scheme > Edit Scheme...
+    2. Be sure to select `Standalone Plugin` as the active scheme 
+    3. Under `Run` settings, select `Release` as the `Build Configuration`
+    4. Navigate to Product > Scheme > Build For > Run
+    5. If building the application does not automatically launch the plugin, navigate to `./Builds/MacOSX/build/Release/` and double-click on `Subsynth`.
+ - To run as a standalone plugin (debug version):
+    1. First two steps above
+    2. Under `Run` settings, select `Debug` as the `Build Configuration`
+    3. Continue with steps 4 and 5
+ - To build a VST3 or AU plug-in, change the target scheme before building. The plug-ins can be similarly launched from the `./Builds/MacOSX/build/Release/` directory.
 
 ### References
 ***fill in actual reference information later***
