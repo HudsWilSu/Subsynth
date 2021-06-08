@@ -20,7 +20,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     setSize (width, 0.665 * width);
 
     setGainStyle();
-
+ 
     waveSelect.addItem ("Sine", 1);
     waveSelect.addItem ("Square", 2);
     waveSelect.addItem ("Saw", 3);
@@ -104,7 +104,10 @@ void SubsynthAudioProcessorEditor::filterChanged()
 
 //==============================================================================
 void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
-{
+{   
+    // dynamically obtain Width for resizing purposes
+    width = getWidth();
+
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
 
@@ -131,6 +134,9 @@ void SubsynthAudioProcessorEditor::resized()
 {
     // sets the position and size of the slider with arguments (x, y, width, height)
     
+    // dynamically obtain Width for resizing purposes
+    width = getWidth();
+
     // Wave Selector
     waveSelect.setBounds (0.0118 * width, 0.0706 * width, 0.1059 * width, 0.0235 * width);
     
@@ -155,6 +161,9 @@ void SubsynthAudioProcessorEditor::resized()
 // establish GUI configuration for gain rotary
 void SubsynthAudioProcessorEditor::setGainStyle()
 {
+    // dynamically obtain width for resizing purposes
+    width = getWidth();
+
     gainSlide.setSliderStyle (juce::Slider::Rotary);
     gainSlide.setRotaryParameters (juce::MathConstants<float>::pi, (juce::MathConstants<float>::pi * 3), true);
     gainSlide.setVelocityBasedMode (true);
