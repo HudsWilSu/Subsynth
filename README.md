@@ -79,7 +79,7 @@ What worked?
  - The oscillator, ADSR, and filters are all responsive to corresponding adjustments on the user interface with little delay. 
 
 What didn't?
- - Testing was a challenge for this project. JUCE is a robust framework that adds layers of abstraction to the raw data input/output and audio output in order to simplify aspects of building the application, so it was difficult to access the data flow in order to include comprehensive verification of program behavior.
+ - Testing was a challenge for this project. JUCE is a robust framework that adds layers of abstraction to the raw data in order to simplify aspects of building the application, which had the effect of making the complete data flow difficult to follow. We would have needed to build a fully functioning plug-in host in order to perform comprehensive testing of our implementation. We instead did what we could to perform tests that run within the plug-in to verify certain behavior.
 
 How satisfied are you with the result?  
 
