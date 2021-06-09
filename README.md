@@ -98,7 +98,7 @@ What would you like to improve in the future?
 ---
 ## Build Requirements
 
-- [JUCE](https://www.juce.com/)
+- [JUCE](https://juce.com/get-juce)
 - JUCE compatible IDE/build system:
   - Windows:
     - Visual Studio, Code::Blocks
