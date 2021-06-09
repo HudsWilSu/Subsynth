@@ -115,9 +115,6 @@ void SubsynthAudioProcessor::changeProgramName (int index, const juce::String& n
 // that will be provided in each block.
 void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
-
     synth.setCurrentPlaybackSampleRate (sampleRate);
     for (int i = 0; i < synth.getNumVoices(); i++)
         (dynamic_cast<CustomVoice*> (synth.getVoice (i)))->prepareToPlay (sampleRate, samplesPerBlock, getTotalNumOutputChannels());
@@ -130,8 +127,6 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 // resources it no longer needs.
 void SubsynthAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
     keyState.reset();
 }
 
@@ -270,8 +265,8 @@ void SubsynthAudioProcessor::changeVolume (double gain)
 // Calls the setFilter CustomVoice method to change the filter type, cutoff frequency,
 // and resonance of the state variable filter of each voice in the synth data member
 //
-// @param filterNum: An integer representation of the filter type to be set low pass,
-// band pass, high pass.
+// @param filterNum: An integer representation of the filter type to be set; options
+// include low pass, band pass, and high pass.
 // @param cutoff: The cutoff frequency for the state variable filter in Hz.
 // @param resonance: The amount of resonance to be applied by the state variable filter
 void SubsynthAudioProcessor::changeFilter (int filterNum, float cutoff, float resonance)

@@ -120,8 +120,8 @@ void CustomVoice::setADSR (juce::ADSR::Parameters parameters)
     envelope.setParameters (parameters);
 }
 
-// Changes which active oscillator between sine, square, saw, and triangle the
-// voice is using.
+// Changes the active oscillator the voice is using between sine, square, 
+// saw, and triangle.
 //
 // @param waveformNum: An integer representation for sine, square, saw, and triangle
 // waveforms.
@@ -178,7 +178,7 @@ void CustomVoice::setFilter (int filterNum, float cutoff, float resonance)
     }
 }
 
-// Calls the setGainDecibels method on the gain data member. Self-explanitory.
+// Calls the setGainDecibels method on the gain data member. Self-explanatory.
 //
 // @param gainVal: the decibel value to be set.
 void CustomVoice::setGain (double gainVal)
