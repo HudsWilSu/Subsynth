@@ -118,7 +118,7 @@ What would you like to improve in the future?
 
 ## Build/Run
 
-### Windows
+#### Windows
 
  > **_NOTE:_** There is a [known error](https://forum.juce.com/t/ms-visual-studio-16-9-4-compile-failed-after-vs-update/45555) in Visual Studio that produces a build error MSB3025 regarding the `\Shared Code\` directory. This has been fixed in the latest JUCE `develop`, but this project was based on the current `master` release. Standalone and VST3/AU builds are not affected.
 
@@ -134,7 +134,7 @@ What would you like to improve in the future?
   - To build and run with debugging
     1. From the menu bar, navigate to Debug > Start Debugging
 
-### MacOS
+#### MacOS
  - To run as a standalone plugin (release version):
     1. From the menu bar, navigate to Product > Scheme > Edit Scheme...
     2. Be sure to select `Standalone Plugin` as the active scheme 
@@ -148,7 +148,7 @@ What would you like to improve in the future?
  - To build a VST3 or AU plug-in, change the target scheme before building. The plug-ins can be found in the corresponding `./Builds/MacOSX/build/Release/` directory. They can then be loaded in your digital audio workstation/plug-in host of choice.
 
  > **_NOTE:_** Though JUCE supports linux, no development was done on this platform and no Build/Run instructions can be provided.
-
+---
 ### References
 ***fill in actual reference information later***
 
@@ -160,3 +160,8 @@ What would you like to improve in the future?
  - We adapted code from this repository for select sections - specifics are documented in our source code.
 
 CS510 course materials
+
+---
+### License
+
+This software is released under the [GNU General Public License v.3](./LICENSE.txt).
