@@ -11,6 +11,8 @@
 #include "ADSRComponent.h"
 #include "PluginEditor.h"
 
+using juce::roundToInt;
+
 ADSRWheel::ADSRWheel()
 {
     setRotaryStyle();
@@ -93,8 +95,8 @@ void ADSRWheel::setRotaryStyle()
 void ADSRWheel::resized()
 {
     float width = getWidth();
-    rotaryLabel.setFont (0.17 * width);
-    rotary.setBounds (0.1000 * width, 0.3000 * width, 0.7500 * width, 0.7500 * width);
+    rotaryLabel.setFont (roundToInt(0.1700 * width));
+    rotary.setBounds (roundToInt(0.1000 * width), roundToInt(0.3000 * width), roundToInt(0.7500 * width), roundToInt(0.7500 * width));
 }
 
 //========================================================//
@@ -137,10 +139,10 @@ void ADSRComponent::resized()
 {
     float width = getWidth();
     
-    attackRotary.setBounds (0.0000 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
-    decayRotary.setBounds (0.2500 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
-    sustainRotary.setBounds (0.5000 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
-    releaseRotary.setBounds (0.7500 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
+    attackRotary.setBounds (roundToInt(0.0000 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
+    decayRotary.setBounds (roundToInt(0.2500 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
+    sustainRotary.setBounds (roundToInt(0.5000 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
+    releaseRotary.setBounds (roundToInt(0.7500 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
 }
 
 // Listens for changes on the `slider` parameter and sets 
