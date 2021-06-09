@@ -117,7 +117,7 @@ void SubsynthAudioProcessorEditor::mouseDrag (const juce::MouseEvent& event)
 // cutoff frequency, and resonance value.
 void SubsynthAudioProcessorEditor::filterChanged()
 {
-    audioProcessor.changeFilter (filterSelect.getSelectedId(), filterCutoff.getValue() * 1.000f, filterRes.getValue() * 1.000f);
+    audioProcessor.changeFilter (filterSelect.getSelectedId(), filterCutoff.getValue(), filterRes.getValue());
 }
 
 // Draws the content of the method on the GUI

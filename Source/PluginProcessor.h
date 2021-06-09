@@ -59,7 +59,7 @@ public:
     void changeADSREnv(juce::ADSR::Parameters);
     void changeWaveform(int waveformNum);
     void changeVolume(double gain);
-    void changeFilter(int filterNum, float cutoff, float resonance);
+    void changeFilter(int filterNum, double cutoff, double resonance);
     
     void runTests();
     //==============================================================================

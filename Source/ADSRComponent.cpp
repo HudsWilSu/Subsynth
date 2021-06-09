@@ -94,7 +94,7 @@ void ADSRWheel::setRotaryStyle()
 // when the components's width or height changes.
 void ADSRWheel::resized()
 {
-    float width = getWidth();
+    int width = getWidth();
     rotaryLabel.setFont (0.1700f * width);
     rotary.setBounds (roundToInt(0.1000 * width), roundToInt(0.3000 * width), roundToInt(0.7500 * width), roundToInt(0.7500 * width));
 }
@@ -137,8 +137,8 @@ void ADSRComponent::paint (juce::Graphics& g)
 // Typically called when the components's width or height changes.
 void ADSRComponent::resized()
 {
-    float width = getWidth();
-    
+    int width = getWidth();
+
     attackRotary.setBounds (roundToInt(0.0000 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
     decayRotary.setBounds (roundToInt(0.2500 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
     sustainRotary.setBounds (roundToInt(0.5000 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
@@ -153,19 +153,19 @@ void ADSRComponent::sliderValueChanged (juce::Slider* slider)
 {
     if (slider == &(attackRotary.rotary))
     {
-        attVal = attackRotary.getValue();
+        attVal = static_cast<float>(attackRotary.getValue());
     }
     else if (slider == &(decayRotary.rotary))
-    {
-        decVal = decayRotary.getValue();
+    {   
+        decVal = static_cast<float>(decayRotary.getValue());
     }
     else if (slider == &(sustainRotary.rotary))
     {
-        susVal = sustainRotary.getValue();
+        susVal = static_cast<float>(sustainRotary.getValue());
     }
     else
     {
-        relVal = releaseRotary.getValue();
+        relVal = static_cast<float> (releaseRotary.getValue());
     }
 }
 

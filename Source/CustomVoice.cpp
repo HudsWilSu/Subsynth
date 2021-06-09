@@ -153,27 +153,30 @@ void CustomVoice::setWave (int waveformNum)
 // band pass, high pass.
 // @param cutoff: The cutoff frequency for the state variable filter in Hz.
 // @param resonance: The amount of resonance to be applied by the state variable filter
-void CustomVoice::setFilter (int filterNum, float cutoff, float resonance)
+void CustomVoice::setFilter (int filterNum, double cutoff, double resonance)
 {
+    float resonance_converted = static_cast<float>(resonance);
+    float cutoff_converted = static_cast<float>(cutoff);
+
     if (filterNum == 1)
     {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
 
-        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff_converted, resonance_converted);
     }
 
     else if (filterNum == 2)
     {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
 
-        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff_converted, resonance_converted);
     }
 
     else if (filterNum == 3)
     {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass;
 
-        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff_converted, resonance_converted);
     }
 }
 
@@ -182,7 +185,7 @@ void CustomVoice::setFilter (int filterNum, float cutoff, float resonance)
 // @param gainVal: the decibel value to be set.
 void CustomVoice::setGain (double gainVal)
 {
-    gain.setGainDecibels (gainVal);
+    gain.setGainDecibels (static_cast<float>(gainVal));
 }
 
 // Produces/processes a block of audio samples into the output stream of the plug-in

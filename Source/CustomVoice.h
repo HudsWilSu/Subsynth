@@ -26,7 +26,7 @@ public:
     void setADSR (juce::ADSR::Parameters params);
     void setWave (int waveformNum);
     void setGain (double gain);
-    void setFilter (int filterNum, float cutoff, float resonance);
+    void setFilter (int filterNum, double cutoff, double resonance);
 
     double sampleRateHolder = 0;
     
