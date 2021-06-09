@@ -27,8 +27,11 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-
+ 
 private:
+    // sets the initial width of the plug-in window, with other components dynamically sized
+    int width = 850;
+
     void sliderValueChanged (juce::Slider* slider) override;
     void comboBoxChanged (juce::ComboBox* combobox) override;
     void mouseDrag (const juce::MouseEvent& event) override;
