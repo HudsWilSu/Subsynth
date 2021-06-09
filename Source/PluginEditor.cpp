@@ -117,7 +117,7 @@ void SubsynthAudioProcessorEditor::mouseDrag (const juce::MouseEvent& event)
 // cutoff frequency, and resonance value.
 void SubsynthAudioProcessorEditor::filterChanged()
 {
-    audioProcessor.changeFilter (filterSelect.getSelectedId(), filterCutoff.getValue(), filterRes.getValue());
+    audioProcessor.changeFilter (filterSelect.getSelectedId(), filterCutoff.getValue() * 1.000f, filterRes.getValue() * 1.000f);
 }
 
 // Draws the content of the method on the GUI
@@ -130,20 +130,20 @@ void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
 
     // Main title
     g.setColour(juce::Colours::darkcyan);
-    g.drawLine(roundToInt(0.0000 * width), roundToInt(0.0000 * width), roundToInt(1.0000 * width), roundToInt(0.0000 * width), roundToInt(0.0706 * width));
+    g.drawLine((0.0000f * width), (0.0000f * width), (1.0000f * width), (0.0000f * width), (0.0706f * width));
     g.setColour (juce::Colours::white);
-    g.setFont (0.0294 * width);
+    g.setFont (0.0294f * width);
     g.drawFittedText ("Subsynth", roundToInt(0.0000 * width), roundToInt(0.0000 * width), roundToInt(1.0000 * width), roundToInt(0.0353 * width), juce::Justification::centred, 1);
 
     // Component Titles
-    g.setFont (roundToInt(0.0235 * width));
+    g.setFont (0.0235f * width);
     g.drawText ("Wave", roundToInt(0.0618 * width), roundToInt(0.0353 * width), roundToInt(0.1059 * width), roundToInt(0.0353 * width), juce::Justification::centred);
     g.drawText ("Filter", roundToInt(0.1894 * width), roundToInt(0.0353 * width), roundToInt(0.1176 * width), roundToInt(0.0353 * width), juce::Justification::centred);
     g.drawText ("ADSR Envelope", roundToInt(0.3298 * width), roundToInt(0.0353 * width), roundToInt(0.4706 * width), roundToInt(0.0353 * width), juce::Justification::centred);
     g.drawText ("Gain", roundToInt(0.8235 * width), roundToInt(0.0353 * width), roundToInt(0.1176 * width), roundToInt(0.0353 * width), juce::Justification::centred);
 
     // Sub-component Titles
-    g.setFont (roundToInt(0.0176 * width));
+    g.setFont (0.0176f * width);
     g.drawText ("Cutoff", roundToInt(0.1894 * width), roundToInt(0.0941 * width), roundToInt(0.1176 * width), roundToInt(0.0353 * width), juce::Justification::centred);
     g.drawText ("Resonance", roundToInt(0.1894 * width), roundToInt(0.1471 * width), roundToInt(0.1176 * width), roundToInt(0.0353 * width), juce::Justification::centred);
 }

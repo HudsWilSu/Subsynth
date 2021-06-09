@@ -36,7 +36,7 @@ ADSRWheel::ADSRWheel (const ADSRWheel& oldObj)
 ADSRWheel& ADSRWheel::operator= (ADSRWheel& oldObj)
 {
     this->rotary.setRotaryParameters (oldObj.getParams());
-    this->rotaryLabel.setFont (getWidth());
+    this->rotaryLabel.setFont (getWidth()*1.000f);
     this->rotaryLabel.setText (oldObj.getLabelText(), juce::dontSendNotification);
 
     return *this;
@@ -95,7 +95,7 @@ void ADSRWheel::setRotaryStyle()
 void ADSRWheel::resized()
 {
     float width = getWidth();
-    rotaryLabel.setFont (roundToInt(0.1700 * width));
+    rotaryLabel.setFont (0.1700f * width);
     rotary.setBounds (roundToInt(0.1000 * width), roundToInt(0.3000 * width), roundToInt(0.7500 * width), roundToInt(0.7500 * width));
 }
 
