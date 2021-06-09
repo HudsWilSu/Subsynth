@@ -9,12 +9,14 @@
 #include "PluginEditor.h"
 #include "PluginProcessor.h"
 
+using juce::roundToInt;
+
 //==============================================================================
 SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), keyboard (audioProcessor.keyState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
     // Set size of plugin and styling of interactive components
-    setSize (width, 0.665 * width);
+    setSize (width, roundToInt(0.665 * width));
 
     setGainStyle();
  
@@ -128,22 +130,22 @@ void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
 
     // Main title
     g.setColour(juce::Colours::darkcyan);
-    g.drawLine(0.0000 * width, 0.0000 * width, 1.0000 * width, 0.0000 * width, 0.0706 * width);
+    g.drawLine(roundToInt(0.0000 * width), roundToInt(0.0000 * width), roundToInt(1.0000 * width), roundToInt(0.0000 * width), roundToInt(0.0706 * width));
     g.setColour (juce::Colours::white);
     g.setFont (0.0294 * width);
-    g.drawFittedText ("Subsynth", 0.0000 * width, 0.0000 * width, 1.0000 * width, 0.0353 * width, juce::Justification::centred, 1);
+    g.drawFittedText ("Subsynth", roundToInt(0.0000 * width), roundToInt(0.0000 * width), roundToInt(1.0000 * width), roundToInt(0.0353 * width), juce::Justification::centred, 1);
 
     // Component Titles
-    g.setFont (0.0235 * width);
-    g.drawText ("Wave", 0.0618 * width, 0.0353 * width, 0.1059 * width, 0.0353 * width, juce::Justification::centred);
-    g.drawText ("Filter", 0.1894 * width, 0.0353 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
-    g.drawText ("ADSR Envelope", 0.3298 * width, 0.0353 * width, 0.4706 * width, 0.0353 * width, juce::Justification::centred);
-    g.drawText ("Gain", 0.8235 * width, 0.0353 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
+    g.setFont (roundToInt(0.0235 * width));
+    g.drawText ("Wave", roundToInt(0.0618 * width), roundToInt(0.0353 * width), roundToInt(0.1059 * width), roundToInt(0.0353 * width), juce::Justification::centred);
+    g.drawText ("Filter", roundToInt(0.1894 * width), roundToInt(0.0353 * width), roundToInt(0.1176 * width), roundToInt(0.0353 * width), juce::Justification::centred);
+    g.drawText ("ADSR Envelope", roundToInt(0.3298 * width), roundToInt(0.0353 * width), roundToInt(0.4706 * width), roundToInt(0.0353 * width), juce::Justification::centred);
+    g.drawText ("Gain", roundToInt(0.8235 * width), roundToInt(0.0353 * width), roundToInt(0.1176 * width), roundToInt(0.0353 * width), juce::Justification::centred);
 
     // Sub-component Titles
-    g.setFont (0.0176 * width);
-    g.drawText ("Cutoff", 0.1894 * width, 0.0941 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
-    g.drawText ("Resonance", 0.1894 * width, 0.1471 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
+    g.setFont (roundToInt(0.0176 * width));
+    g.drawText ("Cutoff", roundToInt(0.1894 * width), roundToInt(0.0941 * width), roundToInt(0.1176 * width), roundToInt(0.0353 * width), juce::Justification::centred);
+    g.drawText ("Resonance", roundToInt(0.1894 * width), roundToInt(0.1471 * width), roundToInt(0.1176 * width), roundToInt(0.0353 * width), juce::Justification::centred);
 }
 
 // Sets the dimensions of the plug-in's top level children.
@@ -156,24 +158,24 @@ void SubsynthAudioProcessorEditor::resized()
     width = getWidth();
 
     // Wave Selector
-    waveSelect.setBounds (0.0618 * width, 0.0706 * width, 0.1059 * width, 0.0235 * width);
+    waveSelect.setBounds (roundToInt(0.0618 * width), roundToInt(0.0706 * width), roundToInt(0.1059 * width), roundToInt(0.0235 * width));
     
     // Keyboard
-    keyboard.setBounds (0.0118 * width, 0.2412 * width, 0.9765 * width, 0.1765 * width);
+    keyboard.setBounds (roundToInt(0.0118 * width), roundToInt(0.2412 * width), roundToInt(0.9765 * width), roundToInt(0.1765 * width));
     
     // Filter Components
-    filterSelect.setBounds (0.1894 * width, 0.0706 * width, 0.1176 * width, 0.0235 * width);
-    filterCutoff.setBounds (0.1894 * width, 0.1118 * width, 0.1176 * width, 0.0588 * width);
-    filterRes.setBounds (0.1894 * width, 0.1647 * width, 0.1176 * width, 0.0588 * width);
+    filterSelect.setBounds (roundToInt(0.1894 * width), roundToInt(0.0706 * width), roundToInt(0.1176 * width), roundToInt(0.0235 * width));
+    filterCutoff.setBounds (roundToInt(0.1894 * width), roundToInt(0.1118 * width), roundToInt(0.1176 * width), roundToInt(0.0588 * width));
+    filterRes.setBounds (roundToInt(0.1894 * width), roundToInt(0.1647 * width), roundToInt(0.1176 * width), roundToInt(0.0588 * width));
 
     // Waveform Visualiser
-    audioProcessor.wfVisualiser.setBounds (0.0118 * width, 0.4235 * width, 0.9765 * width, 0.2353 * width);
+    audioProcessor.wfVisualiser.setBounds (roundToInt(0.0118 * width), roundToInt(0.4235 * width), roundToInt(0.9765 * width), roundToInt(0.2353 * width));
 
     // ADSR Components
-    adsrSliders.setBounds (0.3298 * width, 0.0647 * width, 0.4706 * width, 0.1176 * width);
+    adsrSliders.setBounds (roundToInt(0.3298 * width), roundToInt(0.0647 * width), roundToInt(0.4706 * width), roundToInt(0.1176 * width));
 
     // Gain Slider
-    gainSlide.setBounds (0.8235 * width, 0.0588 * width, 0.1176 * width, 0.1176 * width);
+    gainSlide.setBounds (roundToInt(0.8235 * width), roundToInt(0.0588 * width), roundToInt(0.1176 * width), roundToInt(0.1176 * width));
 }
 
 // Establishes GUI configuration for gain rotary
