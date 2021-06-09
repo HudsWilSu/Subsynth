@@ -40,26 +40,40 @@ ADSRWheel& ADSRWheel::operator= (ADSRWheel& oldObj)
     return *this;
 }
 
+// Gets parameters of the associated rotary element
+//
+// @return The rotary parameters of its start and end angle
 juce::Slider::RotaryParameters ADSRWheel::getParams() const
 {
     return rotary.getRotaryParameters();
 }
 
+// Gets the text of the associated rotary's label
+//
+// @return The rotary's label text
 juce::String ADSRWheel::getLabelText() const
 {
     return rotaryLabel.getText();
 }
 
+// Gets the value of the rotary slider
+//
+// @return The value of the rotary slider
 double ADSRWheel::getValue()
 {
     return rotary.getValue();
 }
 
+// Gets the type that this slider represents (attack, decay,
+// sustain, release)
+//
+// @return Which ADSR element this rotary represents
 ADSR_Element ADSRWheel::getType()
 {
     return this->element;
 }
 
+// Sets the rotary slider's style
 void ADSRWheel::setRotaryStyle()
 {
     rotary.setSliderStyle (juce::Slider::Rotary);
@@ -74,6 +88,8 @@ void ADSRWheel::setRotaryStyle()
     rotaryLabel.setJustificationType (juce::Justification::centred);
 }
 
+// Sets the dimensions of the ADSRWheel object. Typically called
+// when the components's width or height changes.
 void ADSRWheel::resized()
 {
     float width = getWidth();
@@ -115,6 +131,8 @@ void ADSRComponent::paint (juce::Graphics& g)
 {
 }
 
+// Sets the dimensions of the ADSRComponent object's children. 
+// Typically called when the components's width or height changes.
 void ADSRComponent::resized()
 {
     float width = getWidth();
@@ -125,6 +143,10 @@ void ADSRComponent::resized()
     releaseRotary.setBounds (0.7500 * width, 0.0000 * width, 0.2500 * width, 0.2500 * width);
 }
 
+// Listens for changes on the `slider` parameter and sets 
+// the appropriate ADSR rotary's value.
+//
+// @param slider: A slider object that is triggering the change event
 void ADSRComponent::sliderValueChanged (juce::Slider* slider)
 {
     if (slider == &(attackRotary.rotary))
@@ -145,6 +167,10 @@ void ADSRComponent::sliderValueChanged (juce::Slider* slider)
     }
 }
 
+// Gets the values from each of the children attack, decay, sustain, 
+// release ADSRWheels.
+//
+// @return The values bundled in a ADSR::Parameters object.
 juce::ADSR::Parameters ADSRComponent::getEnvelope()
 {
     juce::ADSR::Parameters params {

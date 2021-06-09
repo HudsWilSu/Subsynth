@@ -19,6 +19,7 @@
       <FILE id="jCAFge" name="CustomSound.h" compile="0" resource="0" file="Source/CustomSound.h"/>
       <FILE id="eslnXH" name="CustomVoice.cpp" compile="1" resource="0" file="Source/CustomVoice.cpp"/>
       <FILE id="QTor4O" name="CustomVoice.h" compile="0" resource="0" file="Source/CustomVoice.h"/>
+      <FILE id="E6h2LH" name="WfVisualiser.h" compile="0" resource="0" file="Source/WfVisualiser.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>

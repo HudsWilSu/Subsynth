@@ -13,9 +13,7 @@
 SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), keyboard (audioProcessor.keyState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
-    
+    // Set size of plugin and styling of interactive components
     setSize (width, 0.665 * width);
 
     setGainStyle();
@@ -51,7 +49,7 @@ SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcess
     filterRes.onDragEnd = [this]
     { filterChanged(); };
 
-    // Expose slider to UI/Editor
+    // Expose interactive elements to UI/Editor
     addAndMakeVisible (&waveSelect);
     addAndMakeVisible (&keyboard);
     addAndMakeVisible (&adsrSliders);
@@ -82,12 +80,20 @@ SubsynthAudioProcessorEditor::~SubsynthAudioProcessorEditor()
 {
 }
 
+// Listens for changes on the `slider` parameter and sets
+// the Gain rotary's value.
+//
+// @param slider: A slider object that is triggering the change event
 void SubsynthAudioProcessorEditor::sliderValueChanged (juce::Slider* slider)
 {
     if (slider == &gainSlide)
         audioProcessor.changeVolume (gainSlide.getValue());
 }
 
+// Listens for changes on the `combobox` parameter and sets
+// the changeWaveform method in the AudioProcessor.
+//
+// @param slider: A combobox object that is triggering the change event
 void SubsynthAudioProcessorEditor::comboBoxChanged (juce::ComboBox* combobox)
 {
     if (combobox == &(waveSelect))
@@ -96,17 +102,25 @@ void SubsynthAudioProcessorEditor::comboBoxChanged (juce::ComboBox* combobox)
     }
 }
 
+// Listens for mouse clicks and drags and calls the changeADSREnv method
+// at the end of the event.
+//
+// @param event: A mouse event triggering the change
 void SubsynthAudioProcessorEditor::mouseDrag (const juce::MouseEvent& event)
 {
     audioProcessor.changeADSREnv (adsrSliders.getEnvelope());
 }
 
+// Calls the changeFilter method in the AudioProcessor to set filter type,
+// cutoff frequency, and resonance value.
 void SubsynthAudioProcessorEditor::filterChanged()
 {
     audioProcessor.changeFilter (filterSelect.getSelectedId(), filterCutoff.getValue(), filterRes.getValue());
 }
 
-//==============================================================================
+// Draws the content of the method on the GUI
+//
+// @param g: The graphics context that must be used to do the drawing operations.
 void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
 {   
     // (Our component is opaque, so we must completely fill the background with a solid colour)
@@ -132,6 +146,8 @@ void SubsynthAudioProcessorEditor::paint (juce::Graphics& g)
     g.drawText ("Resonance", 0.1894 * width, 0.1471 * width, 0.1176 * width, 0.0353 * width, juce::Justification::centred);
 }
 
+// Sets the dimensions of the plug-in's top level children.
+// Typically called when the plug-in's width or height changes.
 void SubsynthAudioProcessorEditor::resized()
 {
     // sets the position and size of the slider with arguments (x, y, width, height)
@@ -160,7 +176,7 @@ void SubsynthAudioProcessorEditor::resized()
     gainSlide.setBounds (0.8235 * width, 0.0588 * width, 0.1176 * width, 0.1176 * width);
 }
 
-// establish GUI configuration for gain rotary
+// Establishes GUI configuration for gain rotary
 void SubsynthAudioProcessorEditor::setGainStyle()
 {
     // dynamically obtain width for resizing purposes
