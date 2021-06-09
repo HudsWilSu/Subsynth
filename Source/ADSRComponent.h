@@ -25,7 +25,7 @@ public:
     juce::Slider rotary;
 
     ADSRWheel();
-    ADSRWheel (const std::string& sliderName, ADSR_Element element);
+    ADSRWheel (const std::string&, ADSR_Element);
     ADSRWheel (const ADSRWheel&);
     ADSRWheel& operator= (ADSRWheel&);
     ~ADSRWheel() = default;
@@ -51,9 +51,9 @@ public:
     ~ADSRComponent() = default;
     ADSRComponent (ADSRComponent&);
 
-    void paint (juce::Graphics& g) override;
+    void paint (juce::Graphics&) override {};
     void resized() override;
-    void sliderValueChanged (juce::Slider* slider) override;
+    void sliderValueChanged (juce::Slider*) override;
 
     juce::ADSR::Parameters getEnvelope();
 

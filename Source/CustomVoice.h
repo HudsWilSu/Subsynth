@@ -16,17 +16,17 @@ class CustomVoice : public juce::SynthesiserVoice
 {
 public:
     bool canPlaySound (juce::SynthesiserSound*) override;
-    void startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition) override;
-    void stopNote (float velocity, bool allowTailOff) override;
-    void pitchWheelMoved (int newPitchWheelValue) override;
-    void controllerMoved (int controllerNumber, int newControllerValue) override;
-    void renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples) override;
-    void prepareToPlay (double sampleRate, int samplesPerBlock, int numOutputChannels);
+    void startNote (int, float, juce::SynthesiserSound*, int) override;
+    void stopNote (float, bool) override;
+    void pitchWheelMoved (int) override {};
+    void controllerMoved (int, int) override {};
+    void renderNextBlock (juce::AudioBuffer<float>&, int, int) override;
+    void prepareToPlay (double, int, int);
 
-    void setADSR (juce::ADSR::Parameters params);
-    void setWave (int waveformNum);
-    void setGain (double gain);
-    void setFilter (int filterNum, float cutoff, float resonance);
+    void setADSR (juce::ADSR::Parameters);
+    void setWave (int);
+    void setGain (double);
+    void setFilter (int, float, float);
 
     double sampleRateHolder = 0;
     

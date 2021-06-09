@@ -27,7 +27,7 @@ bool CustomVoice::canPlaySound (juce::SynthesiserSound* sound)
 // @param currentPitchWheelPosition: What the pitch wheel position should be for this note.
 void CustomVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-    osc->setFrequency (juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
+    osc->setFrequency ((float)juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
     envelope.noteOn();
 }
 
@@ -43,16 +43,6 @@ void CustomVoice::stopNote (float velocity, bool allowTailOff)
     {
         clearCurrentNote();
     }
-}
-
-// A pure virtual function requiring basic implementation for SynthesizerVoice inheritence. NYI.
-void CustomVoice::pitchWheelMoved (int newPitchWheelValue)
-{
-}
-
-// A pure virtual function requiring basic implementation for SynthesizerVoice inheritence. NYI.
-void CustomVoice::controllerMoved (int controllerNumber, int newControllerValue)
-{
 }
 
 // Initializes and configures the various components of the voice which must be

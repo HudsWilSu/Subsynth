@@ -94,7 +94,7 @@ void ADSRWheel::resized()
 {
     float width = getWidth();
     rotaryLabel.setFont (0.17 * width);
-    rotary.setBounds (0.1000 * width, 0.3000 * width, 0.7500 * width, 0.7500 * width);
+    rotary.setBounds (0.1000 * width, 0.3000 * width, 0.7500 q* width, 0.7500 * width);
 }
 
 //========================================================//
@@ -127,10 +127,6 @@ ADSRComponent::ADSRComponent (ADSRComponent&)
 {
 }
 
-void ADSRComponent::paint (juce::Graphics& g)
-{
-}
-
 // Sets the dimensions of the ADSRComponent object's children. 
 // Typically called when the components's width or height changes.
 void ADSRComponent::resized()
@@ -151,19 +147,19 @@ void ADSRComponent::sliderValueChanged (juce::Slider* slider)
 {
     if (slider == &(attackRotary.rotary))
     {
-        attVal = attackRotary.getValue();
+        attVal = (float)attackRotary.getValue();
     }
     else if (slider == &(decayRotary.rotary))
     {
-        decVal = decayRotary.getValue();
+        decVal = (float)decayRotary.getValue();
     }
     else if (slider == &(sustainRotary.rotary))
     {
-        susVal = sustainRotary.getValue();
+        susVal = (float)sustainRotary.getValue();
     }
     else
     {
-        relVal = releaseRotary.getValue();
+        relVal = (float)releaseRotary.getValue();
     }
 }
 
