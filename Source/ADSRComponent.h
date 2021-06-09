@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-enum ADSR_Element
+enum class ADSR_Element
 {
     attack,
     decay,
@@ -25,7 +25,7 @@ public:
     juce::Slider rotary;
 
     ADSRWheel();
-    ADSRWheel (const std::string& sliderName, ADSR_Element element);
+    ADSRWheel (const std::string&, ADSR_Element);
     ADSRWheel (const ADSRWheel&);
     ADSRWheel& operator= (ADSRWheel&);
     ~ADSRWheel() = default;
@@ -51,9 +51,9 @@ public:
     ~ADSRComponent() = default;
     ADSRComponent (ADSRComponent&);
 
-    void paint (juce::Graphics& g) override;
+    void paint (juce::Graphics&) override {};
     void resized() override;
-    void sliderValueChanged (juce::Slider* slider) override;
+    void sliderValueChanged (juce::Slider*) override;
 
     juce::ADSR::Parameters getEnvelope();
 
@@ -65,8 +65,8 @@ private:
 
     juce::ADSR::Parameters params;
 
-    float attVal;
-    float decVal;
-    float susVal;
-    float relVal;
+    float attVal = 0.1f;
+    float decVal = 0.1f;
+    float susVal = 0.1f;
+    float relVal = 0.1f;
 };

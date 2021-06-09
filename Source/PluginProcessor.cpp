@@ -90,12 +90,6 @@ int SubsynthAudioProcessor::getCurrentProgram()
     return 0;
 }
 
-// Returns the name of a given program. NYI, required template code.
-const juce::String SubsynthAudioProcessor::getProgramName (int index)
-{
-    return {};
-}
-
 //==============================================================================
 
 // Called before playback starts, to let the processor prepare itself.

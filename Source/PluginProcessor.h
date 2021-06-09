@@ -23,11 +23,11 @@ public:
     ~SubsynthAudioProcessor() override;
 
     //==============================================================================
-    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+    void prepareToPlay (double, int) override;
     void releaseResources() override;
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-    bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
+    bool isBusesLayoutSupported (const BusesLayout&) const override;
 #endif
 
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
@@ -47,19 +47,19 @@ public:
     //==============================================================================
     int getNumPrograms() override;
     int getCurrentProgram() override;
-    void setCurrentProgram (int index) override {};
-    const juce::String getProgramName (int index) override;
-    void changeProgramName (int index, const juce::String& newName) override {};
+    void setCurrentProgram (int) override {};
+    const juce::String getProgramName (int) override { return {}; };
+    void changeProgramName (int, const juce::String&) override {};
 
     //==============================================================================
-    void getStateInformation (juce::MemoryBlock& destData) override {};
-    void setStateInformation (const void* data, int sizeInBytes) override {};
+    void getStateInformation (juce::MemoryBlock&) override {};
+    void setStateInformation (const void*, int) override {};
 
     //====== UI Component Callbacks ================================================
     void changeADSREnv(juce::ADSR::Parameters);
-    void changeWaveform(int waveformNum);
-    void changeVolume(double gain);
-    void changeFilter(int filterNum, double cutoff, double resonance);
+    void changeWaveform(int);
+    void changeVolume(double);
+    void changeFilter(int, double, double);
     
     void runTests();
     //==============================================================================

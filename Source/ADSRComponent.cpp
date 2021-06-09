@@ -36,7 +36,7 @@ ADSRWheel::ADSRWheel (const ADSRWheel& oldObj)
 ADSRWheel& ADSRWheel::operator= (ADSRWheel& oldObj)
 {
     this->rotary.setRotaryParameters (oldObj.getParams());
-    this->rotaryLabel.setFont (getWidth()*1.000f);
+    this->rotaryLabel.setFont ((float) getWidth());
     this->rotaryLabel.setText (oldObj.getLabelText(), juce::dontSendNotification);
 
     return *this;
@@ -94,9 +94,9 @@ void ADSRWheel::setRotaryStyle()
 // when the components's width or height changes.
 void ADSRWheel::resized()
 {
-    int width = getWidth();
-    rotaryLabel.setFont (0.1700f * width);
-    rotary.setBounds (roundToInt(0.1000 * width), roundToInt(0.3000 * width), roundToInt(0.7500 * width), roundToInt(0.7500 * width));
+    float width = (float) getWidth();
+    rotaryLabel.setFont (0.17f * width);
+    rotary.setBounds (roundToInt (0.1000f * width), roundToInt (0.3000f * width), roundToInt (0.7500f * width), roundToInt (0.7500f * width));
 }
 
 //========================================================//
@@ -104,10 +104,10 @@ ADSRComponent::ADSRComponent()
 {
     setSize (100, 4000);
 
-    ADSRWheel newAttRotary ("Attack", attack);
-    ADSRWheel newDecRotary ("Decay", decay);
-    ADSRWheel newSusRotary ("Sustain", sustain);
-    ADSRWheel newRelRotary ("Release", release);
+    ADSRWheel newAttRotary ("Attack", ADSR_Element::attack);
+    ADSRWheel newDecRotary ("Decay", ADSR_Element::decay);
+    ADSRWheel newSusRotary ("Sustain", ADSR_Element::sustain);
+    ADSRWheel newRelRotary ("Release", ADSR_Element::release);
 
     attackRotary = newAttRotary;
     decayRotary = newDecRotary;
@@ -129,23 +129,19 @@ ADSRComponent::ADSRComponent (ADSRComponent&)
 {
 }
 
-void ADSRComponent::paint (juce::Graphics& g)
-{
-}
-
-// Sets the dimensions of the ADSRComponent object's children. 
+// Sets the dimensions of the ADSRComponent object's children.
 // Typically called when the components's width or height changes.
 void ADSRComponent::resized()
 {
-    int width = getWidth();
+    float width = (float) getWidth();
 
-    attackRotary.setBounds (roundToInt(0.0000 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
-    decayRotary.setBounds (roundToInt(0.2500 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
-    sustainRotary.setBounds (roundToInt(0.5000 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
-    releaseRotary.setBounds (roundToInt(0.7500 * width), roundToInt(0.0000 * width), roundToInt(0.2500 * width), roundToInt(0.2500 * width));
+    attackRotary.setBounds (roundToInt (0.0000f * width), roundToInt (0.0000f * width), roundToInt (0.2500f * width), roundToInt (0.2500f * width));
+    decayRotary.setBounds (roundToInt (0.2500f * width), roundToInt (0.0000f * width), roundToInt (0.2500f * width), roundToInt (0.2500f * width));
+    sustainRotary.setBounds (roundToInt (0.5000f * width), roundToInt (0.0000f * width), roundToInt (0.2500f * width), roundToInt (0.2500f * width));
+    releaseRotary.setBounds (roundToInt (0.7500f * width), roundToInt (0.0000f * width), roundToInt (0.2500f * width), roundToInt (0.2500f * width));
 }
 
-// Listens for changes on the `slider` parameter and sets 
+// Listens for changes on the `slider` parameter and sets
 // the appropriate ADSR rotary's value.
 //
 // @param slider: A slider object that is triggering the change event
@@ -153,34 +149,34 @@ void ADSRComponent::sliderValueChanged (juce::Slider* slider)
 {
     if (slider == &(attackRotary.rotary))
     {
-        attVal = static_cast<float>(attackRotary.getValue());
+        attVal = (float) attackRotary.getValue();
     }
     else if (slider == &(decayRotary.rotary))
-    {   
-        decVal = static_cast<float>(decayRotary.getValue());
+    {
+        decVal = (float) decayRotary.getValue();
     }
     else if (slider == &(sustainRotary.rotary))
     {
-        susVal = static_cast<float>(sustainRotary.getValue());
+        susVal = (float) sustainRotary.getValue();
     }
     else
     {
-        relVal = static_cast<float> (releaseRotary.getValue());
+        relVal = (float) releaseRotary.getValue();
     }
 }
 
-// Gets the values from each of the children attack, decay, sustain, 
+// Gets the values from each of the children attack, decay, sustain,
 // release ADSRWheels.
 //
 // @return The values bundled in a ADSR::Parameters object.
 juce::ADSR::Parameters ADSRComponent::getEnvelope()
 {
-    juce::ADSR::Parameters params {
+    juce::ADSR::Parameters currentParams {
         attVal,
         decVal,
         susVal,
         relVal
     };
 
-    return params;
+    return currentParams;
 }
