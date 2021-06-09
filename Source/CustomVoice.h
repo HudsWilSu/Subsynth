@@ -26,7 +26,7 @@ public:
     void setADSR (juce::ADSR::Parameters);
     void setWave (int);
     void setGain (double);
-    void setFilter (int, float, float);
+    void setFilter (int, double, double);
 
     double sampleRateHolder = 0;
     
