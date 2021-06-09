@@ -27,7 +27,6 @@ bool CustomVoice::canPlaySound (juce::SynthesiserSound* sound)
 // @param currentPitchWheelPosition: What the pitch wheel position should be for this note.
 void CustomVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-    // midi input here
     osc->setFrequency (juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
     envelope.noteOn();
 }
