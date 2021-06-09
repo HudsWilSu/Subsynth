@@ -194,6 +194,7 @@ void CustomVoice::setGain (double gainVal)
 // @param numSamples: The amount of samples that need to be rendered.
 void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
+
     // Initialize subset buffer
     synthBuffer.setSize (outputBuffer.getNumChannels(), numSamples, false, false, true);
     synthBuffer.clear();

@@ -90,20 +90,10 @@ int SubsynthAudioProcessor::getCurrentProgram()
     return 0;
 }
 
-// Called by the host to change the current program. NYI, required template code.
-void SubsynthAudioProcessor::setCurrentProgram (int index)
-{
-}
-
 // Returns the name of a given program. NYI, required template code.
 const juce::String SubsynthAudioProcessor::getProgramName (int index)
 {
     return {};
-}
-
-// Called by the host to rename a program. NYI, required template code.
-void SubsynthAudioProcessor::changeProgramName (int index, const juce::String& newName)
-{
 }
 
 //==============================================================================
@@ -200,26 +190,6 @@ juce::AudioProcessorEditor* SubsynthAudioProcessor::createEditor()
 {
     return new SubsynthAudioProcessorEditor (*this);
 }
-
-//==============================================================================
-
-// The host will call this method when it wants to save the processor's internal state.
-// NYI, template code.
-void SubsynthAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
-{
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
-}
-
-// This must restore the processor's state from a block of data previously created 
-// using getStateInformation(). NYI, template code.
-void SubsynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
-{
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
-}
-
 
 //============================= UI Callbacks ========================================
 
