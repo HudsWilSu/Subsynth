@@ -25,7 +25,7 @@ bool CustomVoice::canPlaySound (juce::SynthesiserSound* sound)
 // @param velocity: A value indicating how quickly the note was released 0 (slow) to 1 (fast).
 // @param sound: The SynthesiserSound associated with this voice.
 // @param currentPitchWheelPosition: What the pitch wheel position should be for this note.
-void CustomVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
+void CustomVoice::startNote (int midiNoteNumber, float, juce::SynthesiserSound*, int)
 {
     osc->setFrequency ((float) juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
     envelope.noteOn();
@@ -35,7 +35,7 @@ void CustomVoice::startNote (int midiNoteNumber, float velocity, juce::Synthesis
 //
 // @param velocity: a value indicating how quickly the note was released 0 (slow) to 1 (fast)
 // @param allowTailOff: a flag indicating whether a note wants to tail-off or stop immediately.
-void CustomVoice::stopNote (float velocity, bool allowTailOff)
+void CustomVoice::stopNote (float, bool allowTailOff)
 {
     envelope.noteOff();
 
