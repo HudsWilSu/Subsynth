@@ -154,6 +154,8 @@ What would you like to improve in the future?
 
 [JUCE Documentation](https://docs.juce.com/master/index.html)
 
+`.clang-format` provided by JUCE developer `reuk` on the [JUCE Forum](https://forum.juce.com/t/automatic-juce-like-code-formatting-with-clang-format/31624)
+
 [The Audio Programmer Youtube Channel](https://www.youtube.com/c/TheAudioProgrammer)
 
 [The Audio Programmer Github Repository](https://github.com/TheAudioProgrammer/tapSynth)
