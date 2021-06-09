@@ -14,6 +14,7 @@ Portland State University
 
 ---
 <img src="./images/Subsynth.png" width="600" />
+
 ### Project Description
 
 This project contains code to generate a subtractive synthesizer plug-in, built in C++ using the JUCE application framework.  The synthesizer is polyphonic, allowing six voices to play simultaneously across 10 octaves, and has a graphical user interface containing the following components:
