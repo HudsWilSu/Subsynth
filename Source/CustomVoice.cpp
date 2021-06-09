@@ -27,7 +27,7 @@ bool CustomVoice::canPlaySound (juce::SynthesiserSound* sound)
 // @param currentPitchWheelPosition: What the pitch wheel position should be for this note.
 void CustomVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
 {
-    osc->setFrequency ((float)juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
+    osc->setFrequency ((float) juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
     envelope.noteOn();
 }
 
@@ -109,7 +109,7 @@ void CustomVoice::setADSR (juce::ADSR::Parameters parameters)
     envelope.setParameters (parameters);
 }
 
-// Changes the active oscillator the voice is using between sine, square, 
+// Changes the active oscillator the voice is using between sine, square,
 // saw, and triangle.
 //
 // @param waveformNum: An integer representation for sine, square, saw, and triangle
@@ -172,7 +172,7 @@ void CustomVoice::setFilter (int filterNum, float cutoff, float resonance)
 // @param gainVal: the decibel value to be set.
 void CustomVoice::setGain (double gainVal)
 {
-    gain.setGainDecibels (gainVal);
+    gain.setGainDecibels ((float) gainVal);
 }
 
 // Produces/processes a block of audio samples into the output stream of the plug-in
@@ -183,7 +183,6 @@ void CustomVoice::setGain (double gainVal)
 // @param numSamples: The amount of samples that need to be rendered.
 void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
-
     // Initialize subset buffer
     synthBuffer.setSize (outputBuffer.getNumChannels(), numSamples, false, false, true);
     synthBuffer.clear();
@@ -210,47 +209,45 @@ void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int s
             envelope.reset();
         }
     }
-    
 }
 
-// Runs a set of unit-style tests related to methods changing DSP 
+// Runs a set of unit-style tests related to methods changing DSP
 // component parameters. Must attach a debugger for proper function.
 void CustomVoice::voiceTests()
 {
-
     // Test filter
     float cutoff = 20.0f, resonance = 1.0f;
     sampleRateHolder = 48000.0;
 
-    setFilter(1, cutoff, resonance);
-    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
-    setFilter(2, cutoff, resonance);
-    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
-    setFilter(3, cutoff, resonance);
-    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
+    setFilter (1, cutoff, resonance);
+    jassert (SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
+    setFilter (2, cutoff, resonance);
+    jassert (SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
+    setFilter (3, cutoff, resonance);
+    jassert (SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
 
     // Test oscillators
-    setWave(2);
-    jassert(osc == &sqOsc);
-    setWave(3);
-    jassert(osc == &sawOsc);
-    setWave(4);
-    jassert(osc == &triOsc);
+    setWave (2);
+    jassert (osc == &sqOsc);
+    setWave (3);
+    jassert (osc == &sawOsc);
+    setWave (4);
+    jassert (osc == &triOsc);
 
     // Test ADSR
-    const juce::ADSR::Parameters initADSR{
-    0.1f, 0.1f, 0.1f, 0.1f
+    const juce::ADSR::Parameters initADSR {
+        0.1f, 0.1f, 0.1f, 0.1f
     };
 
-    setADSR(initADSR);
-    jassert(envelope.getParameters().attack == initADSR.attack);
-    jassert(envelope.getParameters().decay == initADSR.decay);
-    jassert(envelope.getParameters().sustain == initADSR.sustain);
-    jassert(envelope.getParameters().release == initADSR.release);
+    setADSR (initADSR);
+    jassert (envelope.getParameters().attack == initADSR.attack);
+    jassert (envelope.getParameters().decay == initADSR.decay);
+    jassert (envelope.getParameters().sustain == initADSR.sustain);
+    jassert (envelope.getParameters().release == initADSR.release);
 
     // Test gain
     double initGainDb = -10.0;
-    
-    setGain(initGainDb);
-    jassert(gain.getGainDecibels() == initGainDb);
+
+    setGain (initGainDb);
+    jassert (gain.getGainDecibels() == initGainDb);
 }

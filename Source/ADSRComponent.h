@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 
-enum ADSR_Element
+enum class ADSR_Element
 {
     attack,
     decay,
@@ -65,8 +65,8 @@ private:
 
     juce::ADSR::Parameters params;
 
-    float attVal;
-    float decVal;
-    float susVal;
-    float relVal;
+    float attVal = 0.1f;
+    float decVal = 0.1f;
+    float susVal = 0.1f;
+    float relVal = 0.1f;
 };
