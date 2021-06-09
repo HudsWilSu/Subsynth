@@ -9,12 +9,14 @@
 #include "PluginEditor.h"
 #include "PluginProcessor.h"
 
+using juce::roundToInt;
+
 //==============================================================================
 SubsynthAudioProcessorEditor::SubsynthAudioProcessorEditor (SubsynthAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), keyboard (audioProcessor.keyState, juce::MidiKeyboardComponent::horizontalKeyboard)
 {
     // Set size of plugin and styling of interactive components
-    setSize (width, 0.665 * width);
+    setSize (width, roundToInt(0.665f * width));
 
     setGainStyle();
  
@@ -106,7 +108,7 @@ void SubsynthAudioProcessorEditor::comboBoxChanged (juce::ComboBox* combobox)
 // at the end of the event.
 //
 // @param event: A mouse event triggering the change
-void SubsynthAudioProcessorEditor::mouseDrag (const juce::MouseEvent& event)
+void SubsynthAudioProcessorEditor::mouseDrag (const juce::MouseEvent&)
 {
     audioProcessor.changeADSREnv (adsrSliders.getEnvelope());
 }
