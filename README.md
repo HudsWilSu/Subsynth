@@ -23,7 +23,7 @@ This project contains code to generate a subtractive synthesizer plug-in, built 
   - receives input from mouse, keyboard, or external MIDI controller
 - Waveform Selector
   - choice of four waveform oscillators: sine, square, saw, or triangle
-- ADSR Envelope
+- ADSR Volume Envelope
   - allows the user to set the attack, decay, sustain, and release (range 0.0 to 1.0 for each)
 - Variable State Filter
   - choice of three filter types: low-pass, band-pass, or high-pass
@@ -118,10 +118,11 @@ What would you like to improve in the future?
 
 ## Build/Run
 
-#### Windows
-
  > **_NOTE:_** There is a [known error](https://forum.juce.com/t/ms-visual-studio-16-9-4-compile-failed-after-vs-update/45555) in Visual Studio that produces a build error MSB3025 regarding the `\Shared Code\` directory. This has been fixed in the latest JUCE `develop`, but this project was based on the current `master` release. Standalone and VST3/AU builds are not affected.
+ >
+ > Additionally there are a number of C++ warnings (depending on compilier flags) related to JUCE framework/module code. As we cannot affect this, we simply tried to eliminate all warnings as they pertained to the code we wrote for this project.
 
+#### Windows
   - To build (by default Visual Studio builds all build targets):
     1. Select `Release` from the Solutions Configuration dropdown in the lower toolbar
     2. From the menu bar, navigate to Build > Build Solution
@@ -150,7 +151,6 @@ What would you like to improve in the future?
  > **_NOTE:_** Though JUCE supports linux, no development was done on this platform and no Build/Run instructions can be provided.
 ---
 ### References
-***fill in actual reference information later***
 
 [JUCE Documentation](https://docs.juce.com/master/index.html)
 
