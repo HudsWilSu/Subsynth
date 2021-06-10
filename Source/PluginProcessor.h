@@ -71,11 +71,11 @@ public:
     void setStateInformation (const void*, int) override {};
 
     //====== UI Component Callbacks ================================================
-    void changeADSREnv(juce::ADSR::Parameters);
-    void changeWaveform(int);
-    void changeVolume(double);
-    void changeFilter(int, double, double);
-    
+    void changeADSREnv (juce::ADSR::Parameters);
+    void changeWaveform (int);
+    void changeVolume (double);
+    void changeFilter (int, double, double);
+
     void runTests();
     //==============================================================================
     // Public vars

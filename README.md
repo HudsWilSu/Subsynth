@@ -169,4 +169,4 @@ CS510 course materials
 ---
 ### License
 
-This software is released under the [GNU General Public License v.3](./LICENSE.txt).
+This software is released under the [GNU General Public License v.3](./LICENSE).

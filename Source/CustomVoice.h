@@ -43,36 +43,32 @@ public:
     void setFilter (int, double, double);
 
     double sampleRateHolder = 0;
-    
+
     void voiceTests();
 
 private:
     juce::dsp::Oscillator<float>* osc;
     // Sine wave oscillator
-    juce::dsp::Oscillator<float> sineOsc { [] (float x)
-                                           { return std::sin (x); } };
+    juce::dsp::Oscillator<float> sineOsc { [] (float x) { return std::sin (x); } };
     // Square wave oscillator
-    juce::dsp::Oscillator<float> sqOsc { [] (float x)
-                                         { return x < 0.0f ? -1.0f : 1.0f; } };
+    juce::dsp::Oscillator<float> sqOsc { [] (float x) { return x < 0.0f ? -1.0f : 1.0f; } };
     // Sawtooth wave oscillator
-    juce::dsp::Oscillator<float> sawOsc { [] (float x)
-                                          { return x / (2 * juce::MathConstants<float>::pi); } };
+    juce::dsp::Oscillator<float> sawOsc { [] (float x) { return x / (2 * juce::MathConstants<float>::pi); } };
     // Triangle wave oscillator
-    juce::dsp::Oscillator<float> triOsc { [] (float x)
-                                          {
-                                              if (x <= -juce::MathConstants<float>::pi / 2)
-                                              {
-                                                  return juce::jmap (x, -juce::MathConstants<float>::pi, -juce::MathConstants<float>::pi / 2, 0.0f, -1.0f);
-                                              }
-                                              else if (x > -juce::MathConstants<float>::pi / 2 && x <= juce::MathConstants<float>::pi / 2)
-                                              {
-                                                  return juce::jmap (x, -juce::MathConstants<float>::pi / 2, juce::MathConstants<float>::pi / 2, -1.0f, 1.0f);
-                                              }
-                                              else
-                                              {
-                                                  return juce::jmap (x, juce::MathConstants<float>::pi / 2, juce::MathConstants<float>::pi, 1.0f, 0.0f);
-                                              }
-                                          } };
+    juce::dsp::Oscillator<float> triOsc { [] (float x) {
+        if (x <= -juce::MathConstants<float>::pi / 2)
+        {
+            return juce::jmap (x, -juce::MathConstants<float>::pi, -juce::MathConstants<float>::pi / 2, 0.0f, -1.0f);
+        }
+        else if (x > -juce::MathConstants<float>::pi / 2 && x <= juce::MathConstants<float>::pi / 2)
+        {
+            return juce::jmap (x, -juce::MathConstants<float>::pi / 2, juce::MathConstants<float>::pi / 2, -1.0f, 1.0f);
+        }
+        else
+        {
+            return juce::jmap (x, juce::MathConstants<float>::pi / 2, juce::MathConstants<float>::pi, 1.0f, 0.0f);
+        }
+    } };
 
     juce::dsp::Gain<float> gain;
     juce::ADSR envelope;

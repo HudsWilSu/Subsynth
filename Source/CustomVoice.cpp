@@ -159,8 +159,8 @@ void CustomVoice::setWave (int waveformNum)
 // @param resonance: The amount of resonance to be applied by the state variable filter
 void CustomVoice::setFilter (int filterNum, double cutoff, double resonance)
 {
-    float resonance_converted = static_cast<float>(resonance);
-    float cutoff_converted = static_cast<float>(cutoff);
+    float resonance_converted = static_cast<float> (resonance);
+    float cutoff_converted = static_cast<float> (cutoff);
 
     if (filterNum == 1)
     {
@@ -200,7 +200,6 @@ void CustomVoice::setGain (double gainVal)
 // @param numSamples: The amount of samples that need to be rendered.
 void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
-
     // Code structure adapted from tapSynth code by The Audio Programmer
     // https://github.com/TheAudioProgrammer/tapSynth/blob/main/Source/SynthVoice.cpp
 
