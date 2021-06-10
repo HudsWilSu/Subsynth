@@ -23,7 +23,7 @@ This project contains code to generate a subtractive synthesizer plug-in, built 
   - receives input from mouse, keyboard, or external MIDI controller
 - Waveform Selector
   - choice of four waveform oscillators: sine, square, saw, or triangle
-- ADSR Volume Envelope
+- ADSR Envelope
   - allows the user to set the attack, decay, sustain, and release (range 0.0 to 1.0 for each)
 - Variable State Filter
   - choice of three filter types: low-pass, band-pass, or high-pass
@@ -82,7 +82,7 @@ Spectrum with Subsynth low pass filter at 1 kHz:
 Spectrum with Ableton Live Auto Filter low pass filter at 1 kHz:
 ![](./images/Ableton_AutoFilter_LP_1kHz.png)
 
-### Additional sections/questions to cover:
+### Additional information:
 What worked?
  - Our application can launch as a functional synthesizer plugin (standalone or VST3/AU) that can be played both with the on-screen MIDI keyboard or an external MIDI controller.
  - The oscillator, ADSR envelope, and filter are all responsive to corresponding adjustments on the user interface with little delay. 
@@ -90,7 +90,8 @@ What worked?
 What didn't?
  - Testing was a challenge for this project. JUCE is a robust framework that adds layers of abstraction to the raw data in order to simplify aspects of building the application, which had the effect of making the complete data flow difficult to follow. We would have needed to build a fully functioning plug-in host in order to perform comprehensive testing of our implementation. We instead did what we could to perform tests that run within the plug-in to verify certain behavior.
 
-How satisfied are you with the result?  
+How satisfied are you with the result?
+- We found the process of developing this project very satisfying, and we are happy with our end product.  Working on this project offered an immense learning opportunity that coincided nicely with taking the course, as we got to experiment with and implement many of the features referenced in lecture.  Additionally, we gained experience in developing a plug-in, which not all of us had before this project.  Overall, we feel that our end product meets and exceeds our initial expectations, and it was very exciting getting to move past our basic outline and implement many of our stretch goals.
 
 What would you like to improve in the future?
  - Adding additional oscillators (both waveform generators and low frequency for parameter dynamics) would be a good enhancement to this project. This would allow for greater variety of timbres and effects to each voice in the synthesizer. 
@@ -118,11 +119,10 @@ What would you like to improve in the future?
 
 ## Build/Run
 
- > **_NOTE:_** There is a [known error](https://forum.juce.com/t/ms-visual-studio-16-9-4-compile-failed-after-vs-update/45555) in Visual Studio that produces a build error MSB3025 regarding the `\Shared Code\` directory. This has been fixed in the latest JUCE `develop`, but this project was based on the current `master` release. Standalone and VST3/AU builds are not affected.
- >
- > Additionally there are a number of C++ warnings (depending on compilier flags) related to JUCE framework/module code. As we cannot affect this, we simply tried to eliminate all warnings as they pertained to the code we wrote for this project.
-
 #### Windows
+
+ > **_NOTE:_** There is a [known error](https://forum.juce.com/t/ms-visual-studio-16-9-4-compile-failed-after-vs-update/45555) in Visual Studio that produces a build error MSB3025 regarding the `\Shared Code\` directory. This has been fixed in the latest JUCE `develop`, but this project was based on the current `master` release. Standalone and VST3/AU builds are not affected.
+
   - To build (by default Visual Studio builds all build targets):
     1. Select `Release` from the Solutions Configuration dropdown in the lower toolbar
     2. From the menu bar, navigate to Build > Build Solution
