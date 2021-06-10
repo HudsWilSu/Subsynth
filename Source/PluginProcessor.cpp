@@ -1,7 +1,22 @@
 /*
   ==============================================================================
 
-    This file contains the basic framework code for a JUCE plugin processor.
+    This file contains the implementation details for a JUCE plugin processor.
+
+    Copyright (C) 2021  Andrew Wilson, Robin Su, Aaron Hudson
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
   ==============================================================================
 */
@@ -22,6 +37,9 @@ SubsynthAudioProcessor::SubsynthAudioProcessor()
     )
 #endif
 {
+    // Initialization adapted from tapSynth code by The Audio Programmer
+    // https://github.com/TheAudioProgrammer/tapSynth/blob/main/Source/PluginProcessor.cpp
+
     synth.addSound (new CustomSound());
 
     for (int i = 0; i < numVoices; i++)
@@ -95,7 +113,7 @@ int SubsynthAudioProcessor::getCurrentProgram()
 // Called before playback starts, to let the processor prepare itself.
 //
 // @param sampleRate: Target sample rate
-// @param samplesPerBlock: A strong hint about the maximum number of samples 
+// @param samplesPerBlock: A strong hint about the maximum number of samples
 // that will be provided in each block.
 void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
@@ -107,13 +125,12 @@ void SubsynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
     runTests();
 }
 
-// Called after playback has stopped, to let the object free up any 
+// Called after playback has stopped, to let the object free up any
 // resources it no longer needs.
 void SubsynthAudioProcessor::releaseResources()
 {
     keyState.reset();
 }
-
 
 #ifndef JucePlugin_PreferredChannelConfigurations
 // Callback to query if the AudioProcessor supports a specific layout.
@@ -187,12 +204,11 @@ juce::AudioProcessorEditor* SubsynthAudioProcessor::createEditor()
 
 //============================= UI Callbacks ========================================
 
-
- // Calls the setADSR CustomVoice method to change the attack, decay, sustain, release 
- // values of the volume envelope on each voice instantiated within the synth data member.
- //
- // @param params: A set of attack, decay sustain, release values in an ADSR::Parameters
- // object for the volume envelope to be set to.
+// Calls the setADSR CustomVoice method to change the attack, decay, sustain, release
+// values of the volume envelope on each voice instantiated within the synth data member.
+//
+// @param params: A set of attack, decay sustain, release values in an ADSR::Parameters
+// object for the volume envelope to be set to.
 void SubsynthAudioProcessor::changeADSREnv (juce::ADSR::Parameters params)
 {
     for (int i = 0; i < synth.getNumVoices(); i++)
@@ -201,7 +217,7 @@ void SubsynthAudioProcessor::changeADSREnv (juce::ADSR::Parameters params)
     }
 }
 
-// Calls the setWave CustomVoice method to change the waveform being produced by 
+// Calls the setWave CustomVoice method to change the waveform being produced by
 // the oscillator in each voice of the synth data member.
 //
 // @param waveformNum: An integer representation for sine, square, saw, and triangle
