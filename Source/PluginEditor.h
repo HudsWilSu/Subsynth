@@ -47,9 +47,9 @@ private:
     // sets the initial width of the plug-in window, with other components dynamically sized
     int width = 850;
 
-    void sliderValueChanged (juce::Slider* slider) override;
-    void comboBoxChanged (juce::ComboBox* combobox) override;
-    void mouseDrag (const juce::MouseEvent& event) override;
+    void sliderValueChanged (juce::Slider*) override;
+    void comboBoxChanged (juce::ComboBox*) override;
+    void mouseDrag (const juce::MouseEvent&) override;
     void setGainStyle();
     void filterChanged();
 

@@ -39,9 +39,9 @@ bool CustomVoice::canPlaySound (juce::SynthesiserSound* sound)
 // @param velocity: A value indicating how quickly the note was released 0 (slow) to 1 (fast).
 // @param sound: The SynthesiserSound associated with this voice.
 // @param currentPitchWheelPosition: What the pitch wheel position should be for this note.
-void CustomVoice::startNote (int midiNoteNumber, float velocity, juce::SynthesiserSound* sound, int currentPitchWheelPosition)
+void CustomVoice::startNote (int midiNoteNumber, float, juce::SynthesiserSound*, int)
 {
-    osc->setFrequency (juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
+    osc->setFrequency ((float) juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber));
     envelope.noteOn();
 }
 
@@ -49,7 +49,7 @@ void CustomVoice::startNote (int midiNoteNumber, float velocity, juce::Synthesis
 //
 // @param velocity: a value indicating how quickly the note was released 0 (slow) to 1 (fast)
 // @param allowTailOff: a flag indicating whether a note wants to tail-off or stop immediately.
-void CustomVoice::stopNote (float velocity, bool allowTailOff)
+void CustomVoice::stopNote (float, bool allowTailOff)
 {
     envelope.noteOff();
 
@@ -57,16 +57,6 @@ void CustomVoice::stopNote (float velocity, bool allowTailOff)
     {
         clearCurrentNote();
     }
-}
-
-// A pure virtual function requiring basic implementation for SynthesizerVoice inheritence. NYI.
-void CustomVoice::pitchWheelMoved (int newPitchWheelValue)
-{
-}
-
-// A pure virtual function requiring basic implementation for SynthesizerVoice inheritence. NYI.
-void CustomVoice::controllerMoved (int controllerNumber, int newControllerValue)
-{
 }
 
 // Initializes and configures the various components of the voice which must be
@@ -133,7 +123,7 @@ void CustomVoice::setADSR (juce::ADSR::Parameters parameters)
     envelope.setParameters (parameters);
 }
 
-// Changes the active oscillator the voice is using between sine, square, 
+// Changes the active oscillator the voice is using between sine, square,
 // saw, and triangle.
 //
 // @param waveformNum: An integer representation for sine, square, saw, and triangle
@@ -167,27 +157,30 @@ void CustomVoice::setWave (int waveformNum)
 // band pass, high pass.
 // @param cutoff: The cutoff frequency for the state variable filter in Hz.
 // @param resonance: The amount of resonance to be applied by the state variable filter
-void CustomVoice::setFilter (int filterNum, float cutoff, float resonance)
+void CustomVoice::setFilter (int filterNum, double cutoff, double resonance)
 {
+    float resonance_converted = static_cast<float>(resonance);
+    float cutoff_converted = static_cast<float>(cutoff);
+
     if (filterNum == 1)
     {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass;
 
-        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff_converted, resonance_converted);
     }
 
     else if (filterNum == 2)
     {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass;
 
-        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff_converted, resonance_converted);
     }
 
     else if (filterNum == 3)
     {
         SVFilter.state->type = juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass;
 
-        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff, resonance);
+        SVFilter.state->setCutOffFrequency (sampleRateHolder, cutoff_converted, resonance_converted);
     }
 }
 
@@ -196,7 +189,7 @@ void CustomVoice::setFilter (int filterNum, float cutoff, float resonance)
 // @param gainVal: the decibel value to be set.
 void CustomVoice::setGain (double gainVal)
 {
-    gain.setGainDecibels (gainVal);
+    gain.setGainDecibels ((float) gainVal);
 }
 
 // Produces/processes a block of audio samples into the output stream of the plug-in
@@ -207,6 +200,7 @@ void CustomVoice::setGain (double gainVal)
 // @param numSamples: The amount of samples that need to be rendered.
 void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int startSample, int numSamples)
 {
+
     // Code structure adapted from tapSynth code by The Audio Programmer
     // https://github.com/TheAudioProgrammer/tapSynth/blob/main/Source/SynthVoice.cpp
 
@@ -236,47 +230,45 @@ void CustomVoice::renderNextBlock (juce::AudioBuffer<float>& outputBuffer, int s
             envelope.reset();
         }
     }
-    
 }
 
-// Runs a set of unit-style tests related to methods changing DSP 
+// Runs a set of unit-style tests related to methods changing DSP
 // component parameters. Must attach a debugger for proper function.
 void CustomVoice::voiceTests()
 {
-
     // Test filter
     float cutoff = 20.0f, resonance = 1.0f;
     sampleRateHolder = 48000.0;
 
-    setFilter(1, cutoff, resonance);
-    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
-    setFilter(2, cutoff, resonance);
-    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
-    setFilter(3, cutoff, resonance);
-    jassert(SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
+    setFilter (1, cutoff, resonance);
+    jassert (SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::lowPass);
+    setFilter (2, cutoff, resonance);
+    jassert (SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::bandPass);
+    setFilter (3, cutoff, resonance);
+    jassert (SVFilter.state->type == juce::dsp::StateVariableFilter::Parameters<float>::Type::highPass);
 
     // Test oscillators
-    setWave(2);
-    jassert(osc == &sqOsc);
-    setWave(3);
-    jassert(osc == &sawOsc);
-    setWave(4);
-    jassert(osc == &triOsc);
+    setWave (2);
+    jassert (osc == &sqOsc);
+    setWave (3);
+    jassert (osc == &sawOsc);
+    setWave (4);
+    jassert (osc == &triOsc);
 
     // Test ADSR
-    const juce::ADSR::Parameters initADSR{
-    0.1f, 0.1f, 0.1f, 0.1f
+    const juce::ADSR::Parameters initADSR {
+        0.1f, 0.1f, 0.1f, 0.1f
     };
 
-    setADSR(initADSR);
-    jassert(envelope.getParameters().attack == initADSR.attack);
-    jassert(envelope.getParameters().decay == initADSR.decay);
-    jassert(envelope.getParameters().sustain == initADSR.sustain);
-    jassert(envelope.getParameters().release == initADSR.release);
+    setADSR (initADSR);
+    jassert (envelope.getParameters().attack == initADSR.attack);
+    jassert (envelope.getParameters().decay == initADSR.decay);
+    jassert (envelope.getParameters().sustain == initADSR.sustain);
+    jassert (envelope.getParameters().release == initADSR.release);
 
     // Test gain
     double initGainDb = -10.0;
-    
-    setGain(initGainDb);
-    jassert(gain.getGainDecibels() == initGainDb);
+
+    setGain (initGainDb);
+    jassert (gain.getGainDecibels() == initGainDb);
 }
