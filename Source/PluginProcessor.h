@@ -72,7 +72,7 @@ public:
 private:
     //==============================================================================
     juce::Synthesiser synth;
-    int numVoices = 3;
+    int numVoices = 6;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)
