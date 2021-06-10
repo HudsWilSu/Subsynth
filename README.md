@@ -150,6 +150,11 @@ What would you like to improve in the future?
  - To build a VST3 or AU plug-in, change the target scheme before building. The plug-ins can be found in the corresponding `./Builds/MacOSX/build/Release/` directory. They can then be loaded in your digital audio workstation/plug-in host of choice.
 
  > **_NOTE:_** Though JUCE supports linux, no development was done on this platform and no Build/Run instructions can be provided.
+
+##### External MIDI Control with Standalone Plugin
+
+ - By default the standalone plugin does not enable external midi devices. You must select the device in `options` in the upper left. 
+
 ---
 ### References
 
