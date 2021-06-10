@@ -82,7 +82,7 @@ Spectrum with Subsynth low pass filter at 1 kHz:
 Spectrum with Ableton Live Auto Filter low pass filter at 1 kHz:
 ![](./images/Ableton_AutoFilter_LP_1kHz.png)
 
-### Additional sections/questions to cover:
+### Additional Information
 What worked?
  - Our application can launch as a functional synthesizer plugin (standalone or VST3/AU) that can be played both with the on-screen MIDI keyboard or an external MIDI controller.
  - The oscillator, ADSR envelope, and filter are all responsive to corresponding adjustments on the user interface with little delay. 
@@ -90,7 +90,8 @@ What worked?
 What didn't?
  - Testing was a challenge for this project. JUCE is a robust framework that adds layers of abstraction to the raw data in order to simplify aspects of building the application, which had the effect of making the complete data flow difficult to follow. We would have needed to build a fully functioning plug-in host in order to perform comprehensive testing of our implementation. We instead did what we could to perform tests that run within the plug-in to verify certain behavior.
 
-How satisfied are you with the result?  
+How satisfied are you with the result?
+ - We found the process of developing this project very satisfying, and we are happy with our end product.  Working on this project offered an immense learning opportunity that coincided nicely with taking the course, as we got to experiment with and implement many of the features referenced in lecture.  Additionally, we gained experience in developing a plug-in, which not all of us had before this project.  Overall, we feel that our end product meets and exceeds our initial expectations, and it was very exciting getting to move past our basic outline and implement many of our stretch goals. 
 
 What would you like to improve in the future?
  - Adding additional oscillators (both waveform generators and low frequency for parameter dynamics) would be a good enhancement to this project. This would allow for greater variety of timbres and effects to each voice in the synthesizer. 
