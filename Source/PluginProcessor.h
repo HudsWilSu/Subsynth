@@ -23,14 +23,14 @@
 
 #pragma once
 
-#include <JuceHeader.h>
 #include "CustomVoice.h"
 #include "WfVisualiser.h"
+#include <JuceHeader.h>
 
 //==============================================================================
 /**
 */
-class SubsynthAudioProcessor  : public juce::AudioProcessor
+class SubsynthAudioProcessor : public juce::AudioProcessor
 {
 public:
     //==============================================================================
@@ -41,9 +41,9 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
-   #ifndef JucePlugin_PreferredChannelConfigurations
+#ifndef JucePlugin_PreferredChannelConfigurations
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
-   #endif
+#endif
 
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
@@ -62,25 +62,25 @@ public:
     //==============================================================================
     int getNumPrograms() override;
     int getCurrentProgram() override;
-    void setCurrentProgram (int index) override;
+    void setCurrentProgram (int index) override {};
     const juce::String getProgramName (int index) override;
-    void changeProgramName (int index, const juce::String& newName) override;
+    void changeProgramName (int index, const juce::String& newName) override {};
 
     //==============================================================================
-    void getStateInformation (juce::MemoryBlock& destData) override;
-    void setStateInformation (const void* data, int sizeInBytes) override;
-    
+    void getStateInformation (juce::MemoryBlock& destData) override {};
+    void setStateInformation (const void* data, int sizeInBytes) override {};
+
     //====== UI Component Callbacks ================================================
     void changeADSREnv(juce::ADSR::Parameters);
     void changeWaveform(int waveformNum);
     void changeVolume(double gain);
     void changeFilter(int filterNum, float cutoff, float resonance);
-
+    
+    void runTests();
     //==============================================================================
     // Public vars
     juce::MidiKeyboardState keyState;
 
-    
     // Waveform Visualizer
     WaveformVisualiser wfVisualiser;
 
@@ -88,7 +88,6 @@ private:
     //==============================================================================
     juce::Synthesiser synth;
     int numVoices = 6;
-
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SubsynthAudioProcessor)
 };
